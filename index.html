@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>github-zip-up</title>
+<style>
+:root{--bg:#f7f5f0;--fg:#1d2420;--mut:#6b746e;--bd:#d9d6cc;--card:#fff;--ac:#1f6f50;--acf:#fff;--dng:#b3261e}
+@media(prefers-color-scheme:dark){:root{--bg:#121714;--fg:#e4ebe6;--mut:#8a9890;--bd:#2a342e;--card:#1a211d;--ac:#4cc38a;--acf:#0b1410;--dng:#ff8a80}}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--fg)}
+button,input,textarea{font:inherit;color:inherit}
+button{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--ac)}
+button.pri{background:var(--ac);color:var(--acf);border-color:var(--ac)}
+button.dng{color:var(--dng)}
+input[type=text],input[type=password],textarea{width:100%;background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:8px 10px}
+:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+.hide{display:none!important}
+#login{max-width:420px;margin:12vh auto;padding:0 20px}
+#login h1{font-size:30px;margin:0 0 4px;letter-spacing:-.5px}
+#login p{color:var(--mut);margin:0 0 20px}
+#login a{color:var(--ac)}
+#app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+aside{border-right:1px solid var(--bd);padding:14px;overflow:auto;max-height:100vh;position:sticky;top:0}
+aside h2{font-size:16px;margin:0 0 10px}
+.repo{display:block;width:100%;text-align:left;border:0;background:none;padding:6px 8px;border-radius:6px;word-break:break-all}
+.repo:hover,.repo.on{background:var(--card)}
+.repo.on{font-weight:600;color:var(--ac)}
+main{padding:18px;min-width:0}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.crumb{flex:1;min-width:200px;font-weight:600}
+.crumb span{cursor:pointer;color:var(--ac)}
+.list{border:1px solid var(--bd);border-radius:8px;background:var(--card);overflow:hidden}
+.row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--bd)}
+.row:last-child{border:0}
+.row .nm{flex:1;cursor:pointer;word-break:break-all}
+.row .nm:hover{color:var(--ac)}
+.row small{color:var(--mut)}
+.empty{padding:28px;text-align:center;color:var(--mut)}
+#status{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:8px;max-width:90vw}
+#status.err{background:var(--dng);color:#fff}
+#editor{position:fixed;inset:0;background:var(--bg);padding:16px;display:flex;flex-direction:column;gap:10px;z-index:5}
+#editor textarea{flex:1;font:13px/1.5 ui-monospace,Consolas,monospace;resize:none;white-space:pre}
+.err-t{color:var(--dng)}
+.credit{color:var(--mut);font-size:13px;text-align:center;margin-top:18px}
+@media(max-width:720px){#app{grid-template-columns:1fr}aside{position:static;max-height:220px;border-right:0;border-bottom:1px solid var(--bd)}}
+</style>
+</head>
+<body>
+
+<section id="login">
+  <h1>github-zip-up</h1>
+  <p>Browse, edit, create and delete files in your GitHub repositories, or upload a ZIP.</p>
+  <label for="tok">GitHub Personal Access Token</label>
+  <input id="tok" type="password" autocomplete="off" placeholder="ghp_… or github_pat_…">
+  <p style="margin:8px 0 14px"><a href="https://github.com/settings/tokens/new?scopes=repo&description=MyGitManager" target="_blank" rel="noopener">Create a token with repo access</a></p>
+  <button class="pri" id="connect">Connect</button>
+  <p id="lerr" class="err-t"></p>
+  <div class="credit">Made by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</div>
+</section>
+
+<div id="app" class="hide">
+  <aside>
+    <h2 id="who">Repositories</h2>
+    <input id="rq" type="text" placeholder="Search repositories" style="margin-bottom:8px">
+    <div id="repos"></div>
+    <p><button id="logout">Log out</button></p>
+    <div class="credit">Made by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</div>
+  </aside>
+  <main>
+    <div class="bar">
+      <div class="crumb" id="crumb">Select a repository</div>
+      <button id="newf" class="hide">New file</button>
+      <button id="zipb" class="hide">Upload ZIP</button>
+      <input type="file" id="zipin" accept=".zip" class="hide">
+    </div>
+    <div class="list" id="files"><div class="empty">Choose a repository on the left to start.</div></div>
+  </main>
+</div>
+
+<div id="editor" class="hide">
+  <input type="text" id="epath" placeholder="folder/file.txt">
+  <textarea id="etext" spellcheck="false"></textarea>
+  <div class="bar">
+    <button class="pri" id="esave">Save to GitHub</button>
+    <button id="ecancel">Close</button>
+    <span id="emsg" class="err-t"></span>
+  </div>
+</div>
+
+<div id="status" class="hide"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+/* ===== Core: GitHub API helper — সব API কল এখান দিয়ে যায় ===== */
+const API = 'https://api.github.com';
+let token = '', me = null, allRepos = [], repo = null, branch = '', path = '', editSha = null;
+const $ = id => document.getElementById(id);
+
+async function gh(url, opt = {}) {
+  const r = await fetch(url.startsWith('http') ? url : API + url, {
+    ...opt,
+    headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' }
+  });
+  if (!r.ok) {
+    const e = await r.json().catch(() => ({}));
+    throw new Error(e.message || 'Request failed (' + r.status + ')');
+  }
+  return r.status === 204 ? null : r.json();
+}
+const enc = s => { let x = ''; new TextEncoder().encode(s).forEach(c => x += String.fromCharCode(c)); return btoa(x); };
+const dec = b => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g, '')), c => c.charCodeAt(0)));
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const cp = p => p.split('/').map(encodeURIComponent).join('/');
+
+let st;
+function say(msg, bad) {
+  const s = $('status'); s.textContent = msg; s.className = bad ? 'err' : '';
+  clearTimeout(st); if (!bad || msg) st = setTimeout(() => s.classList.add('hide'), bad ? 6000 : 2500);
+}
+
+/* ===== Login ===== */
+async function connect(t) {
+  token = t.trim();
+  $('lerr').textContent = '';
+  try {
+    me = await gh('/user');
+    try { sessionStorage.setItem('gm_token', token); } catch (e) {}
+    $('login').classList.add('hide'); $('app').classList.remove('hide');
+    $('who').textContent = me.login;
+    await loadRepos();
+  } catch (e) { token = ''; $('lerr').textContent = 'Could not sign in: ' + e.message; }
+}
+$('connect').onclick = () => connect($('tok').value);
+$('tok').onkeydown = e => { if (e.key === 'Enter') connect($('tok').value); };
+$('logout').onclick = () => { try { sessionStorage.removeItem('gm_token'); } catch (e) {} location.reload(); };
+
+/* ===== Repositories ===== */
+async function loadRepos() {
+  allRepos = await gh('/user/repos?per_page=100&sort=updated');
+  drawRepos();
+}
+function drawRepos() {
+  const q = $('rq').value.toLowerCase();
+  $('repos').innerHTML = allRepos.filter(r => r.full_name.toLowerCase().includes(q))
+    .map(r => `<button class="repo ${repo === r.full_name ? 'on' : ''}" data-r="${esc(r.full_name)}" data-b="${esc(r.default_branch)}">${esc(r.name)}</button>`).join('')
+    || '<div class="empty">No repositories found</div>';
+}
+$('rq').oninput = drawRepos;
+$('repos').onclick = e => {
+  const b = e.target.closest('.repo'); if (!b) return;
+  repo = b.dataset.r; branch = b.dataset.b; path = '';
+  ['newf', 'zipb'].forEach(i => $(i).classList.remove('hide'));
+  drawRepos(); loadDir();
+};
+
+/* ===== File browser ===== */
+async function loadDir() {
+  drawCrumb();
+  $('files').innerHTML = '<div class="empty">Loading…</div>';
+  try {
+    let items = await gh(`/repos/${repo}/contents/${cp(path)}?ref=${encodeURIComponent(branch)}`);
+    if (!Array.isArray(items)) items = [items];
+    items.sort((a, b) => (a.type === 'dir' ? 0 : 1) - (b.type === 'dir' ? 0 : 1) || a.name.localeCompare(b.name));
+    $('files').innerHTML = (path ? '<div class="row"><span class="nm" data-up="1">⬆ ..</span></div>' : '') +
+      (items.map(i => `<div class="row">
+        <span class="nm" data-t="${i.type}" data-p="${esc(i.path)}">${i.type === 'dir' ? '📁' : '📄'} ${esc(i.name)}</span>
+        <small>${i.type === 'file' ? (i.size / 1024).toFixed(1) + ' KB' : ''}</small>
+        <button class="dng" data-del="${esc(i.path)}" data-sha="${i.sha}" data-t="${i.type}">Delete</button></div>`).join('')
+      || '<div class="empty">This folder is empty. Create a file or upload a ZIP.</div>');
+  } catch (e) {
+    $('files').innerHTML = `<div class="empty">${e.message === 'This repository is empty.' ? 'This repository is empty. Create a file to start.' : esc(e.message)}</div>`;
+  }
+}
+function drawCrumb() {
+  const parts = path ? path.split('/') : [];
+  $('crumb').innerHTML = `<span data-c="">${esc(repo)}</span>` + parts.map((p, i) => ` / <span data-c="${esc(parts.slice(0, i + 1).join('/'))}">${esc(p)}</span>`).join('') + ` <small style="color:var(--mut)">(${esc(branch)})</small>`;
+}
+$('crumb').onclick = e => { const c = e.target.closest('[data-c]'); if (c) { path = c.dataset.c; loadDir(); } };
+$('files').onclick = async e => {
+  const n = e.target.closest('.nm');
+  if (n && n.dataset.up) { path = path.split('/').slice(0, -1).join('/'); return loadDir(); }
+  if (n) { if (n.dataset.t === 'dir') { path = n.dataset.p; return loadDir(); } return openFile(n.dataset.p); }
+  const d = e.target.closest('[data-del]');
+  if (d) await removeItem(d.dataset.del, d.dataset.sha, d.dataset.t);
+};
+
+/* ===== Delete — ফোল্ডার ডিলিট করলে ভেতরের সব ফাইল মুছে যাবে ===== */
+async function removeItem(p, sha, type) {
+  if (!confirm(`Delete ${p}${type === 'dir' ? ' and everything inside it' : ''}? This creates a commit and cannot be undone here.`)) return;
+  try {
+    if (type === 'dir') {
+      const tree = await gh(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`);
+      const gone = tree.tree.filter(t => t.type === 'blob' && t.path.startsWith(p + '/'));
+      await commitTree(gone.map(t => ({ path: t.path, mode: '100644', type: 'blob', sha: null })), `Delete ${p}`);
+    } else {
+      await gh(`/repos/${repo}/contents/${cp(p)}`, { method: 'DELETE', body: JSON.stringify({ message: `Delete ${p}`, sha, branch }) });
+    }
+    say('Deleted ' + p); loadDir();
+  } catch (e) { say(e.message, true); }
+}
+
+/* ===== Editor: open / create / save ===== */
+async function openFile(p) {
+  try {
+    const f = await gh(`/repos/${repo}/contents/${cp(p)}?ref=${encodeURIComponent(branch)}`);
+    const text = f.content ? dec(f.content) : '';
+    if (text.includes('\u0000')) return say('Binary file: it cannot be edited here.', true);
+    showEditor(p, text, f.sha);
+  } catch (e) { say(e.message, true); }
+}
+function showEditor(p, text, sha) {
+  editSha = sha; $('epath').value = p; $('epath').disabled = !!sha; $('etext').value = text;
+  $('emsg').textContent = ''; $('editor').classList.remove('hide');
+}
+$('newf').onclick = () => showEditor(path ? path + '/' : '', '', null);
+$('ecancel').onclick = () => $('editor').classList.add('hide');
+$('esave').onclick = async () => {
+  const p = $('epath').value.trim().replace(/^\/+/, '');
+  if (!p || p.endsWith('/')) return ($('emsg').textContent = 'Enter a file name.');
+  try {
+    const body = { message: (editSha ? 'Update ' : 'Create ') + p, content: enc($('etext').value), branch };
+    if (editSha) body.sha = editSha;
+    await gh(`/repos/${repo}/contents/${cp(p)}`, { method: 'PUT', body: JSON.stringify(body) });
+    $('editor').classList.add('hide'); say('Saved ' + p); loadDir();
+  } catch (e) { $('emsg').textContent = e.message; }
+};
+
+/* ===== Many files in ONE commit (Git Data API) ===== */
+async function commitTree(entries, message) {
+  const ref = await gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
+  const base = await gh(`/repos/${repo}/git/commits/${ref.object.sha}`);
+  const tree = await gh(`/repos/${repo}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: base.tree.sha, tree: entries }) });
+  const commit = await gh(`/repos/${repo}/git/commits`, { method: 'POST', body: JSON.stringify({ message, tree: tree.sha, parents: [ref.object.sha] }) });
+  await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
+}
+
+/* ===== ZIP upload ===== */
+$('zipb').onclick = () => $('zipin').click();
+$('zipin').onchange = async e => {
+  const file = e.target.files[0]; e.target.value = ''; if (!file) return;
+  try {
+    const zip = await JSZip.loadAsync(file);
+    let names = Object.keys(zip.files).filter(n => !zip.files[n].dir && !n.startsWith('__MACOSX/'));
+    const roots = new Set(names.map(n => n.split('/')[0]));
+    const strip = roots.size === 1 && names.every(n => n.includes('/')) && confirm(`Remove the top folder "${[...roots][0]}" so files go straight into the current folder?`);
+    if (!confirm(`Upload ${names.length} files to ${repo}/${path} as one commit?`)) return;
+    const entries = [];
+    for (let i = 0; i < names.length; i++) {
+      say(`Uploading ${i + 1} / ${names.length}…`);
+      const b64 = await zip.files[names[i]].async('base64');
+      const blob = await gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64, encoding: 'base64' }) });
+      const rel = strip ? names[i].split('/').slice(1).join('/') : names[i];
+      entries.push({ path: (path ? path + '/' : '') + rel, mode: '100644', type: 'blob', sha: blob.sha });
+    }
+    await commitTree(entries, `Upload ${file.name}`);
+    say('ZIP uploaded: ' + names.length + ' files'); loadDir();
+  } catch (e) { say(e.message, true); }
+};
+
+/* ===== Start: আগের সেশনের টোকেন থাকলে অটো লগইন ===== */
+try { const t = sessionStorage.getItem('gm_token'); if (t) connect(t); } catch (e) {}
+
+/* নতুন ফিচার যোগ করতে: উপরের মতো gh('/repos/...') কল লিখুন, তারপর একটা বাটন বা ক্লিক হ্যান্ডলারে জুড়ে দিন। */
+</script>
+</body>
+</html>
