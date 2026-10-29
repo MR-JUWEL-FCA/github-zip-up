@@ -27,7 +27,6 @@ body{margin:0;min-height:100vh;font:15px/1.55 Outfit,"Hind Siliguri","Segoe UI",
 @keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes rev{from{opacity:0;transform:translateY(8px) scale(.8)}to{opacity:1;transform:none}}
 @keyframes hue{to{filter:hue-rotate(360deg)}}
-@keyframes rot{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
 @keyframes draw{from{stroke-dasharray:0 252}}
 @keyframes blink{50%{opacity:0}}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 60%,transparent)}70%{box-shadow:0 0 0 12px transparent}}
@@ -52,13 +51,21 @@ select option{background:#1a0f24}
 .wv{display:inline-block}
 .wv span{display:inline-block;animation:rev .5s backwards}
 .cur{display:inline-block;width:2px;height:1em;background:var(--ac2);margin-left:3px;vertical-align:-2px;animation:blink 1s infinite}
-.scene{--s:78px;width:var(--s);height:var(--s);perspective:calc(var(--s)*7);margin:6px auto 18px}
-.cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:rot 10s linear infinite}
-.cube i{position:absolute;inset:0;display:grid;place-items:center;font:normal 700 calc(var(--s)*.3) "Space Mono",monospace;color:#fff;border:1.5px solid rgba(255,255,255,.55);background:linear-gradient(135deg,var(--ac),var(--vi));opacity:.86}
-.cube i:nth-child(2){background:linear-gradient(135deg,var(--ac2),var(--ac))}.cube i:nth-child(3){background:linear-gradient(135deg,var(--vi),var(--ac2))}
-.cube i:nth-child(1){transform:translateZ(calc(var(--s)/2))}.cube i:nth-child(2){transform:rotateY(90deg) translateZ(calc(var(--s)/2))}.cube i:nth-child(3){transform:rotateY(180deg) translateZ(calc(var(--s)/2))}
-.cube i:nth-child(4){transform:rotateY(-90deg) translateZ(calc(var(--s)/2))}.cube i:nth-child(5){transform:rotateX(90deg) translateZ(calc(var(--s)/2))}.cube i:nth-child(6){transform:rotateX(-90deg) translateZ(calc(var(--s)/2))}
-.scene.mini{--s:28px;margin:0}
+.scene{--s:92px;width:var(--s);height:var(--s);margin:6px auto 18px}
+.scene.mini{--s:40px;margin:0}
+.gl{width:100%;height:100%;overflow:visible;animation:glf 4s ease-in-out infinite}
+.gl .ring{transform-origin:50px 50px;animation:glr 14s linear infinite}
+.gl .ear{transform-box:fill-box;transform-origin:50% 100%;animation:gle 5s ease-in-out infinite}
+.gl .ear2{animation-delay:.3s}
+.gl .eye{transform-box:fill-box;transform-origin:center;animation:glb 4.5s infinite}
+.gl .nd{transform-box:fill-box;transform-origin:center;animation:gln 2s ease-in-out infinite}
+.gl .flow{animation:glw 1s linear infinite}
+@keyframes glf{50%{transform:translateY(-5px)}}
+@keyframes glr{to{transform:rotate(360deg)}}
+@keyframes gle{0%,88%,100%{transform:rotate(0)}92%{transform:rotate(-12deg)}96%{transform:rotate(4deg)}}
+@keyframes glb{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes gln{50%{transform:scale(1.4)}}
+@keyframes glw{to{stroke-dashoffset:-16}}
 #login{max-width:430px;margin:7vh auto 0;padding:26px 22px;text-align:center}
 #login h1{font-size:36px;margin:0;line-height:1.2}
 .tagl{height:24px;color:var(--ac2);font-size:14px;margin:2px 0 18px}
@@ -70,6 +77,9 @@ label.l{display:block;margin:14px 0 6px;font:700 11px "Space Mono",monospace;let
 .stepper b{display:grid;place-items:center;width:26px;height:26px;margin:0 auto 4px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;animation:pulse 2.4s infinite}
 .stepper div:nth-child(2) b{animation-delay:.8s}.stepper div:nth-child(3) b{animation-delay:1.6s}
 .lnk{color:var(--ac2);font-size:13px}
+.tokbtn{display:inline-block;font:700 20px Outfit,"Hind Siliguri",sans-serif;color:#fff;background:linear-gradient(135deg,#ff1f3d,#ff5a3c);padding:12px 24px;border-radius:99px;text-decoration:none;box-shadow:0 0 0 0 rgba(255,45,74,.7);animation:tokpulse 1.2s infinite,tokshake 3s infinite}
+@keyframes tokpulse{0%{box-shadow:0 0 0 0 rgba(255,45,74,.7)}70%{box-shadow:0 0 0 18px rgba(255,45,74,0)}100%{box-shadow:0 0 0 0 rgba(255,45,74,0)}}
+@keyframes tokshake{0%,86%,100%{transform:none}88%{transform:scale(1.12) rotate(-3deg)}92%{transform:scale(1.12) rotate(3deg)}96%{transform:scale(1.08) rotate(-2deg)}}
 .credit{display:block;font:400 clamp(15px,4vw,19px)/1.4 Righteous,"Segoe UI Symbol",sans-serif;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ac) 55%,transparent))}
 .credit small{display:block;font:11px "Space Mono",monospace;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
 .jimg{display:block;width:92px;height:92px;margin:0 auto 12px;border-radius:50%;object-fit:cover;border:2px solid var(--ac);box-shadow:0 0 26px color-mix(in srgb,var(--ac) 55%,transparent)}
@@ -216,13 +226,13 @@ nav b{font-size:19px;display:block;line-height:1.1}
 
 <section id="login" class="card">
   <div class="lsw"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div>
-  <div class="scene"><div class="cube"><i>{ }</i><i>ZIP</i><i>↑</i><i>⎇</i><i>★</i><i>&lt;/&gt;</i></div></div>
+  <div class="scene"></div>
   <h1 class="disp" id="ltitle"></h1>
   <div class="tagl mono"><span id="tw"></span><span class="cur"></span></div>
   <div class="about"><b>What is this?</b><p>github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.</p><ul><li>📦 Upload a ZIP and it unpacks straight into your repo</li><li>⚡ Fast uploads that resume by themselves if your internet drops</li><li>🖼️ Edit, rename, delete files, upload images and whole folders</li><li>🔐 Your token never leaves your browser</li></ul></div>
   <label class="l" for="tok">Access token</label>
   <div class="pw"><input id="tok" type="password" autocomplete="off" placeholder="ghp_••••••••••••••••"><button id="eye" type="button">👁</button></div>
-  <p style="text-align:right;margin:6px 0 4px"><a class="lnk mono" href="https://github.com/settings/tokens/new?scopes=repo&description=github-zip-up" target="_blank" rel="noopener">Make a token ↗</a></p>
+  <p style="text-align:center;margin:14px 0 8px"><a class="tokbtn" href="https://github.com/settings/tokens/new?scopes=repo&description=github-zip-up" target="_blank" rel="noopener">🔑 Make a token ↗</a></p>
   <button class="pri" id="connect" style="width:100%;padding:12px;margin-top:6px">🚀 Let's go</button>
   <p id="lerr" class="err-t"></p>
   <div class="stepper"><div><b>1</b>Make a token</div><div><b>2</b>Paste it above</div><div><b>3</b>Push files</div></div>
@@ -232,7 +242,7 @@ nav b{font-size:19px;display:block;line-height:1.1}
 
 <div id="app" class="hide">
   <nav>
-    <div class="brand"><div class="scene mini"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="brand"><div class="scene mini"></div>
       <div><b class="disp grad">github-zip-up</b><span class="mini-c">by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</span></div></div>
     <button id="av"><img id="avi" alt=""></button>
     <div id="menu" class="card hide"><div id="themes"><button data-th="pink" style="background:#ff4fa3"></button><button data-th="aurora" style="background:#22d3ee"></button><button data-th="sunset" style="background:#fb923c"></button><button data-th="ocean" style="background:#3b82f6"></button><button data-th="lime" style="background:#84cc16"></button></div><button id="mhb">🕘 Upload log</button><button id="mfb">🍴 Fork / ⭐ Star</button><div class="lsw2"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div><button id="inst" class="hide">📲 Install app</button><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
@@ -273,7 +283,7 @@ nav b{font-size:19px;display:block;line-height:1.1}
   <label class="l">Send into folder (blank = root)</label><input id="upPath" type="text" placeholder="src/components">
   <label class="l">Commit note</label><input id="upMsg" type="text" value="Upload via github-zip-up">
   <label class="ck zo"><input type="checkbox" id="oStrip"> Flatten the top folder</label>
-  <label class="ck zo"><input type="checkbox" id="oSys" checked> Ignore junk (node_modules, __MACOSX, .git)</label>
+  <label class="ck zo"><input type="checkbox" id="oSys"> Ignore junk (node_modules, __MACOSX, .git)</label>
   <label class="ck"><input type="checkbox" id="oSmart" checked> Smart match: update files with the same name</label>
   <label class="ck"><input type="checkbox" id="oOver" checked> Replace files that changed</label>
   <label class="ck"><input type="checkbox" id="oImg"> Shrink big photos (max 2048px)</label>
@@ -354,6 +364,10 @@ function setTheme(t) { document.documentElement.dataset.t = t; store.set('gz_the
 $('themes').onclick = e => { const b = e.target.closest('button'); if (b) setTheme(b.dataset.th); };
 setTheme(store.get('gz_theme') || 'pink');
 try { pins = new Set(JSON.parse(store.get('gz_pins') || '[]')); } catch (e) {}
+
+/* ===== Animated logo: cat head + git branch (GitHub-like, not the same) ===== */
+const LOGO = '<svg class="gl" viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="47" fill="none" stroke-width="2" stroke-dasharray="6 8" stroke-linecap="round" style="stroke:var(--ac2)"/><circle cx="50" cy="50" r="40" stroke-width="2.5" style="fill:#130a1d;stroke:var(--ac)"/><path class="ear" d="M27 44L28 22L43 33Z" style="fill:var(--ac)"/><path class="ear ear2" d="M73 44L72 22L57 33Z" style="fill:var(--ac)"/><ellipse cx="50" cy="50" rx="24" ry="20" style="fill:var(--ac)"/><circle class="eye" cx="41" cy="48" r="4" fill="#fff"/><circle class="eye" cx="59" cy="48" r="4" fill="#fff"/><path d="M47 56Q50 59 53 56" fill="none" stroke="#130a1d" stroke-width="2" stroke-linecap="round"/><path class="flow" d="M50 68V84M50 74Q40 74 36 83M50 74Q60 74 64 83" fill="none" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 5" style="stroke:var(--ac2)"/><circle class="nd" cx="50" cy="85" r="3.5" style="fill:var(--ac2)"/><circle class="nd" cx="36" cy="84" r="3.5" style="fill:var(--ac2);animation-delay:.5s"/><circle class="nd" cx="64" cy="84" r="3.5" style="fill:var(--ac2);animation-delay:1s"/></svg>';
+document.querySelectorAll('.scene').forEach(e => e.innerHTML = LOGO);
 wave($('ltitle'), 'github-zip-up');
 typer($('tw'), ['Drop a ZIP. Push in seconds.', 'Uploads that never give up.', 'Your repos, your rules.']);
 typer($('tw2'), ['Drop a ZIP, push in seconds.', 'Interrupted? It resumes by itself.', 'Same file twice? Skipped.']);
@@ -620,32 +634,38 @@ function addRow(p, tag) {
 }
 function mark(d, c) { d.className = c; d.firstChild.textContent = { ok: '✓', sk: '＝', er: '✕' }[c]; }
 
-/* Smart match: a ZIP file with the same name as an existing repo file updates that file, new names are added */
+/* Replace mode: ZIP files overwrite same-named files already in the repo (case-insensitive), the top ZIP folder is auto-stripped, new files are added */
 function plan(items, have, o, pre) {
-  const roots = new Set(items.map(x => x.name.split('/')[0])), inRepo = p => have[pre + p] !== undefined, rest = x => x.name.split('/').slice(1).join('/');
+  const low = Object.create(null); Object.keys(have).forEach(p => low[p.toLowerCase()] = p);
+  const real = p => low[p.toLowerCase()];
+  const roots = new Set(items.map(x => x.name.split('/')[0])), inRepo = p => real(pre + p) !== undefined, rest = x => x.name.split('/').slice(1).join('/');
   let strip = false;
-  if (o.smart && roots.size === 1 && items.every(x => x.name.includes('/'))) strip = items.filter(x => inRepo(rest(x))).length > items.filter(x => inRepo(x.name)).length;
+  if (roots.size === 1 && items.every(x => x.name.includes('/'))) strip = items.filter(x => inRepo(rest(x))).length > items.filter(x => inRepo(x.name)).length;
   const nm = x => strip ? rest(x) : x.name, bn = Object.create(null), zc = Object.create(null);
   if (o.smart) {
     Object.keys(have).filter(p => p.startsWith(pre)).forEach(p => (bn[bname(p)] = bn[bname(p)] || []).push(p));
     items.forEach(x => { const b = bname(nm(x)); zc[b] = (zc[b] || 0) + 1; });
   }
   items.forEach(x => {
-    const n = nm(x); x.dest = pre + n; x.kind = have[x.dest] !== undefined ? 'update' : 'new'; x.moved = false;
+    const n = nm(x), ex = real(pre + n);
+    x.dest = ex !== undefined ? ex : pre + n; x.kind = ex !== undefined ? 'update' : 'new'; x.moved = false;
     if (x.kind === 'new' && o.smart) { const b = bname(n), c = bn[b]; if (c && c.length === 1 && zc[b] === 1) { x.dest = c[0]; x.kind = 'update'; x.moved = true; } }
   });
 }
 
 async function upload(items, o) {
   busy = true; cancel = false; show('prog'); $('upGo').disabled = true; $('upCancel').textContent = 'Stop'; $('flist').innerHTML = '';
-  const pre = o.tp ? o.tp + '/' : '';
+  const pre = o.tp ? o.tp + '/' : ''; let hold = false;
   try {
     prog(0, 'Checking what is already there…');
     const ref = await retry(() => gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`)), head = ref.object.sha;
     const bc = await retry(() => gh(`/repos/${repo}/git/commits/${head}`)), have = Object.create(null);
     try { (await retry(() => gh(`/repos/${repo}/git/trees/${bc.tree.sha}?recursive=1`))).tree.forEach(t => { if (t.type === 'blob') have[t.path] = t.sha; }); } catch (e) {}
     plan(items, have, o, pre);
-    const n = items.length; let i = 0, skip = 0, add = 0, upd = 0, okc = 0, q = 0, pb = 0, fail = null, tsha = bc.tree.sha, queue = [], chain = Promise.resolve();
+    /* two ZIP files that land on the same path: keep the last one, count the rest */
+    const last = Object.create(null); items.forEach(x => last[x.dest] = x);
+    const dupN = items.length - Object.keys(last).length; items = items.filter(x => last[x.dest] === x);
+    const n = items.length; let i = 0, skip = 0, add = 0, upd = 0, okc = 0, bad = [], q = 0, pb = 0, fail = null, tsha = bc.tree.sha, queue = [], chain = Promise.resolve();
     const tick = () => { const d = okc + skip; prog(d / n * 100, `${d} / ${n} files (${Math.round(d / n * 100)}%)` + (skip ? ` · ${skip} skipped` : '')); };
     /* text files go inside the tree request itself (no separate blob call), so thousands of files take only a few requests */
     const flush = () => {
@@ -662,10 +682,11 @@ async function upload(items, o) {
         const it = items[i++], p = it.dest, row = addRow(p, it.moved ? 'update ↪' : it.kind);
         try {
           let u = await it.get(); if (o.img) u = await shrink(u, it.name);
-          if (u.length > 1e8) { say(p + ' is over 100 MB: skipped', true); mark(row, 'er'); }
-          else if (have[p] !== undefined && (!o.over || have[p] === await gitSha(u))) { skip++; mark(row, 'sk'); tick(); }
+          const sh = await gitSha(u); it.exp = sh;
+          if (u.length > 1e8) { it.exp = null; bad.push(p + ' (over 100 MB, skipped)'); say(p + ' is over 100 MB: skipped', true); mark(row, 'er'); }
+          else if (have[p] !== undefined && (!o.over || have[p] === sh)) { if (have[p] !== sh) it.exp = null; skip++; mark(row, 'sk'); tick(); }
           else {
-            const txt = u.length < 7e5 ? asText(u) : null;
+            const txt = u.length && u.length < 7e5 ? asText(u) : null;
             if (txt !== null) { queue.push({ e: { path: p, mode: '100644', type: 'blob', content: txt }, row }); pb += txt.length; }
             else { const b = await retry(() => gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64(u), encoding: 'base64' }) })); queue.push({ e: { path: p, mode: '100644', type: 'blob', sha: b.sha }, row }); }
             it.kind === 'new' ? add++ : upd++;
@@ -684,9 +705,37 @@ async function upload(items, o) {
       await retry(() => gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: c.sha }) })); tc = null;
       logUp(o.msg, add + upd, skip); say(`✅ ${add} new · ${upd} updated` + (skip ? ` · ${skip} skipped` : ''));
     }
+    /* ===== Zero-miss check: compare every file with the real branch, re-send anything missing ===== */
+    if (!cancel) {
+      prog(100, 'Verifying every file…');
+      const need = items.filter(x => x.exp); let missing = [], vtrunc = false;
+      for (let k = 0; k < 3; k++) {
+        const r = await retry(() => gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`));
+        const cm = await retry(() => gh(`/repos/${repo}/git/commits/${r.object.sha}`));
+        const t = await retry(() => gh(`/repos/${repo}/git/trees/${cm.tree.sha}?recursive=1`));
+        if (t.truncated) { vtrunc = true; break; }
+        const live = Object.create(null); t.tree.forEach(x => { if (x.type === 'blob') live[x.path] = x.sha; });
+        missing = need.filter(x => live[x.dest] !== x.exp);
+        if (!missing.length || k === 2) break;
+        prog(100, `Re-sending ${missing.length} missing file(s)…`);
+        const ents = [];
+        for (const x of missing) {
+          let u = await x.get(); if (o.img) u = await shrink(u, x.name);
+          const b = await retry(() => gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64(u), encoding: 'base64' }) }));
+          ents.push({ path: x.dest, mode: '100644', type: 'blob', sha: b.sha });
+        }
+        await retry(() => commitTree(ents, o.msg + ' (repair)'));
+      }
+      const probs = [...missing.map(x => x.dest + ' (not found after upload)'), ...bad];
+      if (probs.length) {
+        hold = true;
+        $('flist').insertAdjacentHTML('beforeend', probs.map(p => `<div class="er"><i>✕</i><span>${esc(p)}</span></div>`).join('')); $('flist').scrollTop = 1e9;
+        prog(100, `⚠️ ${probs.length} file(s) have a problem`); say(`⚠️ ${probs.length} file(s) have a problem. See the list.`, true);
+      } else say(vtrunc ? '✅ Pushed (repo too big for the full check)' : `✅ Verified: all ${need.length} files are in the repo` + (dupN ? ` · ${dupN} duplicate name(s) merged` : ''));
+    }
   } catch (e) { say(/empty/i.test(e.message) ? 'Repository is empty: create a file first.' : e.message, true); }
   await sleep(700);
-  busy = false; $('upGo').disabled = false; $('upCancel').textContent = 'Cancel'; show('prog', false); show('mUp', false); pend = null; loadDir();
+  busy = false; $('upGo').disabled = false; $('upCancel').textContent = 'Cancel'; pend = null; if (!hold) { show('prog', false); show('mUp', false); } loadDir();
 }
 
 /* ===== Upload modal ===== */
@@ -890,7 +939,7 @@ addEventListener('online', () => { if (token && !$('off').classList.contains('hi
 let dip = null; addEventListener('beforeinstallprompt', e => { e.preventDefault(); dip = e; show('inst'); });
 $('inst').onclick = () => { if (dip) { dip.prompt(); dip = null; show('inst', false); } };
 if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', 'Make a token ↗': 'টোকেন বানান ↗', "🚀 Let's go": '🚀 শুরু করুন', 'Make a token': 'টোকেন বানান', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token stays in this tab only and is wiped when you close it.': '🔐 টোকেন শুধু এই ট্যাবে থাকে, বন্ধ করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', '🚀 Push': '🚀 পাঠান', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ', 'Smart match: update files with the same name': 'স্মার্ট ম্যাচ: একই নামের ফাইল আপডেট করুন' };
+const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', '🔑 Make a token ↗': '🔑 টোকেন বানান ↗', "🚀 Let's go": '🚀 শুরু করুন', 'Make a token': 'টোকেন বানান', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token stays in this tab only and is wiped when you close it.': '🔐 টোকেন শুধু এই ট্যাবে থাকে, বন্ধ করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', '🚀 Push': '🚀 পাঠান', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ', 'Smart match: update files with the same name': 'স্মার্ট ম্যাচ: একই নামের ফাইল আপডেট করুন' };
 const BNP = { '🔎 Search every file in this repo…': '🔎 এই repo-র সব ফাইলে খুঁজুন…' };
 const orig = new WeakMap(); let lg = store.get('gz_lg') === 'bn' ? 'bn' : 'en', trBusy = false;
 const tx = o => { const t = o.trim(); return lg === 'bn' && BN[t] ? o.replace(t, BN[t]) : o; };
