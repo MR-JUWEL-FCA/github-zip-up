@@ -72,6 +72,7 @@ label.l{display:block;margin:14px 0 6px;font:700 11px "Space Mono",monospace;let
 .lnk{color:var(--ac2);font-size:13px}
 .credit{display:block;font:400 clamp(15px,4vw,19px)/1.4 Righteous,"Segoe UI Symbol",sans-serif;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ac) 55%,transparent))}
 .credit small{display:block;font:11px "Space Mono",monospace;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
+.jimg{display:block;width:92px;height:92px;margin:0 auto 12px;border-radius:50%;object-fit:cover;border:2px solid var(--ac);box-shadow:0 0 26px color-mix(in srgb,var(--ac) 55%,transparent)}
 .foot{text-align:center;margin:28px 0 22px;animation:up .8s backwards}
 .foot .credit{font-size:clamp(18px,5vw,24px)}
 .mini-c{font-size:11px;color:var(--mut)}
@@ -144,6 +145,7 @@ nav b{font-size:19px;display:block;line-height:1.1}
 .facts small{display:block;color:var(--mut);font:11px "Space Mono",monospace}
 #selbar{position:sticky;top:6px;z-index:8;display:flex;gap:8px;align-items:center;padding:10px 14px;margin-bottom:10px}
 #selbar span{flex:1}
+#selbar label.ck{margin:0;padding:6px 10px}
 .modal{position:fixed;inset:0;z-index:30;background:rgba(5,2,10,.75);backdrop-filter:blur(6px);display:grid;place-items:center;padding:14px;overflow:auto}
 .sheet{width:100%;max-width:430px;background:#130a1d;border:1px solid var(--bd);border-radius:22px;animation:pop .25s}
 .mh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--bd)}
@@ -163,6 +165,16 @@ nav b{font-size:19px;display:block;line-height:1.1}
 #prog{margin-top:14px}
 #track{height:10px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
 #bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% 100%;animation:shine 1.4s linear infinite;transition:width .2s}
+#flist{margin-top:10px;max-height:200px;overflow:auto;border:1px solid var(--bd);border-radius:12px;background:rgba(0,0,0,.3);scroll-behavior:smooth}
+#flist div{display:flex;gap:8px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--bd);font:12px "Space Mono",monospace;animation:rev .25s backwards}
+#flist div:last-child{border:0}
+#flist i{font-style:normal;flex:none;width:26px;text-align:center;font-weight:700}
+#flist span{flex:1;min-width:0;word-break:break-all}
+#flist small{flex:none;color:var(--mut)}
+#flist .wip i{color:var(--ac2);animation:blink 1s infinite}
+#flist .ok i{color:var(--ok);font-size:15px}
+#flist .sk{color:var(--mut)}
+#flist .er i{color:var(--dng)}
 #imgv{max-width:100%;max-height:55vh;display:block;margin:0 auto;border-radius:12px;background:repeating-conic-gradient(#222 0 25%,#333 0 50%) 0 0/16px 16px}
 #status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#2a1238;border:1px solid var(--ac);padding:10px 16px;border-radius:14px;max-width:90vw;z-index:50;animation:pop .2s}
 #status.err{background:#6b1a2e;border-color:var(--dng)}
@@ -215,7 +227,7 @@ nav b{font-size:19px;display:block;line-height:1.1}
   <p id="lerr" class="err-t"></p>
   <div class="stepper"><div><b>1</b>Make a token</div><div><b>2</b>Paste it above</div><div><b>3</b>Push files</div></div>
   <p class="mono" style="font-size:11px;color:var(--mut)">🔐 Token stays in this tab only and is wiped when you close it.</p>
-  <div style="margin-top:18px"><span class="credit"><small>crafted by</small><b class="grad" style="font-weight:400">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></span></div>
+  <div style="margin-top:18px"><img class="jimg" src="https://i.imgur.com/pAv2xEd.jpeg" alt="" referrerpolicy="no-referrer" onerror="this.remove()"><span class="credit"><small>crafted by</small><b class="grad" style="font-weight:400">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></span></div>
 </section>
 
 <div id="app" class="hide">
@@ -238,10 +250,10 @@ nav b{font-size:19px;display:block;line-height:1.1}
   </div>
 
   <div id="vRepo" class="hide">
-    <div class="rh"><button id="back">←</button><h2 class="disp" id="rname"></h2><select id="br"></select><button class="pri" id="zipb">🗜️ Upload ZIP</button><button id="actb">⋯</button></div>
+    <div class="rh"><button id="back">←</button><h2 class="disp" id="rname"></h2><select id="br"></select><button class="pri" id="zipb">🗜️ Upload ZIP</button><button id="selb" title="Select">☑</button><button id="actb">⋯</button></div>
     <div id="tabs"><button data-tab="files">Files</button><button data-tab="iss">Issues</button><button data-tab="hist">History</button><button data-tab="info">Info</button></div>
     <div id="pFiles"><input id="fq" type="text" placeholder="🔎 Search every file in this repo…" style="margin-bottom:10px"><div class="list hide" id="fres" style="margin-bottom:10px"></div><div class="crumb mono" id="crumb"></div>
-      <div id="selbar" class="card hide"><span id="selc"></span><button class="dng" id="seld">Delete</button><button id="selx">Done</button></div>
+      <div id="selbar" class="card hide"><span id="selc"></span><label class="ck"><input type="checkbox" id="selall"> All</label><button class="dng" id="seld">Delete</button><button id="selx">Done</button></div>
       <div class="list" id="files"></div>
       <p class="empty" style="padding:10px;font-size:13px">Tip: drop files or a ZIP onto the list.</p></div>
     <div id="pIss" class="hide"></div>
@@ -262,9 +274,10 @@ nav b{font-size:19px;display:block;line-height:1.1}
   <label class="l">Commit note</label><input id="upMsg" type="text" value="Upload via github-zip-up">
   <label class="ck zo"><input type="checkbox" id="oStrip"> Flatten the top folder</label>
   <label class="ck zo"><input type="checkbox" id="oSys" checked> Ignore junk (node_modules, __MACOSX, .git)</label>
+  <label class="ck"><input type="checkbox" id="oSmart" checked> Smart match: update files with the same name</label>
   <label class="ck"><input type="checkbox" id="oOver" checked> Replace files that changed</label>
   <label class="ck"><input type="checkbox" id="oImg"> Shrink big photos (max 2048px)</label>
-  <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:12px"></div><div id="track"><div id="bar"></div></div></div></div>
+  <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:12px"></div><div id="track"><div id="bar"></div></div><div id="flist"></div></div></div>
   <div class="mf"><button id="upCancel">Cancel</button><button class="pri" id="upGo">🚀 Push</button></div></div></div>
 
 <div class="modal hide" id="mNr"><div class="sheet"><div class="mh"><b>Create repo</b><button class="x" data-close>✕</button></div>
@@ -471,8 +484,9 @@ function drawFiles() {
     <span class="nm" data-t="${i.type}" data-p="${esc(i.path)}">${icon(i)} ${esc(i.name)}</span>
     <small>${i.type === 'file' ? (i.size / 1024).toFixed(1) + ' KB' : ''}</small>
     ${selMode ? '' : `<button data-mv="${esc(i.path)}">✏️</button><button class="dng" data-del="${esc(i.path)}">🗑</button>`}</div>`).join('') || '<div class="empty">Empty folder. Open Actions to upload.</div>');
-  $('selc').textContent = sel.size + ' selected';
+  selSync();
 }
+function selSync() { $('selc').textContent = sel.size + ' selected'; $('selall').checked = cur.length > 0 && sel.size === cur.length; }
 function drawCrumb() {
   const parts = path ? path.split('/') : [];
   $('crumb').innerHTML = `<span data-c="">${esc(repo)}</span>` + parts.map((p, i) => ` / <span data-c="${esc(parts.slice(0, i + 1).join('/'))}">${esc(p)}</span>`).join('');
@@ -482,24 +496,36 @@ $('files').onclick = e => {
   const n = e.target.closest('.nm');
   if (n && n.dataset.up) { path = path.split('/').slice(0, -1).join('/'); return loadDir(); }
   const ck = e.target.closest('[data-s]');
-  if (ck) { ck.checked ? sel.add(ck.dataset.s) : sel.delete(ck.dataset.s); return ($('selc').textContent = sel.size + ' selected'); }
-  if (n) { if (selMode) return; if (n.dataset.t === 'dir') { path = n.dataset.p; return loadDir(); } return openFile(n.dataset.p); }
+  if (ck) { ck.checked ? sel.add(ck.dataset.s) : sel.delete(ck.dataset.s); return selSync(); }
+  if (n) {
+    if (selMode) { const cb = n.closest('.row').querySelector('[data-s]'); if (cb) { cb.checked = !cb.checked; cb.checked ? sel.add(cb.dataset.s) : sel.delete(cb.dataset.s); selSync(); } return; }
+    if (n.dataset.t === 'dir') { path = n.dataset.p; return loadDir(); } return openFile(n.dataset.p);
+  }
   const m = e.target.closest('[data-mv]'); if (m) return moveItem(m.dataset.mv);
   const d = e.target.closest('[data-del]'); if (d) removeMany([d.dataset.del]);
 };
 
-/* ===== Select / delete many in ONE commit ===== */
+/* ===== Select / delete many in ONE commit (fast: instant UI, no full-repo tree) ===== */
 function startSel(all) { selMode = true; sel = new Set(all ? cur.map(i => i.path) : []); show('selbar'); drawFiles(); }
 function endSel() { selMode = false; sel = new Set(); show('selbar', false); if (repo && tab === 'files') drawFiles(); }
 $('selx').onclick = endSel;
+$('selall').onchange = () => { sel = new Set($('selall').checked ? cur.map(i => i.path) : []); drawFiles(); };
+$('selb').onclick = () => { setTab('files'); startSel(false); };
 $('seld').onclick = () => sel.size ? removeMany([...sel]) : say('Select something first', true);
 async function removeMany(paths) {
   if (!confirm(`Delete ${paths.length} item(s)? Folders go with everything inside.`)) return;
+  const snap = cur, gone = new Set(paths);
+  cur = cur.filter(i => !gone.has(i.path)); endSel(); drawFiles(); say(`Deleting ${paths.length} item(s)…`);
   try {
-    const tree = await gh(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`), ents = [];
-    tree.tree.filter(t => t.type === 'blob').forEach(t => { if (paths.some(p => t.path === p || t.path.startsWith(p + '/'))) ents.push({ path: t.path, mode: '100644', type: 'blob', sha: null }); });
-    await commitTree(ents, `Delete ${paths.length} item(s)`); say('Deleted'); endSel(); loadDir();
-  } catch (e) { say(e.message, true); }
+    const ents = [], dirs = [];
+    paths.forEach(p => { const it = snap.find(i => i.path === p); if (it && it.type === 'dir') dirs.push(it); else ents.push({ path: p, mode: '100644', type: 'blob', sha: null }); });
+    await Promise.all(dirs.map(async d => {
+      const t = await retry(() => gh(`/repos/${repo}/git/trees/${d.sha}?recursive=1`));
+      t.tree.forEach(x => { if (x.type === 'blob') ents.push({ path: d.path + '/' + x.path, mode: '100644', type: 'blob', sha: null }); });
+    }));
+    if (!ents.length) { say('Nothing to delete'); return loadDir(); }
+    await retry(() => commitTree(ents, `Delete ${paths.length} item(s)`)); say('Deleted ✅'); loadDir();
+  } catch (e) { say(e.message, true); loadDir(); }
 }
 
 /* ===== Actions sheet ===== */
@@ -567,11 +593,11 @@ async function commitTree(entries, message) {
   await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) }); tc = null;
 }
 
-/* ===== Fast resumable upload: 5 parallel, auto retry, skips identical files ===== */
+/* ===== Fast resumable upload ===== */
 async function retry(fn) {
   for (let i = 0; ; i++) {
     try { return await fn(); } catch (e) {
-      if (/Bad credentials|Not Found|Validation|too large/i.test(e.message) || i >= 5 || cancel) throw e;
+      if (/Bad credentials|Not Found|Validation|too large|fast.forward/i.test(e.message) || i >= 5 || cancel) throw e;
       if (!navigator.onLine) await new Promise(r => addEventListener('online', r, { once: true }));
       await sleep(1000 * 2 ** i);
     }
@@ -582,31 +608,84 @@ async function gitSha(u) {
   return [...new Uint8Array(await crypto.subtle.digest('SHA-1', m))].map(x => x.toString(16).padStart(2, '0')).join('');
 }
 function prog(p, t) { $('bar').style.width = p + '%'; $('ptxt').textContent = t; }
+
+/* Live per-file list: </> = working, ✓ = done, ＝ = same (skipped), ✕ = failed */
+const TD = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true });
+const asText = u => { try { const s = TD.decode(u); return s.includes('\u0000') ? null : s; } catch (e) { return null; } };
+const bname = p => p.slice(p.lastIndexOf('/') + 1);
+function addRow(p, tag) {
+  const f = $('flist'), d = document.createElement('div'); d.className = 'wip';
+  d.innerHTML = `<i>&lt;/&gt;</i><span>${esc(p)}</span><small>${esc(tag)}</small>`;
+  f.appendChild(d); while (f.children.length > 250) f.removeChild(f.firstChild); f.scrollTop = f.scrollHeight; return d;
+}
+function mark(d, c) { d.className = c; d.firstChild.textContent = { ok: '✓', sk: '＝', er: '✕' }[c]; }
+
+/* Smart match: a ZIP file with the same name as an existing repo file updates that file, new names are added */
+function plan(items, have, o, pre) {
+  const roots = new Set(items.map(x => x.name.split('/')[0])), inRepo = p => have[pre + p] !== undefined, rest = x => x.name.split('/').slice(1).join('/');
+  let strip = false;
+  if (o.smart && roots.size === 1 && items.every(x => x.name.includes('/'))) strip = items.filter(x => inRepo(rest(x))).length > items.filter(x => inRepo(x.name)).length;
+  const nm = x => strip ? rest(x) : x.name, bn = Object.create(null), zc = Object.create(null);
+  if (o.smart) {
+    Object.keys(have).filter(p => p.startsWith(pre)).forEach(p => (bn[bname(p)] = bn[bname(p)] || []).push(p));
+    items.forEach(x => { const b = bname(nm(x)); zc[b] = (zc[b] || 0) + 1; });
+  }
+  items.forEach(x => {
+    const n = nm(x); x.dest = pre + n; x.kind = have[x.dest] !== undefined ? 'update' : 'new'; x.moved = false;
+    if (x.kind === 'new' && o.smart) { const b = bname(n), c = bn[b]; if (c && c.length === 1 && zc[b] === 1) { x.dest = c[0]; x.kind = 'update'; x.moved = true; } }
+  });
+}
+
 async function upload(items, o) {
-  busy = true; cancel = false; show('prog'); $('upGo').disabled = true; $('upCancel').textContent = 'Stop';
+  busy = true; cancel = false; show('prog'); $('upGo').disabled = true; $('upCancel').textContent = 'Stop'; $('flist').innerHTML = '';
   const pre = o.tp ? o.tp + '/' : '';
   try {
     prog(0, 'Checking what is already there…');
-    const have = {};
-    try { (await retry(() => gh(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`))).tree.forEach(t => have[t.path] = t.sha); } catch (e) {}
-    const ents = [], n = items.length; let i = 0, done = 0, skip = 0;
+    const ref = await retry(() => gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`)), head = ref.object.sha;
+    const bc = await retry(() => gh(`/repos/${repo}/git/commits/${head}`)), have = Object.create(null);
+    try { (await retry(() => gh(`/repos/${repo}/git/trees/${bc.tree.sha}?recursive=1`))).tree.forEach(t => { if (t.type === 'blob') have[t.path] = t.sha; }); } catch (e) {}
+    plan(items, have, o, pre);
+    const n = items.length; let i = 0, skip = 0, add = 0, upd = 0, okc = 0, q = 0, pb = 0, fail = null, tsha = bc.tree.sha, queue = [], chain = Promise.resolve();
+    const tick = () => { const d = okc + skip; prog(d / n * 100, `${d} / ${n} files (${Math.round(d / n * 100)}%)` + (skip ? ` · ${skip} skipped` : '')); };
+    /* text files go inside the tree request itself (no separate blob call), so thousands of files take only a few requests */
+    const flush = () => {
+      if (!queue.length) return;
+      const b = queue; queue = []; pb = 0; q++;
+      chain = chain.then(async () => {
+        if (cancel || fail) return;
+        const t = await retry(() => gh(`/repos/${repo}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: tsha, tree: b.map(x => x.e) }) }));
+        tsha = t.sha; b.forEach(x => mark(x.row, 'ok')); okc += b.length; tick();
+      }).catch(e => { fail = fail || e; }).then(() => { q--; });
+    };
     const work = async () => {
-      while (i < n && !cancel) {
-        const it = items[i++], p = pre + it.name;
+      while (i < n && !cancel && !fail) {
+        const it = items[i++], p = it.dest, row = addRow(p, it.moved ? 'update ↪' : it.kind);
         try {
           let u = await it.get(); if (o.img) u = await shrink(u, it.name);
-          if (u.length > 1e8) say(p + ' is over 100 MB: skipped', true);
-          else if (have[p] && (!o.over || have[p] === await gitSha(u))) skip++;
-          else { const b = await retry(() => gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64(u), encoding: 'base64' }) })); ents.push({ path: p, mode: '100644', type: 'blob', sha: b.sha }); }
-        } catch (e) { i = n; throw e; }
-        done++; prog(done / n * 100, `${done} / ${n} files (${Math.round(done / n * 100)}%)` + (skip ? ` · ${skip} skipped` : ''));
+          if (u.length > 1e8) { say(p + ' is over 100 MB: skipped', true); mark(row, 'er'); }
+          else if (have[p] !== undefined && (!o.over || have[p] === await gitSha(u))) { skip++; mark(row, 'sk'); tick(); }
+          else {
+            const txt = u.length < 7e5 ? asText(u) : null;
+            if (txt !== null) { queue.push({ e: { path: p, mode: '100644', type: 'blob', content: txt }, row }); pb += txt.length; }
+            else { const b = await retry(() => gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64(u), encoding: 'base64' }) })); queue.push({ e: { path: p, mode: '100644', type: 'blob', sha: b.sha }, row }); }
+            it.kind === 'new' ? add++ : upd++;
+            if (pb > 1e6 || queue.length >= 60) { flush(); if (q >= 3) await chain; }
+          }
+        } catch (e) { mark(row, 'er'); fail = fail || e; }
       }
     };
-    await Promise.all(Array.from({ length: Math.min(5, n) }, work));
+    await Promise.all(Array.from({ length: Math.min(6, n) }, work));
+    flush(); await chain; if (fail) throw fail;
     if (cancel) say('Stopped. Nothing was committed.', true);
-    else if (!ents.length) say('Nothing new: everything is already there');
-    else { prog(100, 'Saving commit…'); await retry(() => commitTree(ents, o.msg)); logUp(o.msg, ents.length, skip); say(`Uploaded ${ents.length} files 🎉` + (skip ? `, ${skip} skipped` : '')); }
+    else if (!add && !upd) say('Nothing new: everything is already there');
+    else {
+      prog(100, 'Saving commit…');
+      const c = await retry(() => gh(`/repos/${repo}/git/commits`, { method: 'POST', body: JSON.stringify({ message: o.msg, tree: tsha, parents: [head] }) }));
+      await retry(() => gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: c.sha }) })); tc = null;
+      logUp(o.msg, add + upd, skip); say(`✅ ${add} new · ${upd} updated` + (skip ? ` · ${skip} skipped` : ''));
+    }
   } catch (e) { say(/empty/i.test(e.message) ? 'Repository is empty: create a file first.' : e.message, true); }
+  await sleep(700);
   busy = false; $('upGo').disabled = false; $('upCancel').textContent = 'Cancel'; show('prog', false); show('mUp', false); pend = null; loadDir();
 }
 
@@ -634,7 +713,8 @@ async function pick(fs) {
 $('upCancel').onclick = () => busy ? (cancel = true) : show('mUp', false);
 $('upGo').onclick = () => {
   if (!pend) return say('Choose a file first', true);
-  const o = { over: $('oOver').checked, img: $('oImg').checked, msg: $('upMsg').value || 'Upload', tp: $('upPath').value.trim().replace(/^\/+|\/+$/g, '') };
+  if (busy) return;
+  const o = { smart: $('oSmart').checked, over: $('oOver').checked, img: $('oImg').checked, msg: $('upMsg').value || 'Upload', tp: $('upPath').value.trim().replace(/^\/+|\/+$/g, '') };
   let list = pend.zip ? Object.keys(pend.zip.files).filter(n => !pend.zip.files[n].dir).map(n => ({ n, get: () => pend.zip.files[n].async('uint8array') }))
     : pend.files.map(f => ({ n: f.webkitRelativePath || f.name, get: async () => new Uint8Array(await f.arrayBuffer()) }));
   if (upMode !== 'file') {
@@ -810,7 +890,7 @@ addEventListener('online', () => { if (token && !$('off').classList.contains('hi
 let dip = null; addEventListener('beforeinstallprompt', e => { e.preventDefault(); dip = e; show('inst'); });
 $('inst').onclick = () => { if (dip) { dip.prompt(); dip = null; show('inst', false); } };
 if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', 'Make a token ↗': 'টোকেন বানান ↗', "🚀 Let's go": '🚀 শুরু করুন', 'Make a token': 'টোকেন বানান', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token stays in this tab only and is wiped when you close it.': '🔐 টোকেন শুধু এই ট্যাবে থাকে, বন্ধ করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', '🚀 Push': '🚀 পাঠান', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ' };
+const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', 'Make a token ↗': 'টোকেন বানান ↗', "🚀 Let's go": '🚀 শুরু করুন', 'Make a token': 'টোকেন বানান', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token stays in this tab only and is wiped when you close it.': '🔐 টোকেন শুধু এই ট্যাবে থাকে, বন্ধ করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', '🚀 Push': '🚀 পাঠান', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ', 'Smart match: update files with the same name': 'স্মার্ট ম্যাচ: একই নামের ফাইল আপডেট করুন' };
 const BNP = { '🔎 Search every file in this repo…': '🔎 এই repo-র সব ফাইলে খুঁজুন…' };
 const orig = new WeakMap(); let lg = store.get('gz_lg') === 'bn' ? 'bn' : 'en', trBusy = false;
 const tx = o => { const t = o.trim(); return lg === 'bn' && BN[t] ? o.replace(t, BN[t]) : o; };
@@ -825,7 +905,7 @@ function tr(root) {
   document.querySelectorAll('[placeholder]').forEach(el => { if (el.dataset.ph === undefined) el.dataset.ph = el.placeholder; el.placeholder = (lg === 'bn' && BNP[el.dataset.ph]) || el.dataset.ph; });
   trBusy = false;
 }
-new MutationObserver(m => { if (lg === 'bn' && !trBusy && m.some(x => { const el = x.target.nodeType === 3 ? x.target.parentNode : x.target; return el && el.closest && !el.closest('.tagl'); })) requestAnimationFrame(() => tr(document.body)); }).observe(document.body, { childList: true, subtree: true, characterData: true });
+new MutationObserver(m => { if (lg === 'bn' && !trBusy && m.some(x => { const el = x.target.nodeType === 3 ? x.target.parentNode : x.target; return el && el.closest && !el.closest('.tagl') && !el.closest('#flist'); })) requestAnimationFrame(() => tr(document.body)); }).observe(document.body, { childList: true, subtree: true, characterData: true });
 function setLang(l) { lg = l; store.set('gz_lg', l); document.documentElement.lang = l; document.querySelectorAll('[data-lg]').forEach(b => b.classList.toggle('on', b.dataset.lg === l)); tr(document.body); }
 document.addEventListener('click', e => { const b = e.target.closest('[data-lg]'); if (b) setLang(b.dataset.lg); });
 setLang(lg);
