@@ -4,230 +4,357 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>github-zip-up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=JetBrains+Mono:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7f5f0;--fg:#1d2420;--mut:#6b746e;--bd:#d9d6cc;--card:#fff;--ac:#1f6f50;--acf:#fff;--dng:#b3261e}
-@media(prefers-color-scheme:dark){:root{--bg:#121714;--fg:#e4ebe6;--mut:#8a9890;--bd:#2a342e;--card:#1a211d;--ac:#4cc38a;--acf:#0b1410;--dng:#ff8a80}}
+:root{--fg:#fdeefa;--mut:#c9a3c0;--card:rgba(255,255,255,.055);--bd:rgba(255,120,200,.2);--ac:#ff4fa3;--ac2:#ff9be0;--vi:#a855f7;--dng:#ff6b81;--ok:#5eead4}
 *{box-sizing:border-box}
-body{margin:0;font:15px/1.5 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--fg)}
-button,input,textarea{font:inherit;color:inherit}
-button{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:6px 12px;cursor:pointer}
-button:hover{border-color:var(--ac)}
-button.pri{background:var(--ac);color:var(--acf);border-color:var(--ac)}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;font:15px/1.55 Poppins,"Segoe UI",system-ui,sans-serif;color:var(--fg);background:#0b0713;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(rgba(255,120,200,.09) 1px,transparent 1px) 0 0/24px 24px}
+.bg svg{width:100%;height:100%}
+.b1{animation:fl 14s ease-in-out infinite}.b2{animation:fl 18s ease-in-out infinite reverse}.b3{animation:fl 22s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,-50px)}}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+@keyframes shine{to{background-position:200% center}}
+@keyframes glow{0%,100%{box-shadow:0 0 14px rgba(255,79,163,.35)}50%{box-shadow:0 0 30px rgba(255,79,163,.75)}}
+button,input,textarea,select{font:inherit;color:inherit}
+button{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 14px;cursor:pointer;transition:.2s}
+button:hover{border-color:var(--ac);transform:translateY(-1px)}
+button:disabled{opacity:.5;cursor:default;transform:none}
+button.pri{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:600}
+button.pri:hover{box-shadow:0 6px 22px rgba(255,79,163,.45)}
 button.dng{color:var(--dng)}
-input[type=text],input[type=password],textarea{width:100%;background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:8px 10px}
+input[type=text],input[type=password],textarea,select{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--bd);border-radius:12px;padding:10px 13px}
+select{appearance:none;padding-right:8px}
+select option{background:#1a0f24}
 :focus-visible{outline:2px solid var(--ac);outline-offset:1px}
 .hide{display:none!important}
-#login{max-width:420px;margin:12vh auto;padding:0 20px}
-#login h1{font-size:30px;margin:0 0 4px;letter-spacing:-.5px}
-#login p{color:var(--mut);margin:0 0 20px}
-#login a{color:var(--ac)}
-#app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
-aside{border-right:1px solid var(--bd);padding:14px;overflow:auto;max-height:100vh;position:sticky;top:0}
-aside h2{font-size:16px;margin:0 0 10px}
-.repo{display:block;width:100%;text-align:left;border:0;background:none;padding:6px 8px;border-radius:6px;word-break:break-all}
-.repo:hover,.repo.on{background:var(--card)}
-.repo.on{font-weight:600;color:var(--ac)}
-main{padding:18px;min-width:0}
-.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-.crumb{flex:1;min-width:200px;font-weight:600}
-.crumb span{cursor:pointer;color:var(--ac)}
-.list{border:1px solid var(--bd);border-radius:8px;background:var(--card);overflow:hidden}
-.row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--bd)}
+.mono{font-family:"JetBrains Mono",monospace}
+.disp{font-family:Audiowide,Poppins,sans-serif}
+.grad{background:linear-gradient(90deg,#ff4fa3,#ff9be0,#c084fc,#ff4fa3);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:22px;backdrop-filter:blur(12px);animation:up .5s both}
+.err-t{color:var(--dng)}
+#login{max-width:440px;margin:6vh auto 0;padding:26px 22px;text-align:center}
+#login h1{font-size:34px;margin:10px 0 2px}
+.logo{width:84px;height:84px;border-radius:22px;background:#150a1f;border:1px solid var(--bd);display:grid;place-items:center;margin:0 auto;animation:glow 3s infinite}
+.tl{text-align:left}
+label.l{display:block;margin:14px 0 6px;font:600 11px "JetBrains Mono",monospace;letter-spacing:.12em;color:var(--mut);text-transform:uppercase}
+#login a{color:var(--ac2)}
+.steps{text-align:left;color:var(--mut);font-size:13px;margin:16px 0 0;padding-top:14px;border-top:1px solid var(--bd)}
+.bigcredit{text-align:center;margin:26px 0 20px;animation:up .8s both}
+.bigcredit small{display:block;color:var(--mut);font:12px "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase}
+.bigcredit b{display:block;font:400 clamp(22px,6.5vw,36px)/1.3 Audiowide,"Segoe UI Symbol",sans-serif;letter-spacing:.02em;filter:drop-shadow(0 0 14px rgba(255,79,163,.5))}
+.minicredit{font-size:11px;color:var(--mut)}
+#app{max-width:980px;margin:0 auto;padding:0 14px}
+nav{display:flex;align-items:center;gap:10px;padding:14px 2px;position:relative}
+nav .brand{flex:1;display:flex;align-items:center;gap:10px}
+nav .logo{width:38px;height:38px;border-radius:11px;animation:none}
+nav b{font-size:19px;display:block;line-height:1.1}
+#av{width:42px;height:42px;border-radius:50%;padding:0;border:2px solid var(--ac);overflow:hidden}
+#av img{width:100%;height:100%;display:block}
+#menu{position:absolute;right:2px;top:64px;z-index:20;padding:6px;display:flex;flex-direction:column;gap:4px;min-width:150px;animation:pop .2s both}
+.hero{padding:22px;margin:6px 0 14px;background:linear-gradient(135deg,rgba(255,79,163,.2),rgba(168,85,247,.14))}
+.hero .mono{font-size:12px;letter-spacing:.2em;color:var(--ac2)}
+.hero h2{margin:6px 0 2px;font-size:26px}
+.hero p{margin:0 0 16px;color:var(--mut)}
+.hero button{width:100%}
+#stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.tile{display:flex;gap:12px;align-items:center;padding:14px;animation:up .6s both}
+.tile i{font-style:normal;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(255,79,163,.15);border:1px solid var(--bd);font-size:20px}
+.tile b{display:block;font-size:26px;line-height:1.1}
+.tile span{font:11px "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--mut);text-transform:uppercase}
+.filters{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+#chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+#chips button{border-radius:99px;padding:5px 14px;font-size:13px}
+#chips button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.sec{display:flex;justify-content:space-between;font:600 12px "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin:6px 2px 10px}
+#rlist{display:grid;gap:10px}
+.rc{display:flex;gap:14px;padding:16px;cursor:pointer;animation:up .5s both;transition:.25s}
+.rc:hover{border-color:var(--ac);transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,79,163,.2)}
+.rc .ic{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.06);display:grid;place-items:center;font-size:22px;flex:none}
+.rc b{font-size:17px;word-break:break-all}
+.pill{font:11px "JetBrains Mono",monospace;padding:2px 10px;border-radius:99px;border:1px solid var(--bd);margin-left:8px;vertical-align:middle}
+.pill.pu{color:var(--ok)}.pill.pr{color:#fbbf24}.pill.fk{color:var(--ac2)}
+.meta{color:var(--mut);font-size:13px;display:flex;gap:12px;flex-wrap:wrap;margin-top:3px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:var(--ac)}
+.rh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 12px}
+.rh h2{margin:0;font-size:20px;flex:1;min-width:140px;word-break:break-all}
+.crumb{margin-bottom:10px;font-weight:500}
+.crumb span{cursor:pointer;color:var(--ac2)}
+.list{border:1px solid var(--bd);border-radius:16px;overflow:hidden;background:var(--card)}
+.list.drag{border-color:var(--ac);background:rgba(255,79,163,.12)}
+.row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bd);animation:up .4s both}
 .row:last-child{border:0}
 .row .nm{flex:1;cursor:pointer;word-break:break-all}
-.row .nm:hover{color:var(--ac)}
+.row .nm:hover{color:var(--ac2)}
 .row small{color:var(--mut)}
-.empty{padding:28px;text-align:center;color:var(--mut)}
-#status{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:8px;max-width:90vw}
-#status.err{background:var(--dng);color:#fff}
-#editor{position:fixed;inset:0;background:var(--bg);padding:16px;display:flex;flex-direction:column;gap:10px;z-index:5}
-#editor textarea{flex:1;font:13px/1.5 ui-monospace,Consolas,monospace;resize:none;white-space:pre}
-.err-t{color:var(--dng)}
-.credit{color:var(--mut);font-size:13px;text-align:center;margin-top:18px}
-@media(max-width:720px){#app{grid-template-columns:1fr}aside{position:static;max-height:220px;border-right:0;border-bottom:1px solid var(--bd)}}
+.row input{width:18px;height:18px;accent-color:var(--ac)}
+.empty{padding:30px;text-align:center;color:var(--mut)}
+#selbar{position:sticky;top:6px;z-index:8;display:flex;gap:8px;align-items:center;padding:10px 14px;margin-bottom:10px}
+#selbar span{flex:1}
+.modal{position:fixed;inset:0;z-index:30;background:rgba(5,2,10,.72);backdrop-filter:blur(6px);display:grid;place-items:center;padding:14px;overflow:auto}
+.sheet{width:100%;max-width:430px;background:#140a1e;border:1px solid var(--bd);border-radius:22px;animation:pop .25s both}
+.mh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--bd)}
+.mb{padding:16px 20px}
+.mf{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--bd)}
+.mf button{flex:1}
+.x{border:0;background:none;font-size:18px;padding:2px 8px}
+.act{display:flex;gap:14px;align-items:center;width:100%;text-align:left;border:0;background:none;padding:14px 20px;border-radius:0}
+.act:hover{background:rgba(255,79,163,.12);transform:none}
+.drop{border:2px dashed var(--bd);border-radius:16px;padding:26px 14px;text-align:center;cursor:pointer;transition:.2s}
+.drop:hover,.drop.drag{border-color:var(--ac);background:rgba(255,79,163,.1)}
+.drop .ic{font-size:30px;color:var(--ac)}
+.drop small{display:block;color:var(--mut)}
+.ck{display:flex;gap:10px;align-items:center;padding:11px 13px;margin-top:8px;border:1px solid var(--bd);border-radius:12px;font:600 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.ck input{width:18px;height:18px;accent-color:var(--ac)}
+#prog{margin-top:14px}
+#track{height:10px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
+#bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi));background-size:200% 100%;animation:shine 1.5s linear infinite;transition:width .2s}
+#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#2a1238;border:1px solid var(--ac);padding:10px 16px;border-radius:14px;max-width:90vw;z-index:50;animation:pop .2s both}
+#status.err{background:#6b1a2e;border-color:var(--dng)}
+#editor{position:fixed;inset:0;z-index:40;background:#0b0713;padding:16px;display:flex;flex-direction:column;gap:10px}
+#editor textarea{flex:1;font:13px/1.5 "JetBrains Mono",monospace;resize:none;white-space:pre}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+@media(min-width:700px){#stats{grid-template-columns:repeat(5,1fr)}#rlist{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<div class="bg"><svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><defs>
+<radialGradient id="g1"><stop offset="0" stop-color="#ff4fa3" stop-opacity=".55"/><stop offset="1" stop-color="#ff4fa3" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2"><stop offset="0" stop-color="#a855f7" stop-opacity=".5"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/></radialGradient>
+<radialGradient id="g3"><stop offset="0" stop-color="#ff9be0" stop-opacity=".35"/><stop offset="1" stop-color="#ff9be0" stop-opacity="0"/></radialGradient></defs>
+<circle class="b1" cx="120" cy="150" r="340" fill="url(#g1)"/><circle class="b2" cx="700" cy="480" r="360" fill="url(#g2)"/><circle class="b3" cx="260" cy="760" r="300" fill="url(#g3)"/></svg></div>
 
-<section id="login">
-  <h1>github-zip-up</h1>
-  <p>Browse, edit, create and delete files in your GitHub repositories, or upload a ZIP.</p>
-  <label for="tok">GitHub Personal Access Token</label>
-  <input id="tok" type="password" autocomplete="off" placeholder="ghp_… or github_pat_…">
-  <p style="margin:8px 0 14px"><a href="https://github.com/settings/tokens/new?scopes=repo&description=MyGitManager" target="_blank" rel="noopener">Create a token with repo access</a></p>
-  <button class="pri" id="connect">Connect</button>
+<section id="login" class="card">
+  <div class="logo"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ff4fa3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 10 6 24l8 14M34 10l8 14-8 14"/><circle cx="24" cy="23" r="6" fill="#ff9be0" stroke="none"/><path d="M20 31v6M24 31v7M28 31v6" stroke="#ff9be0"/></svg></div>
+  <h1 class="disp grad">github-zip-up</h1>
+  <p class="mono" style="color:var(--mut);font-size:13px;margin:0">GitHub Repository Manager</p>
+  <div class="tl"><label class="l" for="tok">GitHub Personal Access Token</label>
+  <input id="tok" type="password" autocomplete="off" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+  <p style="text-align:right;margin:6px 0 14px"><a class="mono" style="font-size:13px" href="https://github.com/settings/tokens/new?scopes=repo&description=github-zip-up" target="_blank" rel="noopener">→ Create a new Token here ↗</a></p></div>
+  <button class="pri" id="connect" style="width:100%;padding:12px">⚡ Connect to GitHub</button>
   <p id="lerr" class="err-t"></p>
-  <div class="credit">Made by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</div>
+  <div class="steps mono"><b style="letter-spacing:.12em">HOW TO GET A TOKEN?</b><br>1. Click the link above<br>2. repo scope will be pre-selected<br>3. Click "Generate token" → Copy → Paste here<br><span style="color:#fbbf24">⚠ Your token is never stored, it only lives in your session</span></div>
+  <div class="bigcredit"><small>Made by</small><b class="grad">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></div>
 </section>
 
 <div id="app" class="hide">
-  <aside>
-    <h2 id="who">Repositories</h2>
-    <input id="rq" type="text" placeholder="Search repositories" style="margin-bottom:8px">
-    <div id="repos"></div>
-    <p><button id="logout">Log out</button></p>
-    <div class="credit">Made by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</div>
-  </aside>
-  <main>
-    <div class="bar">
-      <div class="crumb" id="crumb">Select a repository</div>
-      <button id="newf" class="hide">New file</button>
-      <button id="zipb" class="hide">Upload ZIP</button>
-      <input type="file" id="zipin" accept=".zip" class="hide">
-    </div>
-    <div class="list" id="files"><div class="empty">Choose a repository on the left to start.</div></div>
-  </main>
+  <nav>
+    <div class="brand"><div class="logo"><svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#ff4fa3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 10 6 24l8 14M34 10l8 14-8 14"/><circle cx="24" cy="23" r="5" fill="#ff9be0" stroke="none"/></svg></div>
+      <div><b class="disp grad">github-zip-up</b><span class="minicredit">by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</span></div></div>
+    <button id="av"><img id="avi" alt=""></button>
+    <div id="menu" class="card hide"><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
+  </nav>
+
+  <div id="vDash">
+    <div class="hero card"><div class="mono">● DASHBOARD</div><h2 id="hello"></h2><p id="sub" class="mono" style="font-size:13px"></p><button class="pri" id="nrb">＋ New Repository</button></div>
+    <div id="stats"></div>
+    <input id="rq" type="text" placeholder="🔍 Search repositories...">
+    <div class="filters"><select id="fv"><option value="all">All visibility</option><option value="pub">Public</option><option value="pri">Private</option><option value="fork">Forked</option></select><select id="fl"></select><select id="fs"><option value="upd">Recently updated</option><option value="name">Name A–Z</option><option value="star">Most stars</option></select></div>
+    <div id="chips"></div>
+    <div class="sec"><span>Repositories</span><span id="cnt"></span></div>
+    <div id="rlist"></div>
+  </div>
+
+  <div id="vRepo" class="hide">
+    <div class="rh"><button id="back">← Back</button><h2 class="disp" id="rname"></h2><button class="pri" id="actb">⋯ Actions</button></div>
+    <div class="crumb mono" id="crumb"></div>
+    <div id="selbar" class="card hide"><span id="selc"></span><button class="dng" id="seld">Delete</button><button id="selx">Done</button></div>
+    <div class="list" id="files"></div>
+    <p class="empty" style="padding:10px;font-size:13px">Tip: drag and drop files or a ZIP onto the list.</p>
+  </div>
+
+  <div class="bigcredit"><small>Made by</small><b class="grad">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></div>
 </div>
+
+<div class="modal hide" id="mAct"><div class="sheet"><div class="mh"><b>Actions</b><button class="x" data-close>✕</button></div>
+  <button class="act" data-a="zip"><span>⬆</span>Upload ZIP</button><button class="act" data-a="file"><span>📄</span>Upload File</button><button class="act" data-a="new"><span>＋</span>New File / Folder</button><button class="act" data-a="sel"><span>☑</span>Select</button><button class="act" data-a="all"><span>☑</span>Select All</button></div></div>
+
+<div class="modal hide" id="mUp"><div class="sheet"><div class="mh"><b id="upT">Upload ZIP</b><button class="x" data-close>✕</button></div>
+  <div class="mb"><div class="drop" id="drop"><div class="ic">⬆</div><b id="dropT">Tap to select ZIP file</b><small>drag &amp; drop also works</small></div>
+  <input type="file" id="fz" accept=".zip" class="hide"><input type="file" id="ff" multiple class="hide">
+  <label class="l">Target path (optional)</label><input id="upPath" type="text" placeholder="src/components (empty = root)">
+  <label class="l">Commit message</label><input id="upMsg" type="text" value="Upload via github-zip-up">
+  <label class="ck zo"><input type="checkbox" id="oStrip"> Strip root folder</label>
+  <label class="ck zo"><input type="checkbox" id="oSys" checked> Skip system folders (node_modules, __MACOSX)</label>
+  <label class="ck"><input type="checkbox" id="oOver" checked> Overwrite existing</label>
+  <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:12px"></div><div id="track"><div id="bar"></div></div></div></div>
+  <div class="mf"><button id="upCancel">Cancel</button><button class="pri" id="upGo">Push to GitHub</button></div></div></div>
+
+<div class="modal hide" id="mNr"><div class="sheet"><div class="mh"><b>New Repository</b><button class="x" data-close>✕</button></div>
+  <div class="mb"><label class="l">Repository name</label><input id="nrn" type="text" placeholder="my-project"><label class="ck"><input type="checkbox" id="nrp"> Private</label><p id="nre" class="err-t"></p></div>
+  <div class="mf"><button data-close>Cancel</button><button class="pri" id="nrgo">Create</button></div></div></div>
 
 <div id="editor" class="hide">
   <input type="text" id="epath" placeholder="folder/file.txt">
   <textarea id="etext" spellcheck="false"></textarea>
-  <div class="bar">
-    <button class="pri" id="esave">Save to GitHub</button>
-    <button id="ecancel">Close</button>
-    <span id="emsg" class="err-t"></span>
-  </div>
+  <div class="bar"><button class="pri" id="esave">Save to GitHub</button><button id="efold" class="hide">Create as folder</button><button id="ecancel">Close</button><span id="emsg" class="err-t"></span></div>
 </div>
-
 <div id="status" class="hide"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
-/* ===== Core: GitHub API helper — সব API কল এখান দিয়ে যায় ===== */
+/* ===== Core: সব GitHub API কল gh() দিয়ে যায় ===== */
 const API = 'https://api.github.com';
-let token = '', me = null, allRepos = [], repo = null, branch = '', path = '', editSha = null;
+let token = '', me = null, allRepos = [], repo = null, branch = '', path = '', cur = [], sel = new Set(), selMode = false, editSha = null, busy = false, cancel = false, pend = null, upMode = 'zip';
 const $ = id => document.getElementById(id);
-
-async function gh(url, opt = {}) {
-  const r = await fetch(url.startsWith('http') ? url : API + url, {
-    ...opt,
-    headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' }
-  });
-  if (!r.ok) {
-    const e = await r.json().catch(() => ({}));
-    throw new Error(e.message || 'Request failed (' + r.status + ')');
-  }
-  return r.status === 204 ? null : r.json();
-}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const cp = p => p.split('/').map(encodeURIComponent).join('/');
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 const enc = s => { let x = ''; new TextEncoder().encode(s).forEach(c => x += String.fromCharCode(c)); return btoa(x); };
 const dec = b => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g, '')), c => c.charCodeAt(0)));
-const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const cp = p => p.split('/').map(encodeURIComponent).join('/');
+const b64 = u => { let s = ''; for (let i = 0; i < u.length; i += 32768) s += String.fromCharCode.apply(null, u.subarray(i, i + 32768)); return btoa(s); };
+const show = (id, on = true) => $(id).classList.toggle('hide', !on);
+const LC = { HTML: '#e34c26', JavaScript: '#f1e05a', TypeScript: '#3178c6', Python: '#3572a5', CSS: '#a855f7', Java: '#b07219', PHP: '#4f5d95', Shell: '#89e051' };
 
-let st;
-function say(msg, bad) {
-  const s = $('status'); s.textContent = msg; s.className = bad ? 'err' : '';
-  clearTimeout(st); if (!bad || msg) st = setTimeout(() => s.classList.add('hide'), bad ? 6000 : 2500);
+async function gh(url, opt = {}) {
+  const r = await fetch(url.startsWith('http') ? url : API + url, { ...opt, headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' } });
+  if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error(e.message || 'Request failed (' + r.status + ')'); }
+  return r.status === 204 ? null : r.json();
 }
+let st;
+function say(m, bad) { const s = $('status'); s.textContent = m; s.className = bad ? 'err' : ''; clearTimeout(st); st = setTimeout(() => show('status', false), bad ? 7000 : 3000); }
 
 /* ===== Login ===== */
 async function connect(t) {
-  token = t.trim();
-  $('lerr').textContent = '';
+  token = t.trim(); $('lerr').textContent = '';
   try {
     me = await gh('/user');
     try { sessionStorage.setItem('gm_token', token); } catch (e) {}
-    $('login').classList.add('hide'); $('app').classList.remove('hide');
-    $('who').textContent = me.login;
+    show('login', false); show('app'); $('avi').src = me.avatar_url;
     await loadRepos();
   } catch (e) { token = ''; $('lerr').textContent = 'Could not sign in: ' + e.message; }
 }
 $('connect').onclick = () => connect($('tok').value);
 $('tok').onkeydown = e => { if (e.key === 'Enter') connect($('tok').value); };
 $('logout').onclick = () => { try { sessionStorage.removeItem('gm_token'); } catch (e) {} location.reload(); };
+$('refresh').onclick = () => { show('menu', false); loadRepos(); };
+$('av').onclick = e => { e.stopPropagation(); $('menu').classList.toggle('hide'); };
+addEventListener('click', () => show('menu', false));
 
-/* ===== Repositories ===== */
+/* ===== Dashboard ===== */
 async function loadRepos() {
-  allRepos = await gh('/user/repos?per_page=100&sort=updated');
+  allRepos = [];
+  for (let p = 1; p <= 5; p++) { const r = await gh(`/user/repos?per_page=100&sort=updated&page=${p}`); allRepos.push(...r); if (r.length < 100) break; }
+  const R = allRepos, n = f => R.filter(f).length, sum = k => R.reduce((a, r) => a + r[k], 0);
+  $('hello').innerHTML = `Welcome back, <span class="grad">@${esc(me.login)}</span>`;
+  $('sub').textContent = `${R.length} repositories · ${n(r => r.private)} private · ${n(r => !r.private)} public`;
+  $('stats').innerHTML = [['📁', R.length, 'Total repos'], ['🔒', n(r => r.private), 'Private'], ['🌐', n(r => !r.private), 'Public'], ['⭐', sum('stargazers_count'), 'Total stars'], ['🍴', sum('forks_count'), 'Forks']]
+    .map((t, i) => `<div class="tile card" style="animation-delay:${i * 70}ms"><i>${t[0]}</i><div><b>${t[1]}</b><span>${t[2]}</span></div></div>`).join('');
+  const langs = [...new Set(R.map(r => r.language).filter(Boolean))].sort();
+  $('fl').innerHTML = '<option value="">All languages</option>' + langs.map(l => `<option>${esc(l)}</option>`).join('');
   drawRepos();
 }
 function drawRepos() {
-  const q = $('rq').value.toLowerCase();
-  $('repos').innerHTML = allRepos.filter(r => r.full_name.toLowerCase().includes(q))
-    .map(r => `<button class="repo ${repo === r.full_name ? 'on' : ''}" data-r="${esc(r.full_name)}" data-b="${esc(r.default_branch)}">${esc(r.name)}</button>`).join('')
-    || '<div class="empty">No repositories found</div>';
+  const q = $('rq').value.toLowerCase(), v = $('fv').value, lg = $('fl').value, s = $('fs').value;
+  const ok = r => (v === 'all' || (v === 'pub' && !r.private) || (v === 'pri' && r.private) || (v === 'fork' && r.fork)) && (!lg || r.language === lg) && r.full_name.toLowerCase().includes(q);
+  const L = allRepos.filter(ok).sort((a, b) => s === 'name' ? a.name.localeCompare(b.name) : s === 'star' ? b.stargazers_count - a.stargazers_count : new Date(b.pushed_at || b.updated_at) - new Date(a.pushed_at || a.updated_at));
+  $('chips').innerHTML = ['', ...new Set(allRepos.map(r => r.language).filter(Boolean))].map(l => `<button data-l="${esc(l)}" class="${l === lg ? 'on' : ''}">${l ? '<span class="dot" style="background:' + (LC[l] || '#ff4fa3') + '"></span>' + esc(l) : 'All'}</button>`).join('');
+  $('cnt').textContent = L.length + ' repos';
+  $('rlist').innerHTML = L.map((r, i) => `<div class="rc card" data-r="${esc(r.full_name)}" style="animation-delay:${Math.min(i, 10) * 50}ms"><div class="ic">${r.private ? '🔒' : '📘'}</div><div style="min-width:0">
+    <b>${esc(r.name)}</b><span class="pill ${r.private ? 'pr' : 'pu'}">${r.private ? 'Private' : 'Public'}</span>${r.fork ? '<span class="pill fk">Fork</span>' : ''}
+    <div class="meta">${r.language ? `<span><span class="dot" style="background:${LC[r.language] || '#ff4fa3'}"></span>${esc(r.language)}</span>` : (r.description ? `<span>${esc(r.description)}</span>` : '')}<span>⎇ ${esc(r.default_branch)}</span><span>${new Date(r.pushed_at || r.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span><span>⭐ ${r.stargazers_count}</span><span>🍴 ${r.forks_count}</span></div></div></div>`).join('') || '<div class="empty card">No repositories found</div>';
 }
-$('rq').oninput = drawRepos;
-$('repos').onclick = e => {
-  const b = e.target.closest('.repo'); if (!b) return;
-  repo = b.dataset.r; branch = b.dataset.b; path = '';
-  ['newf', 'zipb'].forEach(i => $(i).classList.remove('hide'));
-  drawRepos(); loadDir();
+['rq', 'fv', 'fl', 'fs'].forEach(i => $(i).oninput = drawRepos);
+$('chips').onclick = e => { const b = e.target.closest('button'); if (b) { $('fl').value = b.dataset.l; drawRepos(); } };
+$('rlist').onclick = e => { const c = e.target.closest('.rc'); if (c) openRepo(c.dataset.r); };
+
+/* ===== New repository (auto README so it is never empty) ===== */
+$('nrb').onclick = () => { $('nre').textContent = ''; $('nrn').value = ''; show('mNr'); };
+$('nrgo').onclick = async () => {
+  const name = $('nrn').value.trim(); if (!name) return ($('nre').textContent = 'Enter a name');
+  try { await gh('/user/repos', { method: 'POST', body: JSON.stringify({ name, private: $('nrp').checked, auto_init: true }) }); show('mNr', false); say('Repository created'); loadRepos(); }
+  catch (e) { $('nre').textContent = e.message; }
 };
 
-/* ===== File browser ===== */
+/* ===== Repo view ===== */
+function openRepo(full) {
+  const r = allRepos.find(x => x.full_name === full); repo = full; branch = r.default_branch; path = '';
+  $('rname').textContent = r.name; endSel(); show('vDash', false); show('vRepo'); scrollTo(0, 0); loadDir();
+}
+$('back').onclick = () => { repo = null; show('vRepo', false); show('vDash'); };
 async function loadDir() {
-  drawCrumb();
-  $('files').innerHTML = '<div class="empty">Loading…</div>';
+  drawCrumb(); $('files').innerHTML = '<div class="empty">Loading…</div>';
   try {
     let items = await gh(`/repos/${repo}/contents/${cp(path)}?ref=${encodeURIComponent(branch)}`);
     if (!Array.isArray(items)) items = [items];
     items.sort((a, b) => (a.type === 'dir' ? 0 : 1) - (b.type === 'dir' ? 0 : 1) || a.name.localeCompare(b.name));
-    $('files').innerHTML = (path ? '<div class="row"><span class="nm" data-up="1">⬆ ..</span></div>' : '') +
-      (items.map(i => `<div class="row">
-        <span class="nm" data-t="${i.type}" data-p="${esc(i.path)}">${i.type === 'dir' ? '📁' : '📄'} ${esc(i.name)}</span>
-        <small>${i.type === 'file' ? (i.size / 1024).toFixed(1) + ' KB' : ''}</small>
-        <button class="dng" data-del="${esc(i.path)}" data-sha="${i.sha}" data-t="${i.type}">Delete</button></div>`).join('')
-      || '<div class="empty">This folder is empty. Create a file or upload a ZIP.</div>');
-  } catch (e) {
-    $('files').innerHTML = `<div class="empty">${e.message === 'This repository is empty.' ? 'This repository is empty. Create a file to start.' : esc(e.message)}</div>`;
-  }
+    cur = items; drawFiles();
+  } catch (e) { cur = []; $('files').innerHTML = `<div class="empty">${/empty/i.test(e.message) ? 'This repository is empty. Create a file first.' : esc(e.message)}</div>`; }
+}
+function drawFiles() {
+  $('files').innerHTML = (path ? '<div class="row"><span class="nm" data-up="1">⬆ ..</span></div>' : '') + (cur.map((i, k) => `<div class="row" style="animation-delay:${Math.min(k, 12) * 30}ms">
+    ${selMode ? `<input type="checkbox" data-s="${esc(i.path)}" ${sel.has(i.path) ? 'checked' : ''}>` : ''}
+    <span class="nm" data-t="${i.type}" data-p="${esc(i.path)}">${i.type === 'dir' ? '📁' : '📄'} ${esc(i.name)}</span>
+    <small>${i.type === 'file' ? (i.size / 1024).toFixed(1) + ' KB' : ''}</small>
+    ${selMode ? '' : `<button class="dng" data-del="${esc(i.path)}">🗑</button>`}</div>`).join('') || '<div class="empty">Empty folder. Open Actions to upload.</div>');
+  $('selc').textContent = sel.size + ' selected';
 }
 function drawCrumb() {
   const parts = path ? path.split('/') : [];
-  $('crumb').innerHTML = `<span data-c="">${esc(repo)}</span>` + parts.map((p, i) => ` / <span data-c="${esc(parts.slice(0, i + 1).join('/'))}">${esc(p)}</span>`).join('') + ` <small style="color:var(--mut)">(${esc(branch)})</small>`;
+  $('crumb').innerHTML = `<span data-c="">${esc(repo)}</span>` + parts.map((p, i) => ` / <span data-c="${esc(parts.slice(0, i + 1).join('/'))}">${esc(p)}</span>`).join('') + ` <small style="color:var(--mut)">⎇ ${esc(branch)}</small>`;
 }
 $('crumb').onclick = e => { const c = e.target.closest('[data-c]'); if (c) { path = c.dataset.c; loadDir(); } };
-$('files').onclick = async e => {
+$('files').onclick = e => {
   const n = e.target.closest('.nm');
   if (n && n.dataset.up) { path = path.split('/').slice(0, -1).join('/'); return loadDir(); }
-  if (n) { if (n.dataset.t === 'dir') { path = n.dataset.p; return loadDir(); } return openFile(n.dataset.p); }
-  const d = e.target.closest('[data-del]');
-  if (d) await removeItem(d.dataset.del, d.dataset.sha, d.dataset.t);
+  const ck = e.target.closest('[data-s]');
+  if (ck) { ck.checked ? sel.add(ck.dataset.s) : sel.delete(ck.dataset.s); return ($('selc').textContent = sel.size + ' selected'); }
+  if (n) { if (selMode) return; if (n.dataset.t === 'dir') { path = n.dataset.p; return loadDir(); } return openFile(n.dataset.p); }
+  const d = e.target.closest('[data-del]'); if (d) removeMany([d.dataset.del]);
 };
 
-/* ===== Delete — ফোল্ডার ডিলিট করলে ভেতরের সব ফাইল মুছে যাবে ===== */
-async function removeItem(p, sha, type) {
-  if (!confirm(`Delete ${p}${type === 'dir' ? ' and everything inside it' : ''}? This creates a commit and cannot be undone here.`)) return;
+/* ===== Select / delete many in ONE commit ===== */
+function startSel(all) { selMode = true; sel = new Set(all ? cur.map(i => i.path) : []); show('selbar'); drawFiles(); }
+function endSel() { selMode = false; sel = new Set(); show('selbar', false); if (repo) drawFiles(); }
+$('selx').onclick = endSel;
+$('seld').onclick = () => sel.size ? removeMany([...sel]) : say('Select something first', true);
+async function removeMany(paths) {
+  if (!confirm(`Delete ${paths.length} item(s)? Folders are deleted with everything inside.`)) return;
   try {
-    if (type === 'dir') {
-      const tree = await gh(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`);
-      const gone = tree.tree.filter(t => t.type === 'blob' && t.path.startsWith(p + '/'));
-      await commitTree(gone.map(t => ({ path: t.path, mode: '100644', type: 'blob', sha: null })), `Delete ${p}`);
-    } else {
-      await gh(`/repos/${repo}/contents/${cp(p)}`, { method: 'DELETE', body: JSON.stringify({ message: `Delete ${p}`, sha, branch }) });
-    }
-    say('Deleted ' + p); loadDir();
+    const tree = await gh(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`), ents = [];
+    tree.tree.filter(t => t.type === 'blob').forEach(t => { if (paths.some(p => t.path === p || t.path.startsWith(p + '/'))) ents.push({ path: t.path, mode: '100644', type: 'blob', sha: null }); });
+    await commitTree(ents, `Delete ${paths.length} item(s)`); say('Deleted'); endSel(); loadDir();
   } catch (e) { say(e.message, true); }
 }
 
-/* ===== Editor: open / create / save ===== */
+/* ===== Actions menu ===== */
+$('actb').onclick = () => show('mAct');
+document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('.modal').classList.add('hide'));
+$('mAct').onclick = e => {
+  const a = e.target.closest('[data-a]'); if (!a) return; show('mAct', false);
+  const k = a.dataset.a;
+  if (k === 'zip' || k === 'file') openUp(k); else if (k === 'new') showEditor(path ? path + '/' : '', '', null); else startSel(k === 'all');
+};
+
+/* ===== Editor ===== */
 async function openFile(p) {
   try {
     const f = await gh(`/repos/${repo}/contents/${cp(p)}?ref=${encodeURIComponent(branch)}`);
     const text = f.content ? dec(f.content) : '';
-    if (text.includes('\u0000')) return say('Binary file: it cannot be edited here.', true);
+    if (text.includes('\u0000')) return say('Binary file (image etc.): it cannot be edited here.', true);
     showEditor(p, text, f.sha);
   } catch (e) { say(e.message, true); }
 }
-function showEditor(p, text, sha) {
-  editSha = sha; $('epath').value = p; $('epath').disabled = !!sha; $('etext').value = text;
-  $('emsg').textContent = ''; $('editor').classList.remove('hide');
+function showEditor(p, text, sha) { editSha = sha; $('epath').value = p; $('epath').disabled = !!sha; $('etext').value = text; $('emsg').textContent = ''; show('efold', !sha); show('editor'); }
+$('ecancel').onclick = () => show('editor', false);
+async function put(p, content, sha, msg) {
+  const body = { message: msg, content: enc(content), branch }; if (sha) body.sha = sha;
+  await gh(`/repos/${repo}/contents/${cp(p)}`, { method: 'PUT', body: JSON.stringify(body) });
 }
-$('newf').onclick = () => showEditor(path ? path + '/' : '', '', null);
-$('ecancel').onclick = () => $('editor').classList.add('hide');
 $('esave').onclick = async () => {
-  const p = $('epath').value.trim().replace(/^\/+/, '');
-  if (!p || p.endsWith('/')) return ($('emsg').textContent = 'Enter a file name.');
-  try {
-    const body = { message: (editSha ? 'Update ' : 'Create ') + p, content: enc($('etext').value), branch };
-    if (editSha) body.sha = editSha;
-    await gh(`/repos/${repo}/contents/${cp(p)}`, { method: 'PUT', body: JSON.stringify(body) });
-    $('editor').classList.add('hide'); say('Saved ' + p); loadDir();
-  } catch (e) { $('emsg').textContent = e.message; }
+  const p = $('epath').value.trim().replace(/^\/+/, ''); if (!p || p.endsWith('/')) return ($('emsg').textContent = 'Enter a file name.');
+  try { await put(p, $('etext').value, editSha, (editSha ? 'Update ' : 'Create ') + p); show('editor', false); say('Saved ' + p); loadDir(); } catch (e) { $('emsg').textContent = e.message; }
+};
+$('efold').onclick = async () => {
+  const p = $('epath').value.trim().replace(/^\/+|\/+$/g, ''); if (!p) return ($('emsg').textContent = 'Enter a folder name.');
+  try { await put(p + '/.gitkeep', '', null, 'Create folder ' + p); show('editor', false); say('Folder created'); loadDir(); } catch (e) { $('emsg').textContent = e.message; }
 };
 
-/* ===== Many files in ONE commit (Git Data API) ===== */
+/* ===== One commit for many files ===== */
 async function commitTree(entries, message) {
   const ref = await gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
   const base = await gh(`/repos/${repo}/git/commits/${ref.object.sha}`);
@@ -236,33 +363,93 @@ async function commitTree(entries, message) {
   await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
 }
 
-/* ===== ZIP upload ===== */
-$('zipb').onclick = () => $('zipin').click();
-$('zipin').onchange = async e => {
-  const file = e.target.files[0]; e.target.value = ''; if (!file) return;
-  try {
-    const zip = await JSZip.loadAsync(file);
-    let names = Object.keys(zip.files).filter(n => !zip.files[n].dir && !n.startsWith('__MACOSX/'));
-    const roots = new Set(names.map(n => n.split('/')[0]));
-    const strip = roots.size === 1 && names.every(n => n.includes('/')) && confirm(`Remove the top folder "${[...roots][0]}" so files go straight into the current folder?`);
-    if (!confirm(`Upload ${names.length} files to ${repo}/${path} as one commit?`)) return;
-    const entries = [];
-    for (let i = 0; i < names.length; i++) {
-      say(`Uploading ${i + 1} / ${names.length}…`);
-      const b64 = await zip.files[names[i]].async('base64');
-      const blob = await gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64, encoding: 'base64' }) });
-      const rel = strip ? names[i].split('/').slice(1).join('/') : names[i];
-      entries.push({ path: (path ? path + '/' : '') + rel, mode: '100644', type: 'blob', sha: blob.sha });
+/* ===== Fast resumable upload: 5 parallel, auto retry, skips identical files ===== */
+async function retry(fn) {
+  for (let i = 0; ; i++) {
+    try { return await fn(); } catch (e) {
+      if (/Bad credentials|Not Found|Validation|too large/i.test(e.message) || i >= 5 || cancel) throw e;
+      if (!navigator.onLine) await new Promise(r => addEventListener('online', r, { once: true }));
+      await sleep(1000 * 2 ** i);
     }
-    await commitTree(entries, `Upload ${file.name}`);
-    say('ZIP uploaded: ' + names.length + ' files'); loadDir();
-  } catch (e) { say(e.message, true); }
+  }
+}
+async function gitSha(u) {
+  const h = new TextEncoder().encode('blob ' + u.length + '\0'), m = new Uint8Array(h.length + u.length); m.set(h); m.set(u, h.length);
+  return [...new Uint8Array(await crypto.subtle.digest('SHA-1', m))].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+function prog(p, t) { $('bar').style.width = p + '%'; $('ptxt').textContent = t; }
+async function upload(items, o) {
+  busy = true; cancel = false; show('prog'); $('upGo').disabled = true; $('upCancel').textContent = 'Stop';
+  const pre = o.tp ? o.tp + '/' : '';
+  try {
+    prog(0, 'Checking existing files…');
+    const have = {};
+    try { (await retry(() => gh(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`))).tree.forEach(t => have[t.path] = t.sha); } catch (e) {}
+    const ents = [], n = items.length; let i = 0, done = 0, skip = 0;
+    const work = async () => {
+      while (i < n && !cancel) {
+        const it = items[i++], p = pre + it.name;
+        try {
+          const u = await it.get();
+          if (u.length > 1e8) say(p + ' is over 100 MB: skipped', true);
+          else if (have[p] && (!o.over || have[p] === await gitSha(u))) skip++;
+          else { const b = await retry(() => gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64(u), encoding: 'base64' }) })); ents.push({ path: p, mode: '100644', type: 'blob', sha: b.sha }); }
+        } catch (e) { i = n; throw e; }
+        done++; prog(done / n * 100, `${done} / ${n} files (${Math.round(done / n * 100)}%)` + (skip ? ` · ${skip} skipped` : ''));
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(5, n) }, work));
+    if (cancel) say('Upload stopped. Nothing was committed.', true);
+    else if (!ents.length) say('Nothing new: everything is already there');
+    else { prog(100, 'Saving commit…'); await retry(() => commitTree(ents, o.msg)); say(`Uploaded ${ents.length} files` + (skip ? `, ${skip} skipped` : '')); }
+  } catch (e) { say(/empty/i.test(e.message) ? 'Repository is empty: create a file first.' : e.message, true); }
+  busy = false; $('upGo').disabled = false; $('upCancel').textContent = 'Cancel'; show('prog', false); show('mUp', false); pend = null; loadDir();
+}
+
+/* ===== Upload modal ===== */
+function openUp(mode) {
+  upMode = mode; pend = null; $('upT').textContent = mode === 'zip' ? 'Upload ZIP' : 'Upload Files';
+  $('dropT').textContent = mode === 'zip' ? 'Tap to select ZIP file' : 'Tap to select files (png, svg, any file)';
+  document.querySelectorAll('.zo').forEach(e => e.classList.toggle('hide', mode !== 'zip'));
+  $('upPath').value = path; show('prog', false); show('mUp');
+}
+$('drop').onclick = () => $(upMode === 'zip' ? 'fz' : 'ff').click();
+$('drop').ondragover = e => { e.preventDefault(); $('drop').classList.add('drag'); };
+$('drop').ondragleave = () => $('drop').classList.remove('drag');
+$('drop').ondrop = e => { e.preventDefault(); $('drop').classList.remove('drag'); pick([...e.dataTransfer.files]); };
+$('fz').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
+$('ff').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
+async function pick(fs) {
+  if (!fs.length) return;
+  try {
+    if (upMode === 'zip') { const z = await JSZip.loadAsync(fs[0]); pend = { zip: z }; $('dropT').textContent = `${fs[0].name} · ${Object.keys(z.files).filter(n => !z.files[n].dir).length} files`; }
+    else { pend = { files: fs }; $('dropT').textContent = fs.length + ' file(s) selected'; }
+  } catch (e) { say('Could not read this file: ' + e.message, true); }
+}
+$('upCancel').onclick = () => busy ? (cancel = true) : show('mUp', false);
+$('upGo').onclick = () => {
+  if (!pend) return say('Select a file first', true);
+  const o = { over: $('oOver').checked, msg: $('upMsg').value || 'Upload', tp: $('upPath').value.trim().replace(/^\/+|\/+$/g, '') };
+  let items;
+  if (pend.zip) {
+    const z = pend.zip; let names = Object.keys(z.files).filter(n => !z.files[n].dir);
+    if ($('oSys').checked) names = names.filter(n => !/(^|\/)(node_modules|__MACOSX|\.git)\//.test(n) && !/\.DS_Store$/.test(n));
+    const roots = new Set(names.map(n => n.split('/')[0])), strip = $('oStrip').checked && roots.size === 1 && names.every(n => n.includes('/'));
+    items = names.map(n => ({ name: strip ? n.split('/').slice(1).join('/') : n, get: () => z.files[n].async('uint8array') }));
+  } else items = pend.files.map(f => ({ name: f.name, get: async () => new Uint8Array(await f.arrayBuffer()) }));
+  if (!items.length) return say('No files to upload', true);
+  upload(items, o);
 };
+/* Drop files straight onto the file list */
+const fl = $('files');
+fl.ondragover = e => { e.preventDefault(); fl.classList.add('drag'); };
+fl.ondragleave = () => fl.classList.remove('drag');
+fl.ondrop = async e => { e.preventDefault(); fl.classList.remove('drag'); const fs = [...e.dataTransfer.files]; if (!fs.length) return; openUp(fs.length === 1 && /\.zip$/i.test(fs[0].name) ? 'zip' : 'file'); pick(fs); };
+addEventListener('beforeunload', e => { if (busy) { e.preventDefault(); e.returnValue = ''; } });
 
-/* ===== Start: আগের সেশনের টোকেন থাকলে অটো লগইন ===== */
+/* ===== Start ===== */
 try { const t = sessionStorage.getItem('gm_token'); if (t) connect(t); } catch (e) {}
-
-/* নতুন ফিচার যোগ করতে: উপরের মতো gh('/repos/...') কল লিখুন, তারপর একটা বাটন বা ক্লিক হ্যান্ডলারে জুড়ে দিন। */
+/* নতুন ফিচার: gh('/repos/...') কল লিখে একটা বাটনের সাথে জুড়ুন। */
 </script>
 </body>
-</html>
+      </html>
