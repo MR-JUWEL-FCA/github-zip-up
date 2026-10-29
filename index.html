@@ -4,8 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>github-zip-up</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff4fa3">
+<link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--fg:#fff2fb;--mut:#c4a6bd;--card:rgba(255,255,255,.06);--ac:#ff4fa3;--ac2:#ff9be0;--vi:#a855f7;--dng:#ff6b81;--ok:#5eead4;--bd:color-mix(in srgb,var(--ac) 28%,transparent)}
 html[data-t=aurora]{--ac:#22d3ee;--ac2:#5eead4;--vi:#8b5cf6}
@@ -13,7 +16,7 @@ html[data-t=sunset]{--ac:#fb923c;--ac2:#fde047;--vi:#f43f5e}
 html[data-t=ocean]{--ac:#3b82f6;--ac2:#67e8f9;--vi:#06b6d4}
 html[data-t=lime]{--ac:#84cc16;--ac2:#bef264;--vi:#22c55e}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font:15px/1.55 Outfit,"Segoe UI",system-ui,sans-serif;color:var(--fg);background:#09050f;overflow-x:hidden}
+body{margin:0;min-height:100vh;font:15px/1.55 Outfit,"Hind Siliguri","Segoe UI",system-ui,sans-serif;color:var(--fg);background:#09050f;overflow-x:hidden}
 .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/26px 26px}
 .bg svg{width:100%;height:100%}
 .b1{animation:fl 14s ease-in-out infinite}.b2{animation:fl 19s ease-in-out infinite reverse}.b3{animation:fl 23s ease-in-out infinite}
@@ -22,6 +25,7 @@ body{margin:0;min-height:100vh;font:15px/1.55 Outfit,"Segoe UI",system-ui,sans-s
 @keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
 @keyframes shine{to{background-position:200% center}}
 @keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes rev{from{opacity:0;transform:translateY(8px) scale(.8)}to{opacity:1;transform:none}}
 @keyframes hue{to{filter:hue-rotate(360deg)}}
 @keyframes rot{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
 @keyframes draw{from{stroke-dasharray:0 252}}
@@ -40,13 +44,13 @@ select option{background:#1a0f24}
 :focus-visible{outline:2px solid var(--ac2);outline-offset:1px}
 .hide{display:none!important}
 .mono{font-family:"Space Mono",monospace}
-.disp{font-family:Righteous,Outfit,sans-serif}
+.disp{font-family:Righteous,Outfit,"Hind Siliguri",sans-serif}
 .grad{background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:22px;backdrop-filter:blur(12px);animation:up .5s backwards}
 .tilt{transition:transform .15s ease-out,border-color .2s,box-shadow .2s;will-change:transform}
 .err-t{color:var(--dng)}
-.wv{display:inline-block;animation:hue 7s linear infinite}
-.wv span{display:inline-block;animation:wave 2.2s ease-in-out infinite}
+.wv{display:inline-block}
+.wv span{display:inline-block;animation:rev .5s backwards}
 .cur{display:inline-block;width:2px;height:1em;background:var(--ac2);margin-left:3px;vertical-align:-2px;animation:blink 1s infinite}
 .scene{--s:78px;width:var(--s);height:var(--s);perspective:calc(var(--s)*7);margin:6px auto 18px}
 .cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:rot 10s linear infinite}
@@ -167,6 +171,27 @@ nav b{font-size:19px;display:block;line-height:1.1}
 .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .df{margin-bottom:12px}.df pre{overflow:auto;margin:6px 0 0;font:12px/1.5 "Space Mono",monospace;background:rgba(0,0,0,.4);padding:8px;border-radius:10px}
 .df pre span{display:block}.ad{color:#4ade80;background:rgba(74,222,128,.12)}.rm{color:#fb7185;background:rgba(251,113,133,.12)}
+#login{position:relative}
+.lsw{position:absolute;top:12px;right:12px;display:flex;gap:4px}
+.lsw button,.lsw2 button{padding:3px 9px;font-size:12px}
+.lsw2{display:flex;gap:6px;justify-content:center}
+.lsw button.on,.lsw2 button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.about{text-align:left;margin:4px 0 16px;padding:14px;border:1px solid var(--bd);border-radius:16px;background:color-mix(in srgb,var(--ac) 8%,transparent);font-size:14px}
+.about b{font-family:Righteous,sans-serif;color:var(--ac2)}
+.about p{margin:6px 0 8px}
+.about ul{margin:0;padding:0;list-style:none;color:var(--mut)}
+.about li{margin:4px 0}
+#off{background:#5c4100;border:1px solid #fbbf24;border-radius:14px;padding:9px 14px;margin:6px 0 10px;text-align:center}
+#ebody{flex:1;display:flex;gap:10px;min-height:0}
+#ebody>*{flex:1;min-width:0;overflow:auto}
+#ehl,#emd{background:rgba(0,0,0,.38);border:1px solid var(--bd);border-radius:12px;padding:10px 13px;margin:0}
+#ehl{font:13px/1.5 "Space Mono",monospace;white-space:pre}
+#emd h1,#emd h2,#emd h3{color:var(--ac2);margin:.6em 0 .3em}
+#emd code{background:rgba(255,255,255,.1);padding:1px 5px;border-radius:5px;font-family:"Space Mono",monospace}
+#emd pre{background:rgba(0,0,0,.4);padding:10px;border-radius:10px;overflow:auto}
+#emd img{max-width:100%}#emd a{color:var(--ac2)}
+.hc{color:#9b8aa8}.hs{color:#86efac}.ht{color:var(--ac2)}.hk{color:#ff7ab8}.hn{color:#fbbf24}
+.mb textarea{min-height:90px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -178,9 +203,11 @@ nav b{font-size:19px;display:block;line-height:1.1}
 <circle class="b1" cx="120" cy="150" r="340" fill="url(#g1)"/><circle class="b2" cx="700" cy="480" r="360" fill="url(#g2)"/><circle class="b3" cx="260" cy="760" r="300" fill="url(#g3)"/></svg></div>
 
 <section id="login" class="card">
+  <div class="lsw"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div>
   <div class="scene"><div class="cube"><i>{ }</i><i>ZIP</i><i>↑</i><i>⎇</i><i>★</i><i>&lt;/&gt;</i></div></div>
   <h1 class="disp" id="ltitle"></h1>
   <div class="tagl mono"><span id="tw"></span><span class="cur"></span></div>
+  <div class="about"><b>What is this?</b><p>github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.</p><ul><li>📦 Upload a ZIP and it unpacks straight into your repo</li><li>⚡ Fast uploads that resume by themselves if your internet drops</li><li>🖼️ Edit, rename, delete files, upload images and whole folders</li><li>🔐 Your token never leaves your browser</li></ul></div>
   <label class="l" for="tok">Access token</label>
   <div class="pw"><input id="tok" type="password" autocomplete="off" placeholder="ghp_••••••••••••••••"><button id="eye" type="button">👁</button></div>
   <p style="text-align:right;margin:6px 0 4px"><a class="lnk mono" href="https://github.com/settings/tokens/new?scopes=repo&description=github-zip-up" target="_blank" rel="noopener">Make a token ↗</a></p>
@@ -196,9 +223,10 @@ nav b{font-size:19px;display:block;line-height:1.1}
     <div class="brand"><div class="scene mini"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
       <div><b class="disp grad">github-zip-up</b><span class="mini-c">by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</span></div></div>
     <button id="av"><img id="avi" alt=""></button>
-    <div id="menu" class="card hide"><div id="themes"><button data-th="pink" style="background:#ff4fa3"></button><button data-th="aurora" style="background:#22d3ee"></button><button data-th="sunset" style="background:#fb923c"></button><button data-th="ocean" style="background:#3b82f6"></button><button data-th="lime" style="background:#84cc16"></button></div><button id="mhb">🕘 Upload log</button><button id="mfb">🍴 Fork / ⭐ Star</button><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
+    <div id="menu" class="card hide"><div id="themes"><button data-th="pink" style="background:#ff4fa3"></button><button data-th="aurora" style="background:#22d3ee"></button><button data-th="sunset" style="background:#fb923c"></button><button data-th="ocean" style="background:#3b82f6"></button><button data-th="lime" style="background:#84cc16"></button></div><button id="mhb">🕘 Upload log</button><button id="mfb">🍴 Fork / ⭐ Star</button><div class="lsw2"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div><button id="inst" class="hide">📲 Install app</button><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
   </nav>
 
+  <div id="off" class="hide">📴 Offline — showing your saved repo list</div>
   <div id="vDash">
     <div class="hero card tilt"><div><h2 class="disp">Hey <span id="hello" class="wv"></span> 👋</h2><div class="tagl mono"><span id="tw2"></span><span class="cur"></span></div><button class="pri" id="nrb">＋ Create repo</button></div><div class="dw" id="donut"></div></div>
     <div id="stats"></div>
@@ -210,12 +238,13 @@ nav b{font-size:19px;display:block;line-height:1.1}
   </div>
 
   <div id="vRepo" class="hide">
-    <div class="rh"><button id="back">←</button><h2 class="disp" id="rname"></h2><select id="br"></select><button class="pri" id="actb">⚡ Actions</button></div>
-    <div id="tabs"><button data-tab="files">Files</button><button data-tab="hist">History</button><button data-tab="info">Info</button></div>
+    <div class="rh"><button id="back">←</button><h2 class="disp" id="rname"></h2><select id="br"></select><button class="pri" id="zipb">🗜️ Upload ZIP</button><button id="actb">⋯</button></div>
+    <div id="tabs"><button data-tab="files">Files</button><button data-tab="iss">Issues</button><button data-tab="hist">History</button><button data-tab="info">Info</button></div>
     <div id="pFiles"><input id="fq" type="text" placeholder="🔎 Search every file in this repo…" style="margin-bottom:10px"><div class="list hide" id="fres" style="margin-bottom:10px"></div><div class="crumb mono" id="crumb"></div>
       <div id="selbar" class="card hide"><span id="selc"></span><button class="dng" id="seld">Delete</button><button id="selx">Done</button></div>
       <div class="list" id="files"></div>
       <p class="empty" style="padding:10px;font-size:13px">Tip: drop files or a ZIP onto the list.</p></div>
+    <div id="pIss" class="hide"></div>
     <div id="pHist" class="hide"></div>
     <div id="pInfo" class="hide"></div>
   </div>
@@ -249,10 +278,12 @@ nav b{font-size:19px;display:block;line-height:1.1}
 <div class="modal hide" id="mDiff"><div class="sheet" style="max-width:760px"><div class="mh"><b id="dft" style="word-break:break-word"></b><button class="x" data-close>✕</button></div><div class="mb" id="dfb"></div></div></div>
 <div class="modal hide" id="mFork"><div class="sheet"><div class="mh"><b>Fork or star a repo</b><button class="x" data-close>✕</button></div><div class="mb"><label class="l">owner/name or GitHub link</label><input id="fkn" type="text" placeholder="octocat/Hello-World"><div class="mf" style="padding:12px 0 0;border:0"><button class="pri" id="fkgo">🍴 Fork</button><button id="fkst">⭐ Star</button></div></div></div></div>
 <div class="modal hide" id="mHist"><div class="sheet"><div class="mh"><b>🕘 Upload log</b><button class="x" data-close>✕</button></div><div class="mb" id="hlist"></div></div></div>
+<div class="modal hide" id="mIss"><div class="sheet"><div class="mh"><b>New issue</b><button class="x" data-close>✕</button></div><div class="mb"><label class="l">Title</label><input id="isT" type="text"><label class="l">Details</label><textarea id="isB"></textarea></div><div class="mf"><button data-close>Cancel</button><button class="pri" id="isgo">Create</button></div></div></div>
+<div class="modal hide" id="mCol"><div class="sheet"><div class="mh"><b>Collaborators</b><button class="x" data-close>✕</button></div><div class="mb"><div class="list" id="colL"></div><label class="l">Invite by GitHub username</label><input id="colN" type="text" placeholder="username"></div><div class="mf"><button class="pri" id="colgo">＋ Invite</button></div></div></div>
 <div id="editor" class="hide">
   <input type="text" id="epath" placeholder="folder/file.txt">
-  <textarea id="etext" spellcheck="false"></textarea>
-  <div class="bar"><button class="pri" id="esave">Save to GitHub</button><button class="pri hide" id="efold">Create folder</button><button id="ecp">Copy</button><button id="edl">⬇</button><button id="ecancel">Close</button><span id="emsg" class="err-t"></span></div>
+  <div id="ebody"><textarea id="etext" spellcheck="false"></textarea><pre id="ehl" class="hide"></pre><div id="emd" class="hide"></div></div>
+  <div class="bar"><button class="pri" id="esave">Save to GitHub</button><button class="pri hide" id="efold">Create folder</button><button id="ehb">🎨 Colors</button><button id="emb" class="hide">👁 Preview</button><button id="ecp">Copy</button><button id="edl">⬇</button><button id="ecancel">Close</button><span id="emsg" class="err-t"></span></div>
 </div>
 <div id="status" class="hide"></div>
 
@@ -322,7 +353,7 @@ async function connect(t) {
     try { sessionStorage.setItem('gm_token', token); } catch (e) {}
     show('login', false); show('app'); $('avi').src = me.avatar_url; wave($('hello'), '@' + me.login);
     await loadRepos();
-  } catch (e) { token = ''; $('lerr').textContent = 'Could not sign in: ' + e.message; }
+  } catch (e) { if (e instanceof TypeError && offlineView()) return; token = ''; $('lerr').textContent = 'Could not sign in: ' + e.message; }
 }
 $('connect').onclick = () => connect($('tok').value);
 $('tok').onkeydown = e => { if (e.key === 'Enter') connect($('tok').value); };
@@ -336,6 +367,9 @@ addEventListener('click', e => { if (!e.target.closest('#menu')) show('menu', fa
 async function loadRepos() {
   allRepos = [];
   for (let p = 1; p <= 5; p++) { const r = await gh(`/user/repos?per_page=100&sort=updated&page=${p}`); allRepos.push(...r); if (r.length < 100) break; }
+  cacheRepos(); renderStats();
+}
+function renderStats() {
   const R = allRepos, n = f => R.filter(f).length, sum = k => R.reduce((a, r) => a + r[k], 0), pub = n(r => !r.private), pri = R.length - pub;
   const C = 2 * Math.PI * 40, a = (R.length ? pub / R.length : 0) * C;
   $('donut').innerHTML = `<svg viewBox="0 0 100 100" class="dn"><circle cx="50" cy="50" r="40" fill="none" stroke="#fbbf24" stroke-width="12" opacity=".85"/><circle class="arc" cx="50" cy="50" r="40" fill="none" stroke="var(--ac2)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${a} ${C}" transform="rotate(-90 50 50)"/></svg><b class="disp">${R.length}</b>`;
@@ -382,6 +416,7 @@ $('nrgo').onclick = async () => {
 
 /* ===== Repo view: files / history / info / branch switch ===== */
 async function openRepo(full) {
+  if (!$('off').classList.contains('hide')) return say('Offline: reconnect to open a repo', true);
   const r = allRepos.find(x => x.full_name === full); repo = full; branch = r.default_branch; path = '';
   $('rname').textContent = r.name; $('br').innerHTML = `<option>${esc(branch)}</option>`; endSel(); $('fq').value = ''; show('fres', false); show('files'); setTab('files');
   show('vDash', false); show('vRepo'); scrollTo(0, 0); loadDir();
@@ -391,8 +426,8 @@ $('br').onchange = () => { branch = $('br').value; path = ''; endSel(); setTab(t
 $('back').onclick = () => { repo = null; show('vRepo', false); show('vDash'); };
 function setTab(t) {
   tab = t; document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
-  show('pFiles', t === 'files'); show('pHist', t === 'hist'); show('pInfo', t === 'info');
-  if (t === 'files') loadDir(); else if (t === 'hist') loadHist(); else drawInfo();
+  show('pFiles', t === 'files'); show('pIss', t === 'iss'); show('pHist', t === 'hist'); show('pInfo', t === 'info');
+  if (t === 'files') loadDir(); else if (t === 'iss') loadIss(); else if (t === 'hist') loadHist(); else drawInfo();
 }
 $('tabs').onclick = e => { const b = e.target.closest('button'); if (b) setTab(b.dataset.tab); };
 async function loadHist() {
@@ -415,6 +450,8 @@ function drawInfo() {
     if (!confirm(r.private ? 'Make this repository PUBLIC? Anyone can see it.' : 'Make this repository private?')) return;
     try { const u = await gh(`/repos/${repo}`, { method: 'PATCH', body: JSON.stringify({ private: !r.private }) }); Object.assign(r, u); say('Visibility changed'); drawInfo(); } catch (e) { say(e.message, true); }
   };
+  $('pInfo').insertAdjacentHTML('beforeend', '<div class="card" style="padding:14px;margin-top:12px"><div class="bar"><button id="ird">📘 Edit README</button><button id="icol">👥 Collaborators</button></div></div>');
+  $('ird').onclick = editReadme; $('icol').onclick = () => { show('mCol'); loadCol(); };
 }
 
 /* ===== File browser ===== */
@@ -489,11 +526,22 @@ async function openFile(p) {
     showEditor(p, text, f.sha);
   } catch (e) { say(e.message, true); }
 }
+let hlOn = false, mdOn = false;
+const isMd = p => /\.(md|markdown)$/i.test(p);
+function renderEd() {
+  const t = $('etext').value, ext = $('epath').value.split('.').pop().toLowerCase();
+  show('ehl', hlOn); show('emd', mdOn); show('etext', !(hlOn || (mdOn && innerWidth < 800)));
+  if (hlOn) $('ehl').innerHTML = hl(t, ext); if (mdOn) $('emd').innerHTML = md(t);
+}
 function showEditor(p, text, sha, folder) {
   editSha = sha; $('epath').value = p; $('epath').disabled = !!sha; $('etext').value = text; $('emsg').textContent = '';
-  $('epath').placeholder = folder ? 'folder-name' : 'folder/file.txt';
-  show('etext', !folder); show('esave', !folder); show('efold', !!folder); show('ecp', !folder); show('edl', !folder); show('editor');
+  $('epath').placeholder = folder ? 'folder-name' : 'folder/file.txt'; hlOn = false; mdOn = !folder && isMd(p) && innerWidth >= 800;
+  show('esave', !folder); show('efold', !!folder); show('ecp', !folder); show('edl', !folder); show('ehb', !folder); show('emb', !folder && isMd(p));
+  renderEd(); show('editor');
 }
+$('ehb').onclick = () => { hlOn = !hlOn; if (hlOn) mdOn = false; renderEd(); };
+$('emb').onclick = () => { mdOn = !mdOn; if (mdOn) hlOn = false; renderEd(); };
+$('etext').oninput = () => { if (mdOn) renderEd(); };
 $('ecancel').onclick = () => show('editor', false);
 $('ecp').onclick = () => navigator.clipboard.writeText($('etext').value).then(() => say('Copied'), () => say('Copy failed', true));
 $('edl').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([$('etext').value])); a.download = $('epath').value.split('/').pop() || 'file.txt'; a.click(); };
@@ -713,9 +761,78 @@ const fkParse = () => { const v = $('fkn').value.trim(), m = v.match(/github\.co
 $('fkgo').onclick = async () => { const p = fkParse(); if (!p) return say('Use the form owner/name', true); try { await gh(`/repos/${p[0]}/${p[1]}/forks`, { method: 'POST', body: '{}' }); say('Fork started 🍴 It takes a few seconds.'); show('mFork', false); setTimeout(loadRepos, 4000); } catch (e) { say(e.message, true); } };
 $('fkst').onclick = async () => { const p = fkParse(); if (!p) return say('Use the form owner/name', true); try { await gh(`/user/starred/${p[0]}/${p[1]}`, { method: 'PUT' }); say('Starred ⭐'); show('mFork', false); } catch (e) { say(e.message, true); } };
 
+/* ===== More: colors, README, issues, collaborators, offline, install, language ===== */
+$('zipb').onclick = () => openUp('zip');
+function hl(src, ext) {
+  const hs = /^(py|sh|bash|yml|yaml|rb|toml|ini)$/.test(ext), kw = 'const|let|var|function|return|if|else|for|while|class|new|import|export|from|async|await|try|catch|throw|def|in|is|not|and|or|None|True|False|null|true|false|undefined|this|switch|case|break|default|typeof|print|elif|lambda|self';
+  const re = new RegExp('(\\/\\*[\\s\\S]*?\\*\\/|<!--[\\s\\S]*?-->|\\/\\/[^\\n]*' + (hs ? '|#[^\\n]*' : '') + ')|("(?:\\\\.|[^"\\\\\\n])*"|\'(?:\\\\.|[^\'\\\\\\n])*\'|`(?:\\\\.|[^`\\\\])*`)|(<\\/?[a-zA-Z][\\w-]*)|\\b(' + kw + ')\\b|\\b(\\d+\\.?\\d*)\\b', 'g');
+  let out = '', last = 0, m;
+  while ((m = re.exec(src))) { out += esc(src.slice(last, m.index)) + `<span class="h${m[1] ? 'c' : m[2] ? 's' : m[3] ? 't' : m[4] ? 'k' : 'n'}">${esc(m[0])}</span>`; last = re.lastIndex; }
+  return out + esc(src.slice(last));
+}
+function md(s) {
+  const blocks = [];
+  s = esc(s).replace(/```[\w-]*\n([\s\S]*?)```/g, (_, c) => { blocks.push(c); return '\u0001' + (blocks.length - 1) + '\u0001'; });
+  return s.replace(/^(#{1,6}) (.*)$/gm, (_, h, t) => `<h${h.length}>${t}</h${h.length}>`).replace(/^(?:-{3,}|\*{3,})$/gm, '<hr>')
+    .replace(/^[-*] (.*)$/gm, '<li>$1</li>').replace(/!\[([^\]]*)\]\((https?:[^)\s]+)\)/g, '<img alt="$1" src="$2">')
+    .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/\*([^*\n]+)\*/g, '<i>$1</i>').replace(/`([^`\n]+)`/g, '<code>$1</code>')
+    .replace(/((?:<li>.*<\/li>\n?)+)/g, m => '<ul>' + m.replace(/\n/g, '') + '</ul>').replace(/\n/g, '<br>').replace(/\u0001(\d+)\u0001/g, (_, i) => `<pre>${blocks[i]}</pre>`);
+}
+async function editReadme() {
+  try { const f = await gh(`/repos/${repo}/readme?ref=${encodeURIComponent(branch)}`); openFile(f.path); }
+  catch (e) { showEditor('README.md', '# ' + repo.split('/')[1] + '\n', null); }
+}
+async function loadIss() {
+  const p = $('pIss'); p.innerHTML = '<div class="empty">Loading…</div>';
+  try {
+    const L = (await gh(`/repos/${repo}/issues?state=all&per_page=40`)).filter(x => !x.pull_request);
+    p.innerHTML = '<div class="bar" style="margin-bottom:10px"><button class="pri" id="isnew">＋ New issue</button></div><div class="list">' + (L.map(x => `<div class="row"><span>${x.state === 'open' ? '🟢' : '🟣'}</span><div style="flex:1;min-width:0"><div style="word-break:break-word">#${x.number} ${esc(x.title)}</div><small>${esc(x.user.login)} · ${ago(x.created_at)}</small></div><button data-iss="${x.number}" data-st="${x.state}">${x.state === 'open' ? 'Close' : 'Reopen'}</button></div>`).join('') || '<div class="empty">No issues</div>') + '</div>';
+    $('isnew').onclick = () => { $('isT').value = ''; $('isB').value = ''; show('mIss'); };
+  } catch (e) { p.innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+}
+$('pIss').onclick = async e => { const b = e.target.closest('[data-iss]'); if (!b) return; try { await gh(`/repos/${repo}/issues/${b.dataset.iss}`, { method: 'PATCH', body: JSON.stringify({ state: b.dataset.st === 'open' ? 'closed' : 'open' }) }); loadIss(); } catch (er) { say(er.message, true); } };
+$('isgo').onclick = async () => { const t = $('isT').value.trim(); if (!t) return say('Add a title', true); try { await gh(`/repos/${repo}/issues`, { method: 'POST', body: JSON.stringify({ title: t, body: $('isB').value }) }); show('mIss', false); say('Issue created'); loadIss(); } catch (e) { say(e.message, true); } };
+async function loadCol() {
+  const L = $('colL'); L.innerHTML = '<div class="empty">Loading…</div>';
+  try { const c = await gh(`/repos/${repo}/collaborators?per_page=50`); L.innerHTML = c.map(x => `<div class="row"><img src="${esc(x.avatar_url)}" width="28" height="28" style="border-radius:50%" alt=""><span style="flex:1">${esc(x.login)}</span>${x.login === me.login ? '<small>you</small>' : `<button class="dng" data-rc="${esc(x.login)}">Remove</button>`}</div>`).join(''); }
+  catch (e) { L.innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+}
+$('colL').onclick = async e => { const b = e.target.closest('[data-rc]'); if (!b || !confirm('Remove ' + b.dataset.rc + '?')) return; try { await gh(`/repos/${repo}/collaborators/${encodeURIComponent(b.dataset.rc)}`, { method: 'DELETE' }); loadCol(); } catch (er) { say(er.message, true); } };
+$('colgo').onclick = async () => { const u = $('colN').value.trim(); if (!u) return; try { await gh(`/repos/${repo}/collaborators/${encodeURIComponent(u)}`, { method: 'PUT', body: JSON.stringify({ permission: 'push' }) }); $('colN').value = ''; say('Invite sent to ' + u); loadCol(); } catch (e) { say(e.message, true); } };
+const SL = ['full_name', 'name', 'private', 'fork', 'language', 'default_branch', 'pushed_at', 'updated_at', 'stargazers_count', 'forks_count', 'description', 'topics', 'html_url', 'clone_url', 'size', 'created_at'];
+function cacheRepos() { store.set('gz_cache', JSON.stringify({ login: me.login, avatar: me.avatar_url, repos: allRepos.map(r => Object.fromEntries(SL.map(k => [k, r[k]]))) })); }
+function offlineView() {
+  let c; try { c = JSON.parse(store.get('gz_cache')); } catch (e) {} if (!c) return false;
+  me = { login: c.login, avatar_url: c.avatar }; allRepos = c.repos; show('login', false); show('app'); show('off'); $('avi').src = c.avatar; wave($('hello'), '@' + c.login); renderStats(); return true;
+}
+addEventListener('online', () => { if (token && !$('off').classList.contains('hide')) { show('off', false); connect(token); } });
+let dip = null; addEventListener('beforeinstallprompt', e => { e.preventDefault(); dip = e; show('inst'); });
+$('inst').onclick = () => { if (dip) { dip.prompt(); dip = null; show('inst', false); } };
+if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', 'Make a token ↗': 'টোকেন বানান ↗', "🚀 Let's go": '🚀 শুরু করুন', 'Make a token': 'টোকেন বানান', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token stays in this tab only and is wiped when you close it.': '🔐 টোকেন শুধু এই ট্যাবে থাকে, বন্ধ করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', '🚀 Push': '🚀 পাঠান', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ' };
+const BNP = { '🔎 Search every file in this repo…': '🔎 এই repo-র সব ফাইলে খুঁজুন…' };
+const orig = new WeakMap(); let lg = store.get('gz_lg') === 'bn' ? 'bn' : 'en', trBusy = false;
+const tx = o => { const t = o.trim(); return lg === 'bn' && BN[t] ? o.replace(t, BN[t]) : o; };
+function tr(root) {
+  if (trBusy) return; trBusy = true;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); let n;
+  while ((n = w.nextNode())) {
+    if (/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode.nodeName)) continue;
+    let o = orig.get(n); if (o === undefined || (n.nodeValue !== o && n.nodeValue !== tx(o))) { o = n.nodeValue; orig.set(n, o); }
+    const v = tx(o); if (n.nodeValue !== v) n.nodeValue = v;
+  }
+  document.querySelectorAll('[placeholder]').forEach(el => { if (el.dataset.ph === undefined) el.dataset.ph = el.placeholder; el.placeholder = (lg === 'bn' && BNP[el.dataset.ph]) || el.dataset.ph; });
+  trBusy = false;
+}
+new MutationObserver(m => { if (lg === 'bn' && !trBusy && m.some(x => { const el = x.target.nodeType === 3 ? x.target.parentNode : x.target; return el && el.closest && !el.closest('.tagl'); })) requestAnimationFrame(() => tr(document.body)); }).observe(document.body, { childList: true, subtree: true, characterData: true });
+function setLang(l) { lg = l; store.set('gz_lg', l); document.documentElement.lang = l; document.querySelectorAll('[data-lg]').forEach(b => b.classList.toggle('on', b.dataset.lg === l)); tr(document.body); }
+document.addEventListener('click', e => { const b = e.target.closest('[data-lg]'); if (b) setLang(b.dataset.lg); });
+setLang(lg);
+
 /* ===== Start ===== */
-try { const t = sessionStorage.getItem('gm_token'); if (t) connect(t); } catch (e) {}
+try { const t = sessionStorage.getItem('gm_token'); if (t) connect(t); else if (!navigator.onLine) offlineView(); } catch (e) {}
 /* নতুন ফিচার: gh('/repos/...') কল লিখে একটা বাটনের সাথে জুড়ুন। */
 </script>
 </body>
-                                                                                                                                                                                                                                             </html>
+  </html>
