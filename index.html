@@ -1,197 +1,258 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-t="pink">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>github-zip-up</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=JetBrains+Mono:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--fg:#fdeefa;--mut:#c9a3c0;--card:rgba(255,255,255,.055);--bd:rgba(255,120,200,.2);--ac:#ff4fa3;--ac2:#ff9be0;--vi:#a855f7;--dng:#ff6b81;--ok:#5eead4}
+:root{--fg:#fff2fb;--mut:#c4a6bd;--card:rgba(255,255,255,.06);--ac:#ff4fa3;--ac2:#ff9be0;--vi:#a855f7;--dng:#ff6b81;--ok:#5eead4;--bd:color-mix(in srgb,var(--ac) 28%,transparent)}
+html[data-t=aurora]{--ac:#22d3ee;--ac2:#5eead4;--vi:#8b5cf6}
+html[data-t=sunset]{--ac:#fb923c;--ac2:#fde047;--vi:#f43f5e}
+html[data-t=ocean]{--ac:#3b82f6;--ac2:#67e8f9;--vi:#06b6d4}
+html[data-t=lime]{--ac:#84cc16;--ac2:#bef264;--vi:#22c55e}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;font:15px/1.55 Poppins,"Segoe UI",system-ui,sans-serif;color:var(--fg);background:#0b0713;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(rgba(255,120,200,.09) 1px,transparent 1px) 0 0/24px 24px}
+body{margin:0;min-height:100vh;font:15px/1.55 Outfit,"Segoe UI",system-ui,sans-serif;color:var(--fg);background:#09050f;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/26px 26px}
 .bg svg{width:100%;height:100%}
-.b1{animation:fl 14s ease-in-out infinite}.b2{animation:fl 18s ease-in-out infinite reverse}.b3{animation:fl 22s ease-in-out infinite}
-@keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,-50px)}}
-@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@keyframes pop{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+.b1{animation:fl 14s ease-in-out infinite}.b2{animation:fl 19s ease-in-out infinite reverse}.b3{animation:fl 23s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(70px,-60px)}}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
 @keyframes shine{to{background-position:200% center}}
-@keyframes glow{0%,100%{box-shadow:0 0 14px rgba(255,79,163,.35)}50%{box-shadow:0 0 30px rgba(255,79,163,.75)}}
+@keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes hue{to{filter:hue-rotate(360deg)}}
+@keyframes rot{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+@keyframes draw{from{stroke-dasharray:0 252}}
+@keyframes blink{50%{opacity:0}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 60%,transparent)}70%{box-shadow:0 0 0 12px transparent}}
 button,input,textarea,select{font:inherit;color:inherit}
 button{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 14px;cursor:pointer;transition:.2s}
 button:hover{border-color:var(--ac);transform:translateY(-1px)}
 button:disabled{opacity:.5;cursor:default;transform:none}
 button.pri{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:600}
-button.pri:hover{box-shadow:0 6px 22px rgba(255,79,163,.45)}
+button.pri:hover{box-shadow:0 6px 24px color-mix(in srgb,var(--ac) 55%,transparent)}
 button.dng{color:var(--dng)}
-input[type=text],input[type=password],textarea,select{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--bd);border-radius:12px;padding:10px 13px}
-select{appearance:none;padding-right:8px}
+input[type=text],input[type=password],textarea,select{width:100%;background:rgba(0,0,0,.38);border:1px solid var(--bd);border-radius:12px;padding:10px 13px}
+select{appearance:none}
 select option{background:#1a0f24}
-:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+:focus-visible{outline:2px solid var(--ac2);outline-offset:1px}
 .hide{display:none!important}
-.mono{font-family:"JetBrains Mono",monospace}
-.disp{font-family:Audiowide,Poppins,sans-serif}
-.grad{background:linear-gradient(90deg,#ff4fa3,#ff9be0,#c084fc,#ff4fa3);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:22px;backdrop-filter:blur(12px);animation:up .5s both}
+.mono{font-family:"Space Mono",monospace}
+.disp{font-family:Righteous,Outfit,sans-serif}
+.grad{background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:22px;backdrop-filter:blur(12px);animation:up .5s backwards}
+.tilt{transition:transform .15s ease-out,border-color .2s,box-shadow .2s;will-change:transform}
 .err-t{color:var(--dng)}
-#login{max-width:440px;margin:6vh auto 0;padding:26px 22px;text-align:center}
-#login h1{font-size:34px;margin:10px 0 2px}
-.logo{width:84px;height:84px;border-radius:22px;background:#150a1f;border:1px solid var(--bd);display:grid;place-items:center;margin:0 auto;animation:glow 3s infinite}
-.tl{text-align:left}
-label.l{display:block;margin:14px 0 6px;font:600 11px "JetBrains Mono",monospace;letter-spacing:.12em;color:var(--mut);text-transform:uppercase}
-#login a{color:var(--ac2)}
-.steps{text-align:left;color:var(--mut);font-size:13px;margin:16px 0 0;padding-top:14px;border-top:1px solid var(--bd)}
-.bigcredit{text-align:center;margin:26px 0 20px;animation:up .8s both}
-.bigcredit small{display:block;color:var(--mut);font:12px "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase}
-.bigcredit b{display:block;font:400 clamp(22px,6.5vw,36px)/1.3 Audiowide,"Segoe UI Symbol",sans-serif;letter-spacing:.02em;filter:drop-shadow(0 0 14px rgba(255,79,163,.5))}
-.minicredit{font-size:11px;color:var(--mut)}
-#app{max-width:980px;margin:0 auto;padding:0 14px}
+.wv{display:inline-block;animation:hue 7s linear infinite}
+.wv span{display:inline-block;animation:wave 2.2s ease-in-out infinite}
+.cur{display:inline-block;width:2px;height:1em;background:var(--ac2);margin-left:3px;vertical-align:-2px;animation:blink 1s infinite}
+.scene{--s:78px;width:var(--s);height:var(--s);perspective:calc(var(--s)*7);margin:6px auto 18px}
+.cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:rot 10s linear infinite}
+.cube i{position:absolute;inset:0;display:grid;place-items:center;font:normal 700 calc(var(--s)*.3) "Space Mono",monospace;color:#fff;border:1.5px solid rgba(255,255,255,.55);background:linear-gradient(135deg,var(--ac),var(--vi));opacity:.86}
+.cube i:nth-child(2){background:linear-gradient(135deg,var(--ac2),var(--ac))}.cube i:nth-child(3){background:linear-gradient(135deg,var(--vi),var(--ac2))}
+.cube i:nth-child(1){transform:translateZ(calc(var(--s)/2))}.cube i:nth-child(2){transform:rotateY(90deg) translateZ(calc(var(--s)/2))}.cube i:nth-child(3){transform:rotateY(180deg) translateZ(calc(var(--s)/2))}
+.cube i:nth-child(4){transform:rotateY(-90deg) translateZ(calc(var(--s)/2))}.cube i:nth-child(5){transform:rotateX(90deg) translateZ(calc(var(--s)/2))}.cube i:nth-child(6){transform:rotateX(-90deg) translateZ(calc(var(--s)/2))}
+.scene.mini{--s:28px;margin:0}
+#login{max-width:430px;margin:7vh auto 0;padding:26px 22px;text-align:center}
+#login h1{font-size:36px;margin:0;line-height:1.2}
+.tagl{height:24px;color:var(--ac2);font-size:14px;margin:2px 0 18px}
+.pw{position:relative}
+.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:4px 9px}
+label.l{display:block;margin:14px 0 6px;font:700 11px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;text-align:left}
+.stepper{display:flex;justify-content:space-between;gap:8px;margin:18px 0 6px}
+.stepper div{flex:1;font-size:12px;color:var(--mut);padding:10px 6px;border-radius:14px;border:1px dashed var(--bd)}
+.stepper b{display:grid;place-items:center;width:26px;height:26px;margin:0 auto 4px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;animation:pulse 2.4s infinite}
+.stepper div:nth-child(2) b{animation-delay:.8s}.stepper div:nth-child(3) b{animation-delay:1.6s}
+.lnk{color:var(--ac2);font-size:13px}
+.credit{display:block;font:400 clamp(15px,4vw,19px)/1.4 Righteous,"Segoe UI Symbol",sans-serif;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ac) 55%,transparent))}
+.credit small{display:block;font:11px "Space Mono",monospace;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
+.foot{text-align:center;margin:28px 0 22px;animation:up .8s backwards}
+.foot .credit{font-size:clamp(18px,5vw,24px)}
+.mini-c{font-size:11px;color:var(--mut)}
+#app{max-width:1000px;margin:0 auto;padding:0 14px}
 nav{display:flex;align-items:center;gap:10px;padding:14px 2px;position:relative}
-nav .brand{flex:1;display:flex;align-items:center;gap:10px}
-nav .logo{width:38px;height:38px;border-radius:11px;animation:none}
+nav .brand{flex:1;display:flex;align-items:center;gap:12px}
 nav b{font-size:19px;display:block;line-height:1.1}
 #av{width:42px;height:42px;border-radius:50%;padding:0;border:2px solid var(--ac);overflow:hidden}
 #av img{width:100%;height:100%;display:block}
-#menu{position:absolute;right:2px;top:64px;z-index:20;padding:6px;display:flex;flex-direction:column;gap:4px;min-width:150px;animation:pop .2s both}
-.hero{padding:22px;margin:6px 0 14px;background:linear-gradient(135deg,rgba(255,79,163,.2),rgba(168,85,247,.14))}
-.hero .mono{font-size:12px;letter-spacing:.2em;color:var(--ac2)}
-.hero h2{margin:6px 0 2px;font-size:26px}
-.hero p{margin:0 0 16px;color:var(--mut)}
-.hero button{width:100%}
-#stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
-.tile{display:flex;gap:12px;align-items:center;padding:14px;animation:up .6s both}
-.tile i{font-style:normal;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(255,79,163,.15);border:1px solid var(--bd);font-size:20px}
-.tile b{display:block;font-size:26px;line-height:1.1}
-.tile span{font:11px "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--mut);text-transform:uppercase}
-.filters{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
-#chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-#chips button{border-radius:99px;padding:5px 14px;font-size:13px}
-#chips button.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.sec{display:flex;justify-content:space-between;font:600 12px "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin:6px 2px 10px}
-#rlist{display:grid;gap:10px}
-.rc{display:flex;gap:14px;padding:16px;cursor:pointer;animation:up .5s both;transition:.25s}
-.rc:hover{border-color:var(--ac);transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,79,163,.2)}
-.rc .ic{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.06);display:grid;place-items:center;font-size:22px;flex:none}
+#menu{position:absolute;right:2px;top:64px;z-index:20;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:170px;animation:pop .2s}
+#themes{display:flex;gap:8px;justify-content:center;padding:4px 0}
+#themes button{width:26px;height:26px;padding:0;border-radius:50%;border:2px solid transparent}
+#themes button.on{border-color:#fff;transform:scale(1.15)}
+.hero{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:20px;margin:6px 0 14px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 22%,transparent),color-mix(in srgb,var(--vi) 16%,transparent))}
+.hero h2{margin:0;font-size:28px;line-height:1.2}
+.hero .tagl{margin:4px 0 14px}
+.dn{width:112px;height:112px;display:block}
+.dn .arc{animation:draw 1.3s ease-out backwards}
+.dw{position:relative}
+.dw b{position:absolute;inset:0;display:grid;place-items:center;font-size:22px}
+#stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.tile{padding:14px;border-top:3px solid hsl(var(--h) 90% 62%);background:linear-gradient(180deg,hsl(var(--h) 90% 62%/.13),transparent)}
+.tile b{display:block;font-size:28px;line-height:1.1;color:hsl(var(--h) 95% 74%)}
+.tile span{font:12px "Space Mono",monospace;color:var(--mut)}
+.lang{padding:14px;margin-bottom:14px}
+#lbar{display:flex;gap:3px;height:12px;border-radius:9px;overflow:hidden}
+#lbar button{padding:0;border:0;border-radius:0;transition:flex .3s,opacity .2s}
+#lbar button:not(.on){opacity:.8}#lbar button.on{outline:2px solid #fff;outline-offset:-2px}
+#llegend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+#llegend button{border-radius:99px;padding:3px 11px;font-size:13px}
+#llegend button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:var(--ac)}
+.tool{display:flex;gap:8px;margin-bottom:10px}
+.tool input{flex:1}
+.tool select{width:auto}
+#seg{display:flex;gap:4px;padding:4px;margin-bottom:12px;overflow:auto;border-radius:16px}
+#seg button{flex:1;border:0;background:none;white-space:nowrap}
+#seg button.on{background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;font-weight:600}
+.sec{display:flex;justify-content:space-between;font:700 12px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;margin:8px 2px 10px}
+#rlist{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:700px){#rlist:not(.l1){grid-template-columns:1fr 1fr}}
+.rc{display:flex;gap:13px;padding:15px;cursor:pointer;border-left:4px solid hsl(var(--h) 90% 62%);position:relative}
+.rc:hover{border-color:hsl(var(--h) 90% 66%);box-shadow:0 14px 34px hsl(var(--h) 90% 60%/.25)}
+.rc .ic{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-size:22px;flex:none;background:hsl(var(--h) 85% 60%/.2)}
 .rc b{font-size:17px;word-break:break-all}
-.pill{font:11px "JetBrains Mono",monospace;padding:2px 10px;border-radius:99px;border:1px solid var(--bd);margin-left:8px;vertical-align:middle}
+.rb{min-width:0;flex:1;padding-right:30px}
+.pin{position:absolute;right:8px;top:8px;padding:2px 7px;border:0;background:none;font-size:16px}
+.pill{font:11px "Space Mono",monospace;padding:2px 9px;border-radius:99px;border:1px solid var(--bd);margin-left:7px;vertical-align:middle}
 .pill.pu{color:var(--ok)}.pill.pr{color:#fbbf24}.pill.fk{color:var(--ac2)}
-.meta{color:var(--mut);font-size:13px;display:flex;gap:12px;flex-wrap:wrap;margin-top:3px}
-.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:var(--ac)}
-.rh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 12px}
-.rh h2{margin:0;font-size:20px;flex:1;min-width:140px;word-break:break-all}
-.crumb{margin-bottom:10px;font-weight:500}
+.meta{color:var(--mut);font-size:13px;display:flex;gap:11px;flex-wrap:wrap;margin-top:3px}
+.rh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.rh h2{margin:0;font-size:20px;flex:1;min-width:120px;word-break:break-all}
+.rh select{width:auto;max-width:150px}
+#tabs{display:flex;gap:6px;margin-bottom:12px}
+#tabs button{flex:1;border-radius:99px}
+#tabs button.on{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:600}
+.crumb{margin-bottom:10px;font-weight:500;word-break:break-all}
 .crumb span{cursor:pointer;color:var(--ac2)}
 .list{border:1px solid var(--bd);border-radius:16px;overflow:hidden;background:var(--card)}
-.list.drag{border-color:var(--ac);background:rgba(255,79,163,.12)}
-.row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bd);animation:up .4s both}
+.list.drag{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 14%,transparent)}
+.row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bd);animation:up .4s backwards}
 .row:last-child{border:0}
 .row .nm{flex:1;cursor:pointer;word-break:break-all}
 .row .nm:hover{color:var(--ac2)}
 .row small{color:var(--mut)}
 .row input{width:18px;height:18px;accent-color:var(--ac)}
 .empty{padding:30px;text-align:center;color:var(--mut)}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.facts div{padding:11px 13px;border:1px solid var(--bd);border-radius:14px;background:var(--card)}
+.facts small{display:block;color:var(--mut);font:11px "Space Mono",monospace}
 #selbar{position:sticky;top:6px;z-index:8;display:flex;gap:8px;align-items:center;padding:10px 14px;margin-bottom:10px}
 #selbar span{flex:1}
-.modal{position:fixed;inset:0;z-index:30;background:rgba(5,2,10,.72);backdrop-filter:blur(6px);display:grid;place-items:center;padding:14px;overflow:auto}
-.sheet{width:100%;max-width:430px;background:#140a1e;border:1px solid var(--bd);border-radius:22px;animation:pop .25s both}
+.modal{position:fixed;inset:0;z-index:30;background:rgba(5,2,10,.75);backdrop-filter:blur(6px);display:grid;place-items:center;padding:14px;overflow:auto}
+.sheet{width:100%;max-width:430px;background:#130a1d;border:1px solid var(--bd);border-radius:22px;animation:pop .25s}
 .mh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--bd)}
 .mb{padding:16px 20px}
 .mf{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--bd)}
 .mf button{flex:1}
 .x{border:0;background:none;font-size:18px;padding:2px 8px}
-.act{display:flex;gap:14px;align-items:center;width:100%;text-align:left;border:0;background:none;padding:14px 20px;border-radius:0}
-.act:hover{background:rgba(255,79,163,.12);transform:none}
-.drop{border:2px dashed var(--bd);border-radius:16px;padding:26px 14px;text-align:center;cursor:pointer;transition:.2s}
-.drop:hover,.drop.drag{border-color:var(--ac);background:rgba(255,79,163,.1)}
-.drop .ic{font-size:30px;color:var(--ac)}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px}
+.agrid button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 8px;border-radius:16px;border-color:hsl(var(--h) 80% 60%/.4);background:hsl(var(--h) 80% 60%/.1)}
+.agrid button i{font-style:normal;font-size:26px}
+.drop{border:2px dashed var(--bd);border-radius:16px;padding:24px 14px;text-align:center;cursor:pointer;transition:.2s}
+.drop:hover,.drop.drag{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent)}
+.drop .ic{font-size:30px}
 .drop small{display:block;color:var(--mut)}
-.ck{display:flex;gap:10px;align-items:center;padding:11px 13px;margin-top:8px;border:1px solid var(--bd);border-radius:12px;font:600 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.ck{display:flex;gap:10px;align-items:center;padding:11px 13px;margin-top:8px;border:1px solid var(--bd);border-radius:12px;font:700 12px "Space Mono",monospace;cursor:pointer}
 .ck input{width:18px;height:18px;accent-color:var(--ac)}
 #prog{margin-top:14px}
 #track{height:10px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
-#bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi));background-size:200% 100%;animation:shine 1.5s linear infinite;transition:width .2s}
-#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#2a1238;border:1px solid var(--ac);padding:10px 16px;border-radius:14px;max-width:90vw;z-index:50;animation:pop .2s both}
+#bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% 100%;animation:shine 1.4s linear infinite;transition:width .2s}
+#imgv{max-width:100%;max-height:55vh;display:block;margin:0 auto;border-radius:12px;background:repeating-conic-gradient(#222 0 25%,#333 0 50%) 0 0/16px 16px}
+#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#2a1238;border:1px solid var(--ac);padding:10px 16px;border-radius:14px;max-width:90vw;z-index:50;animation:pop .2s}
 #status.err{background:#6b1a2e;border-color:var(--dng)}
-#editor{position:fixed;inset:0;z-index:40;background:#0b0713;padding:16px;display:flex;flex-direction:column;gap:10px}
-#editor textarea{flex:1;font:13px/1.5 "JetBrains Mono",monospace;resize:none;white-space:pre}
+#editor{position:fixed;inset:0;z-index:40;background:#09050f;padding:16px;display:flex;flex-direction:column;gap:10px}
+#editor textarea{flex:1;font:13px/1.5 "Space Mono",monospace;resize:none;white-space:pre}
 .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-@media(min-width:700px){#stats{grid-template-columns:repeat(5,1fr)}#rlist{grid-template-columns:1fr 1fr}}
+.df{margin-bottom:12px}.df pre{overflow:auto;margin:6px 0 0;font:12px/1.5 "Space Mono",monospace;background:rgba(0,0,0,.4);padding:8px;border-radius:10px}
+.df pre span{display:block}.ad{color:#4ade80;background:rgba(74,222,128,.12)}.rm{color:#fb7185;background:rgba(251,113,133,.12)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="bg"><svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><defs>
-<radialGradient id="g1"><stop offset="0" stop-color="#ff4fa3" stop-opacity=".55"/><stop offset="1" stop-color="#ff4fa3" stop-opacity="0"/></radialGradient>
-<radialGradient id="g2"><stop offset="0" stop-color="#a855f7" stop-opacity=".5"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/></radialGradient>
-<radialGradient id="g3"><stop offset="0" stop-color="#ff9be0" stop-opacity=".35"/><stop offset="1" stop-color="#ff9be0" stop-opacity="0"/></radialGradient></defs>
+<radialGradient id="g1"><stop offset="0" style="stop-color:var(--ac)" stop-opacity=".55"/><stop offset="1" style="stop-color:var(--ac)" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2"><stop offset="0" style="stop-color:var(--vi)" stop-opacity=".5"/><stop offset="1" style="stop-color:var(--vi)" stop-opacity="0"/></radialGradient>
+<radialGradient id="g3"><stop offset="0" style="stop-color:var(--ac2)" stop-opacity=".35"/><stop offset="1" style="stop-color:var(--ac2)" stop-opacity="0"/></radialGradient></defs>
 <circle class="b1" cx="120" cy="150" r="340" fill="url(#g1)"/><circle class="b2" cx="700" cy="480" r="360" fill="url(#g2)"/><circle class="b3" cx="260" cy="760" r="300" fill="url(#g3)"/></svg></div>
 
 <section id="login" class="card">
-  <div class="logo"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ff4fa3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 10 6 24l8 14M34 10l8 14-8 14"/><circle cx="24" cy="23" r="6" fill="#ff9be0" stroke="none"/><path d="M20 31v6M24 31v7M28 31v6" stroke="#ff9be0"/></svg></div>
-  <h1 class="disp grad">github-zip-up</h1>
-  <p class="mono" style="color:var(--mut);font-size:13px;margin:0">GitHub Repository Manager</p>
-  <div class="tl"><label class="l" for="tok">GitHub Personal Access Token</label>
-  <input id="tok" type="password" autocomplete="off" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-  <p style="text-align:right;margin:6px 0 14px"><a class="mono" style="font-size:13px" href="https://github.com/settings/tokens/new?scopes=repo&description=github-zip-up" target="_blank" rel="noopener">→ Create a new Token here ↗</a></p></div>
-  <button class="pri" id="connect" style="width:100%;padding:12px">⚡ Connect to GitHub</button>
+  <div class="scene"><div class="cube"><i>{ }</i><i>ZIP</i><i>↑</i><i>⎇</i><i>★</i><i>&lt;/&gt;</i></div></div>
+  <h1 class="disp" id="ltitle"></h1>
+  <div class="tagl mono"><span id="tw"></span><span class="cur"></span></div>
+  <label class="l" for="tok">Access token</label>
+  <div class="pw"><input id="tok" type="password" autocomplete="off" placeholder="ghp_••••••••••••••••"><button id="eye" type="button">👁</button></div>
+  <p style="text-align:right;margin:6px 0 4px"><a class="lnk mono" href="https://github.com/settings/tokens/new?scopes=repo&description=github-zip-up" target="_blank" rel="noopener">Make a token ↗</a></p>
+  <button class="pri" id="connect" style="width:100%;padding:12px;margin-top:6px">🚀 Let's go</button>
   <p id="lerr" class="err-t"></p>
-  <div class="steps mono"><b style="letter-spacing:.12em">HOW TO GET A TOKEN?</b><br>1. Click the link above<br>2. repo scope will be pre-selected<br>3. Click "Generate token" → Copy → Paste here<br><span style="color:#fbbf24">⚠ Your token is never stored, it only lives in your session</span></div>
-  <div class="bigcredit"><small>Made by</small><b class="grad">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></div>
+  <div class="stepper"><div><b>1</b>Make a token</div><div><b>2</b>Paste it above</div><div><b>3</b>Push files</div></div>
+  <p class="mono" style="font-size:11px;color:var(--mut)">🔐 Token stays in this tab only and is wiped when you close it.</p>
+  <div style="margin-top:18px"><span class="credit"><small>crafted by</small><b class="grad" style="font-weight:400">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></span></div>
 </section>
 
 <div id="app" class="hide">
   <nav>
-    <div class="brand"><div class="logo"><svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#ff4fa3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 10 6 24l8 14M34 10l8 14-8 14"/><circle cx="24" cy="23" r="5" fill="#ff9be0" stroke="none"/></svg></div>
-      <div><b class="disp grad">github-zip-up</b><span class="minicredit">by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</span></div></div>
+    <div class="brand"><div class="scene mini"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div><b class="disp grad">github-zip-up</b><span class="mini-c">by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</span></div></div>
     <button id="av"><img id="avi" alt=""></button>
-    <div id="menu" class="card hide"><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
+    <div id="menu" class="card hide"><div id="themes"><button data-th="pink" style="background:#ff4fa3"></button><button data-th="aurora" style="background:#22d3ee"></button><button data-th="sunset" style="background:#fb923c"></button><button data-th="ocean" style="background:#3b82f6"></button><button data-th="lime" style="background:#84cc16"></button></div><button id="mhb">🕘 Upload log</button><button id="mfb">🍴 Fork / ⭐ Star</button><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
   </nav>
 
   <div id="vDash">
-    <div class="hero card"><div class="mono">● DASHBOARD</div><h2 id="hello"></h2><p id="sub" class="mono" style="font-size:13px"></p><button class="pri" id="nrb">＋ New Repository</button></div>
+    <div class="hero card tilt"><div><h2 class="disp">Hey <span id="hello" class="wv"></span> 👋</h2><div class="tagl mono"><span id="tw2"></span><span class="cur"></span></div><button class="pri" id="nrb">＋ Create repo</button></div><div class="dw" id="donut"></div></div>
     <div id="stats"></div>
-    <input id="rq" type="text" placeholder="🔍 Search repositories...">
-    <div class="filters"><select id="fv"><option value="all">All visibility</option><option value="pub">Public</option><option value="pri">Private</option><option value="fork">Forked</option></select><select id="fl"></select><select id="fs"><option value="upd">Recently updated</option><option value="name">Name A–Z</option><option value="star">Most stars</option></select></div>
-    <div id="chips"></div>
-    <div class="sec"><span>Repositories</span><span id="cnt"></span></div>
+    <div class="lang card" id="langc"><div class="sec" style="margin-top:0"><span>Languages</span><span>tap to filter</span></div><div id="lbar"></div><div id="llegend"></div></div>
+    <div class="tool"><input id="rq" type="text" placeholder="🔎 Find a repo…"><select id="fs"><option value="upd">Latest</option><option value="name">A–Z</option><option value="star">Stars</option></select><button id="vt" title="Layout">▦</button></div>
+    <div id="seg" class="card"><button data-v="all">All</button><button data-v="pub">🌐 Public</button><button data-v="pri">🔒 Private</button><button data-v="fork">🍴 Forks</button></div>
+    <div class="sec"><span>Your repos</span><span id="cnt"></span></div>
     <div id="rlist"></div>
   </div>
 
   <div id="vRepo" class="hide">
-    <div class="rh"><button id="back">← Back</button><h2 class="disp" id="rname"></h2><button class="pri" id="actb">⋯ Actions</button></div>
-    <div class="crumb mono" id="crumb"></div>
-    <div id="selbar" class="card hide"><span id="selc"></span><button class="dng" id="seld">Delete</button><button id="selx">Done</button></div>
-    <div class="list" id="files"></div>
-    <p class="empty" style="padding:10px;font-size:13px">Tip: drag and drop files or a ZIP onto the list.</p>
+    <div class="rh"><button id="back">←</button><h2 class="disp" id="rname"></h2><select id="br"></select><button class="pri" id="actb">⚡ Actions</button></div>
+    <div id="tabs"><button data-tab="files">Files</button><button data-tab="hist">History</button><button data-tab="info">Info</button></div>
+    <div id="pFiles"><input id="fq" type="text" placeholder="🔎 Search every file in this repo…" style="margin-bottom:10px"><div class="list hide" id="fres" style="margin-bottom:10px"></div><div class="crumb mono" id="crumb"></div>
+      <div id="selbar" class="card hide"><span id="selc"></span><button class="dng" id="seld">Delete</button><button id="selx">Done</button></div>
+      <div class="list" id="files"></div>
+      <p class="empty" style="padding:10px;font-size:13px">Tip: drop files or a ZIP onto the list.</p></div>
+    <div id="pHist" class="hide"></div>
+    <div id="pInfo" class="hide"></div>
   </div>
 
-  <div class="bigcredit"><small>Made by</small><b class="grad">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></div>
+  <div class="foot"><span class="credit"><small>crafted by</small><b class="grad" style="font-weight:400">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></span></div>
 </div>
 
-<div class="modal hide" id="mAct"><div class="sheet"><div class="mh"><b>Actions</b><button class="x" data-close>✕</button></div>
-  <button class="act" data-a="zip"><span>⬆</span>Upload ZIP</button><button class="act" data-a="file"><span>📄</span>Upload File</button><button class="act" data-a="new"><span>＋</span>New File / Folder</button><button class="act" data-a="sel"><span>☑</span>Select</button><button class="act" data-a="all"><span>☑</span>Select All</button></div></div>
+<div class="modal hide" id="mAct"><div class="sheet"><div class="mh"><b>What do you want to do?</b><button class="x" data-close>✕</button></div>
+  <div class="agrid"><button data-a="zip" style="--h:330"><i>🗜️</i>Upload ZIP</button><button data-a="file" style="--h:190"><i>🖼️</i>Upload files</button><button data-a="new" style="--h:45"><i>📝</i>New file</button><button data-a="dir" style="--h:140"><i>📂</i>New folder</button><button data-a="fol" style="--h:210"><i>📁</i>Upload folder</button><button data-a="dz" style="--h:100"><i>⬇️</i>Download ZIP</button><button data-a="br" style="--h:290"><i>🌿</i>Branches</button><button data-a="sel" style="--h:270"><i>☑️</i>Select</button><button data-a="all" style="--h:10"><i>✅</i>Select all</button></div></div></div>
 
 <div class="modal hide" id="mUp"><div class="sheet"><div class="mh"><b id="upT">Upload ZIP</b><button class="x" data-close>✕</button></div>
-  <div class="mb"><div class="drop" id="drop"><div class="ic">⬆</div><b id="dropT">Tap to select ZIP file</b><small>drag &amp; drop also works</small></div>
-  <input type="file" id="fz" accept=".zip" class="hide"><input type="file" id="ff" multiple class="hide">
-  <label class="l">Target path (optional)</label><input id="upPath" type="text" placeholder="src/components (empty = root)">
-  <label class="l">Commit message</label><input id="upMsg" type="text" value="Upload via github-zip-up">
-  <label class="ck zo"><input type="checkbox" id="oStrip"> Strip root folder</label>
-  <label class="ck zo"><input type="checkbox" id="oSys" checked> Skip system folders (node_modules, __MACOSX)</label>
-  <label class="ck"><input type="checkbox" id="oOver" checked> Overwrite existing</label>
+  <div class="mb"><div class="drop" id="drop"><div class="ic">📦</div><b id="dropT">Tap to choose a ZIP</b><small>or drop it here</small></div>
+  <input type="file" id="fz" accept=".zip" class="hide"><input type="file" id="ff" multiple class="hide"><input type="file" id="fd" webkitdirectory multiple class="hide">
+  <label class="l">Send into folder (blank = root)</label><input id="upPath" type="text" placeholder="src/components">
+  <label class="l">Commit note</label><input id="upMsg" type="text" value="Upload via github-zip-up">
+  <label class="ck zo"><input type="checkbox" id="oStrip"> Flatten the top folder</label>
+  <label class="ck zo"><input type="checkbox" id="oSys" checked> Ignore junk (node_modules, __MACOSX, .git)</label>
+  <label class="ck"><input type="checkbox" id="oOver" checked> Replace files that changed</label>
+  <label class="ck"><input type="checkbox" id="oImg"> Shrink big photos (max 2048px)</label>
   <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:12px"></div><div id="track"><div id="bar"></div></div></div></div>
-  <div class="mf"><button id="upCancel">Cancel</button><button class="pri" id="upGo">Push to GitHub</button></div></div></div>
+  <div class="mf"><button id="upCancel">Cancel</button><button class="pri" id="upGo">🚀 Push</button></div></div></div>
 
-<div class="modal hide" id="mNr"><div class="sheet"><div class="mh"><b>New Repository</b><button class="x" data-close>✕</button></div>
-  <div class="mb"><label class="l">Repository name</label><input id="nrn" type="text" placeholder="my-project"><label class="ck"><input type="checkbox" id="nrp"> Private</label><p id="nre" class="err-t"></p></div>
+<div class="modal hide" id="mNr"><div class="sheet"><div class="mh"><b>Create repo</b><button class="x" data-close>✕</button></div>
+  <div class="mb"><label class="l">Name</label><input id="nrn" type="text" placeholder="my-project"><label class="ck"><input type="checkbox" id="nrp"> Make it private</label><p id="nre" class="err-t"></p></div>
   <div class="mf"><button data-close>Cancel</button><button class="pri" id="nrgo">Create</button></div></div></div>
 
+<div class="modal hide" id="mImg"><div class="sheet"><div class="mh"><b id="imgn" style="word-break:break-all"></b><button class="x" data-close>✕</button></div>
+  <div class="mb"><img id="imgv" alt=""></div><div class="mf"><a id="imgd" style="flex:1;text-decoration:none"><button class="pri" style="width:100%">⬇ Download</button></a></div></div></div>
+
+<div class="modal hide" id="mBr"><div class="sheet"><div class="mh"><b>🌿 Branches</b><button class="x" data-close>✕</button></div><div class="mb"><label class="l">New branch from current</label><input id="bname" type="text" placeholder="feature-x"><button class="pri" id="bcreate" style="margin-top:8px;width:100%">Create &amp; switch</button><label class="l">Merge another branch into current</label><select id="msrc"></select><button id="bmerge" style="margin-top:8px;width:100%">Merge</button></div></div></div>
+<div class="modal hide" id="mDiff"><div class="sheet" style="max-width:760px"><div class="mh"><b id="dft" style="word-break:break-word"></b><button class="x" data-close>✕</button></div><div class="mb" id="dfb"></div></div></div>
+<div class="modal hide" id="mFork"><div class="sheet"><div class="mh"><b>Fork or star a repo</b><button class="x" data-close>✕</button></div><div class="mb"><label class="l">owner/name or GitHub link</label><input id="fkn" type="text" placeholder="octocat/Hello-World"><div class="mf" style="padding:12px 0 0;border:0"><button class="pri" id="fkgo">🍴 Fork</button><button id="fkst">⭐ Star</button></div></div></div></div>
+<div class="modal hide" id="mHist"><div class="sheet"><div class="mh"><b>🕘 Upload log</b><button class="x" data-close>✕</button></div><div class="mb" id="hlist"></div></div></div>
 <div id="editor" class="hide">
   <input type="text" id="epath" placeholder="folder/file.txt">
   <textarea id="etext" spellcheck="false"></textarea>
-  <div class="bar"><button class="pri" id="esave">Save to GitHub</button><button id="efold" class="hide">Create as folder</button><button id="ecancel">Close</button><span id="emsg" class="err-t"></span></div>
+  <div class="bar"><button class="pri" id="esave">Save to GitHub</button><button class="pri hide" id="efold">Create folder</button><button id="ecp">Copy</button><button id="edl">⬇</button><button id="ecancel">Close</button><span id="emsg" class="err-t"></span></div>
 </div>
 <div id="status" class="hide"></div>
 
@@ -199,7 +260,7 @@ nav b{font-size:19px;display:block;line-height:1.1}
 <script>
 /* ===== Core: সব GitHub API কল gh() দিয়ে যায় ===== */
 const API = 'https://api.github.com';
-let token = '', me = null, allRepos = [], repo = null, branch = '', path = '', cur = [], sel = new Set(), selMode = false, editSha = null, busy = false, cancel = false, pend = null, upMode = 'zip';
+let token = '', me = null, allRepos = [], repo = null, branch = '', path = '', cur = [], sel = new Set(), selMode = false, editSha = null, busy = false, cancel = false, pend = null, upMode = 'zip', fv = 'all', lang = '', tab = 'files', pins = new Set();
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const cp = p => p.split('/').map(encodeURIComponent).join('/');
@@ -208,7 +269,11 @@ const enc = s => { let x = ''; new TextEncoder().encode(s).forEach(c => x += Str
 const dec = b => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g, '')), c => c.charCodeAt(0)));
 const b64 = u => { let s = ''; for (let i = 0; i < u.length; i += 32768) s += String.fromCharCode.apply(null, u.subarray(i, i + 32768)); return btoa(s); };
 const show = (id, on = true) => $(id).classList.toggle('hide', !on);
+const hash = s => [...String(s)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
 const LC = { HTML: '#e34c26', JavaScript: '#f1e05a', TypeScript: '#3178c6', Python: '#3572a5', CSS: '#a855f7', Java: '#b07219', PHP: '#4f5d95', Shell: '#89e051' };
+const lcol = l => LC[l] || `hsl(${hash(l) % 360} 80% 60%)`;
+const ago = d => { const s = (Date.now() - new Date(d)) / 1000; return s < 60 ? 'just now' : s < 3600 ? Math.floor(s / 60) + 'm ago' : s < 86400 ? Math.floor(s / 3600) + 'h ago' : s < 2592000 ? Math.floor(s / 86400) + 'd ago' : new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
+const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
 
 async function gh(url, opt = {}) {
   const r = await fetch(url.startsWith('http') ? url : API + url, { ...opt, headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' } });
@@ -218,64 +283,141 @@ async function gh(url, opt = {}) {
 let st;
 function say(m, bad) { const s = $('status'); s.textContent = m; s.className = bad ? 'err' : ''; clearTimeout(st); st = setTimeout(() => show('status', false), bad ? 7000 : 3000); }
 
+/* ===== Animated text helpers ===== */
+const wave = (el, t) => el.innerHTML = [...t].map((c, i) => `<span style="animation-delay:${i * .09}s;color:hsl(${(i * 34 + 320) % 360} 95% 72%)">${c === ' ' ? '&nbsp;' : esc(c)}</span>`).join('');
+function typer(el, list) {
+  let i = 0, j = 0, del = false;
+  (function tick() {
+    const w = list[i]; j += del ? -1 : 1; el.textContent = w.slice(0, j); let d = del ? 30 : 65;
+    if (!del && j === w.length) { del = true; d = 1500; } else if (del && j === 0) { del = false; i = (i + 1) % list.length; d = 350; }
+    setTimeout(tick, d);
+  })();
+}
+function countUp(el) {
+  const n = +el.dataset.n, t0 = performance.now();
+  (function f(t) { const k = Math.min(1, (t - t0) / 900); el.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); })(t0);
+}
+/* 3D tilt on any .tilt element */
+document.addEventListener('pointermove', e => {
+  const t = e.target.closest && e.target.closest('.tilt'); if (!t) return;
+  const r = t.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+  t.style.transform = `perspective(700px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateZ(6px)`;
+});
+document.addEventListener('pointerout', e => { const t = e.target.closest && e.target.closest('.tilt'); if (t && !t.contains(e.relatedTarget)) t.style.transform = ''; });
+
+/* ===== Themes ===== */
+function setTheme(t) { document.documentElement.dataset.t = t; store.set('gz_theme', t); document.querySelectorAll('#themes button').forEach(b => b.classList.toggle('on', b.dataset.th === t)); }
+$('themes').onclick = e => { const b = e.target.closest('button'); if (b) setTheme(b.dataset.th); };
+setTheme(store.get('gz_theme') || 'pink');
+try { pins = new Set(JSON.parse(store.get('gz_pins') || '[]')); } catch (e) {}
+wave($('ltitle'), 'github-zip-up');
+typer($('tw'), ['Drop a ZIP. Push in seconds.', 'Uploads that never give up.', 'Your repos, your rules.']);
+typer($('tw2'), ['Drop a ZIP, push in seconds.', 'Interrupted? It resumes by itself.', 'Same file twice? Skipped.']);
+
 /* ===== Login ===== */
 async function connect(t) {
   token = t.trim(); $('lerr').textContent = '';
   try {
     me = await gh('/user');
     try { sessionStorage.setItem('gm_token', token); } catch (e) {}
-    show('login', false); show('app'); $('avi').src = me.avatar_url;
+    show('login', false); show('app'); $('avi').src = me.avatar_url; wave($('hello'), '@' + me.login);
     await loadRepos();
   } catch (e) { token = ''; $('lerr').textContent = 'Could not sign in: ' + e.message; }
 }
 $('connect').onclick = () => connect($('tok').value);
 $('tok').onkeydown = e => { if (e.key === 'Enter') connect($('tok').value); };
+$('eye').onclick = () => { const t = $('tok'); t.type = t.type === 'password' ? 'text' : 'password'; };
 $('logout').onclick = () => { try { sessionStorage.removeItem('gm_token'); } catch (e) {} location.reload(); };
 $('refresh').onclick = () => { show('menu', false); loadRepos(); };
 $('av').onclick = e => { e.stopPropagation(); $('menu').classList.toggle('hide'); };
-addEventListener('click', () => show('menu', false));
+addEventListener('click', e => { if (!e.target.closest('#menu')) show('menu', false); });
 
 /* ===== Dashboard ===== */
 async function loadRepos() {
   allRepos = [];
   for (let p = 1; p <= 5; p++) { const r = await gh(`/user/repos?per_page=100&sort=updated&page=${p}`); allRepos.push(...r); if (r.length < 100) break; }
-  const R = allRepos, n = f => R.filter(f).length, sum = k => R.reduce((a, r) => a + r[k], 0);
-  $('hello').innerHTML = `Welcome back, <span class="grad">@${esc(me.login)}</span>`;
-  $('sub').textContent = `${R.length} repositories · ${n(r => r.private)} private · ${n(r => !r.private)} public`;
-  $('stats').innerHTML = [['📁', R.length, 'Total repos'], ['🔒', n(r => r.private), 'Private'], ['🌐', n(r => !r.private), 'Public'], ['⭐', sum('stargazers_count'), 'Total stars'], ['🍴', sum('forks_count'), 'Forks']]
-    .map((t, i) => `<div class="tile card" style="animation-delay:${i * 70}ms"><i>${t[0]}</i><div><b>${t[1]}</b><span>${t[2]}</span></div></div>`).join('');
-  const langs = [...new Set(R.map(r => r.language).filter(Boolean))].sort();
-  $('fl').innerHTML = '<option value="">All languages</option>' + langs.map(l => `<option>${esc(l)}</option>`).join('');
+  const R = allRepos, n = f => R.filter(f).length, sum = k => R.reduce((a, r) => a + r[k], 0), pub = n(r => !r.private), pri = R.length - pub;
+  const C = 2 * Math.PI * 40, a = (R.length ? pub / R.length : 0) * C;
+  $('donut').innerHTML = `<svg viewBox="0 0 100 100" class="dn"><circle cx="50" cy="50" r="40" fill="none" stroke="#fbbf24" stroke-width="12" opacity=".85"/><circle class="arc" cx="50" cy="50" r="40" fill="none" stroke="var(--ac2)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${a} ${C}" transform="rotate(-90 50 50)"/></svg><b class="disp">${R.length}</b>`;
+  $('stats').innerHTML = [[330, R.length, '📁 Repos'], [45, pri, '🔒 Private'], [160, pub, '🌐 Public'], [55, sum('stargazers_count'), '⭐ Stars'], [265, sum('forks_count'), '🍴 Forks']]
+    .map((t, i) => `<div class="tile card tilt" style="--h:${t[0]};animation-delay:${i * 80}ms"><b data-n="${t[1]}">0</b><span>${t[2]}</span></div>`).join('');
+  document.querySelectorAll('#stats b').forEach(countUp);
   drawRepos();
 }
-function drawRepos() {
-  const q = $('rq').value.toLowerCase(), v = $('fv').value, lg = $('fl').value, s = $('fs').value;
-  const ok = r => (v === 'all' || (v === 'pub' && !r.private) || (v === 'pri' && r.private) || (v === 'fork' && r.fork)) && (!lg || r.language === lg) && r.full_name.toLowerCase().includes(q);
-  const L = allRepos.filter(ok).sort((a, b) => s === 'name' ? a.name.localeCompare(b.name) : s === 'star' ? b.stargazers_count - a.stargazers_count : new Date(b.pushed_at || b.updated_at) - new Date(a.pushed_at || a.updated_at));
-  $('chips').innerHTML = ['', ...new Set(allRepos.map(r => r.language).filter(Boolean))].map(l => `<button data-l="${esc(l)}" class="${l === lg ? 'on' : ''}">${l ? '<span class="dot" style="background:' + (LC[l] || '#ff4fa3') + '"></span>' + esc(l) : 'All'}</button>`).join('');
-  $('cnt').textContent = L.length + ' repos';
-  $('rlist').innerHTML = L.map((r, i) => `<div class="rc card" data-r="${esc(r.full_name)}" style="animation-delay:${Math.min(i, 10) * 50}ms"><div class="ic">${r.private ? '🔒' : '📘'}</div><div style="min-width:0">
-    <b>${esc(r.name)}</b><span class="pill ${r.private ? 'pr' : 'pu'}">${r.private ? 'Private' : 'Public'}</span>${r.fork ? '<span class="pill fk">Fork</span>' : ''}
-    <div class="meta">${r.language ? `<span><span class="dot" style="background:${LC[r.language] || '#ff4fa3'}"></span>${esc(r.language)}</span>` : (r.description ? `<span>${esc(r.description)}</span>` : '')}<span>⎇ ${esc(r.default_branch)}</span><span>${new Date(r.pushed_at || r.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span><span>⭐ ${r.stargazers_count}</span><span>🍴 ${r.forks_count}</span></div></div></div>`).join('') || '<div class="empty card">No repositories found</div>';
+function drawLang() {
+  const cnt = {}; allRepos.forEach(r => r.language && (cnt[r.language] = (cnt[r.language] || 0) + 1));
+  const L = Object.entries(cnt).sort((a, b) => b[1] - a[1]); show('langc', L.length > 0);
+  $('lbar').innerHTML = L.map(([l, c]) => `<button class="${lang === l ? 'on' : ''}" data-l="${esc(l)}" style="flex:${c};background:${lcol(l)}" title="${esc(l)} ${c}"></button>`).join('');
+  $('llegend').innerHTML = L.map(([l, c]) => `<button class="${lang === l ? 'on' : ''}" data-l="${esc(l)}"><span class="dot" style="background:${lcol(l)}"></span>${esc(l)} ${c}</button>`).join('');
 }
-['rq', 'fv', 'fl', 'fs'].forEach(i => $(i).oninput = drawRepos);
-$('chips').onclick = e => { const b = e.target.closest('button'); if (b) { $('fl').value = b.dataset.l; drawRepos(); } };
-$('rlist').onclick = e => { const c = e.target.closest('.rc'); if (c) openRepo(c.dataset.r); };
+function drawRepos() {
+  const q = $('rq').value.toLowerCase(), s = $('fs').value, t = r => new Date(r.pushed_at || r.updated_at);
+  const ok = r => (fv === 'all' || (fv === 'pub' && !r.private) || (fv === 'pri' && r.private) || (fv === 'fork' && r.fork)) && (!lang || r.language === lang) && r.full_name.toLowerCase().includes(q);
+  const L = allRepos.filter(ok).sort((a, b) => (pins.has(b.full_name) - pins.has(a.full_name)) || (s === 'name' ? a.name.localeCompare(b.name) : s === 'star' ? b.stargazers_count - a.stargazers_count : t(b) - t(a)));
+  document.querySelectorAll('#seg button').forEach(b => b.classList.toggle('on', b.dataset.v === fv)); drawLang();
+  $('cnt').textContent = L.length + ' shown';
+  $('rlist').innerHTML = L.map((r, i) => `<div class="rc card tilt" data-r="${esc(r.full_name)}" style="--h:${hash(r.name) % 360};animation-delay:${Math.min(i, 10) * 50}ms"><div class="ic">${r.private ? '🔒' : '📘'}</div><div class="rb">
+    <b>${esc(r.name)}</b><span class="pill ${r.private ? 'pr' : 'pu'}">${r.private ? 'Private' : 'Public'}</span>${r.fork ? '<span class="pill fk">Fork</span>' : ''}
+    <div class="meta">${r.language ? `<span><span class="dot" style="background:${lcol(r.language)}"></span>${esc(r.language)}</span>` : ''}<span>⎇ ${esc(r.default_branch)}</span><span>${ago(r.pushed_at || r.updated_at)}</span><span>⭐ ${r.stargazers_count}</span><span>🍴 ${r.forks_count}</span></div></div>
+    <button class="pin" data-pin="${esc(r.full_name)}" title="Pin">${pins.has(r.full_name) ? '📌' : '📍'}</button></div>`).join('') || '<div class="empty card">Nothing matches</div>';
+}
+$('rq').oninput = drawRepos; $('fs').oninput = drawRepos;
+$('seg').onclick = e => { const b = e.target.closest('button'); if (b) { fv = b.dataset.v; drawRepos(); } };
+$('vt').onclick = () => $('rlist').classList.toggle('l1');
+const pickLang = e => { const b = e.target.closest('[data-l]'); if (b) { lang = lang === b.dataset.l ? '' : b.dataset.l; drawRepos(); } };
+$('lbar').onclick = pickLang; $('llegend').onclick = pickLang;
+$('rlist').onclick = e => {
+  const p = e.target.closest('[data-pin]');
+  if (p) { const k = p.dataset.pin; pins.has(k) ? pins.delete(k) : pins.add(k); store.set('gz_pins', JSON.stringify([...pins])); return drawRepos(); }
+  const c = e.target.closest('.rc'); if (c) openRepo(c.dataset.r);
+};
 
 /* ===== New repository (auto README so it is never empty) ===== */
 $('nrb').onclick = () => { $('nre').textContent = ''; $('nrn').value = ''; show('mNr'); };
 $('nrgo').onclick = async () => {
   const name = $('nrn').value.trim(); if (!name) return ($('nre').textContent = 'Enter a name');
-  try { await gh('/user/repos', { method: 'POST', body: JSON.stringify({ name, private: $('nrp').checked, auto_init: true }) }); show('mNr', false); say('Repository created'); loadRepos(); }
+  try { await gh('/user/repos', { method: 'POST', body: JSON.stringify({ name, private: $('nrp').checked, auto_init: true }) }); show('mNr', false); say('Repo created 🎉'); loadRepos(); }
   catch (e) { $('nre').textContent = e.message; }
 };
 
-/* ===== Repo view ===== */
-function openRepo(full) {
+/* ===== Repo view: files / history / info / branch switch ===== */
+async function openRepo(full) {
   const r = allRepos.find(x => x.full_name === full); repo = full; branch = r.default_branch; path = '';
-  $('rname').textContent = r.name; endSel(); show('vDash', false); show('vRepo'); scrollTo(0, 0); loadDir();
+  $('rname').textContent = r.name; $('br').innerHTML = `<option>${esc(branch)}</option>`; endSel(); $('fq').value = ''; show('fres', false); show('files'); setTab('files');
+  show('vDash', false); show('vRepo'); scrollTo(0, 0); loadDir();
+  try { const bs = await gh(`/repos/${repo}/branches?per_page=100`); $('br').innerHTML = bs.map(b => `<option ${b.name === branch ? 'selected' : ''}>${esc(b.name)}</option>`).join(''); } catch (e) {}
 }
+$('br').onchange = () => { branch = $('br').value; path = ''; endSel(); setTab(tab); };
 $('back').onclick = () => { repo = null; show('vRepo', false); show('vDash'); };
+function setTab(t) {
+  tab = t; document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  show('pFiles', t === 'files'); show('pHist', t === 'hist'); show('pInfo', t === 'info');
+  if (t === 'files') loadDir(); else if (t === 'hist') loadHist(); else drawInfo();
+}
+$('tabs').onclick = e => { const b = e.target.closest('button'); if (b) setTab(b.dataset.tab); };
+async function loadHist() {
+  $('pHist').innerHTML = '<div class="empty">Loading…</div>';
+  try {
+    const c = await gh(`/repos/${repo}/commits?sha=${encodeURIComponent(branch)}&per_page=25`);
+    $('pHist').innerHTML = '<div class="list">' + c.map(x => `<div class="row" data-sha="${x.sha}" style="cursor:pointer"><span class="dot"></span><div style="flex:1;min-width:0"><div style="word-break:break-word">${esc(x.commit.message.split('\n')[0])}</div><small>${esc(x.commit.author.name)} · ${ago(x.commit.author.date)}</small></div><code class="mono" style="color:var(--ac2)">${x.sha.slice(0, 7)}</code></div>`).join('') + '</div>';
+  } catch (e) { $('pHist').innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+}
+function drawInfo() {
+  const r = allRepos.find(x => x.full_name === repo), f = (k, v) => `<div><small>${k}</small>${v}</div>`;
+  $('pInfo').innerHTML = `<p style="color:var(--mut)">${esc(r.description || 'No description')}</p><div class="facts">${f('Visibility', r.private ? '🔒 Private' : '🌐 Public')}${f('Language', esc(r.language || '—'))}${f('Stars', '⭐ ' + r.stargazers_count)}${f('Forks', '🍴 ' + r.forks_count)}${f('Size', (r.size / 1024).toFixed(1) + ' MB')}${f('Updated', ago(r.pushed_at || r.updated_at))}${f('Created', new Date(r.created_at).toLocaleDateString())}${f('Default branch', '⎇ ' + esc(r.default_branch))}</div>
+  <div class="bar"><button class="pri" id="icl">📋 Copy clone URL</button><a href="${esc(r.html_url)}" target="_blank" rel="noopener" style="text-decoration:none"><button>↗ Open on GitHub</button></a><button id="ivis">${r.private ? '🌐 Make public' : '🔒 Make private'}</button></div>`;
+  $('pInfo').insertAdjacentHTML('beforeend', `<div class="card" style="padding:14px;margin-top:12px"><div id="pgbox"></div></div><div class="card" style="padding:14px;margin-top:12px"><button id="istar"></button> <button id="idz">⬇ Download repo ZIP</button></div><div class="card" style="padding:14px;margin-top:12px"><label class="l">Description</label><input id="idesc" type="text" value="${esc(r.description || '')}"><label class="l">Topics (comma separated)</label><input id="itop" type="text"><button class="pri" id="isave" style="margin-top:10px">Save details</button></div>`);
+  pagesBox(); starBox(); $('idz').onclick = () => dlZip('', r.name);
+  gh(`/repos/${repo}/topics`).then(x => $('itop').value = x.names.join(', '), () => {});
+  $('isave').onclick = async () => { try { const u = await gh(`/repos/${repo}`, { method: 'PATCH', body: JSON.stringify({ description: $('idesc').value }) }); r.description = u.description; const names = $('itop').value.split(',').map(t => t.trim().toLowerCase().replace(/\s+/g, '-')).filter(Boolean); await gh(`/repos/${repo}/topics`, { method: 'PUT', body: JSON.stringify({ names }) }); say('Saved ✅'); } catch (e) { say(e.message, true); } };
+  $('icl').onclick = () => navigator.clipboard.writeText(r.clone_url).then(() => say('Copied'), () => say(r.clone_url));
+  $('ivis').onclick = async () => {
+    if (!confirm(r.private ? 'Make this repository PUBLIC? Anyone can see it.' : 'Make this repository private?')) return;
+    try { const u = await gh(`/repos/${repo}`, { method: 'PATCH', body: JSON.stringify({ private: !r.private }) }); Object.assign(r, u); say('Visibility changed'); drawInfo(); } catch (e) { say(e.message, true); }
+  };
+}
+
+/* ===== File browser ===== */
 async function loadDir() {
   drawCrumb(); $('files').innerHTML = '<div class="empty">Loading…</div>';
   try {
@@ -285,17 +427,18 @@ async function loadDir() {
     cur = items; drawFiles();
   } catch (e) { cur = []; $('files').innerHTML = `<div class="empty">${/empty/i.test(e.message) ? 'This repository is empty. Create a file first.' : esc(e.message)}</div>`; }
 }
+const icon = i => i.type === 'dir' ? '📁' : /\.(png|jpe?g|gif|webp|svg|ico|bmp)$/i.test(i.name) ? '🖼️' : /\.(zip|rar|7z|gz)$/i.test(i.name) ? '🗜️' : '📄';
 function drawFiles() {
   $('files').innerHTML = (path ? '<div class="row"><span class="nm" data-up="1">⬆ ..</span></div>' : '') + (cur.map((i, k) => `<div class="row" style="animation-delay:${Math.min(k, 12) * 30}ms">
     ${selMode ? `<input type="checkbox" data-s="${esc(i.path)}" ${sel.has(i.path) ? 'checked' : ''}>` : ''}
-    <span class="nm" data-t="${i.type}" data-p="${esc(i.path)}">${i.type === 'dir' ? '📁' : '📄'} ${esc(i.name)}</span>
+    <span class="nm" data-t="${i.type}" data-p="${esc(i.path)}">${icon(i)} ${esc(i.name)}</span>
     <small>${i.type === 'file' ? (i.size / 1024).toFixed(1) + ' KB' : ''}</small>
-    ${selMode ? '' : `<button class="dng" data-del="${esc(i.path)}">🗑</button>`}</div>`).join('') || '<div class="empty">Empty folder. Open Actions to upload.</div>');
+    ${selMode ? '' : `<button data-mv="${esc(i.path)}">✏️</button><button class="dng" data-del="${esc(i.path)}">🗑</button>`}</div>`).join('') || '<div class="empty">Empty folder. Open Actions to upload.</div>');
   $('selc').textContent = sel.size + ' selected';
 }
 function drawCrumb() {
   const parts = path ? path.split('/') : [];
-  $('crumb').innerHTML = `<span data-c="">${esc(repo)}</span>` + parts.map((p, i) => ` / <span data-c="${esc(parts.slice(0, i + 1).join('/'))}">${esc(p)}</span>`).join('') + ` <small style="color:var(--mut)">⎇ ${esc(branch)}</small>`;
+  $('crumb').innerHTML = `<span data-c="">${esc(repo)}</span>` + parts.map((p, i) => ` / <span data-c="${esc(parts.slice(0, i + 1).join('/'))}">${esc(p)}</span>`).join('');
 }
 $('crumb').onclick = e => { const c = e.target.closest('[data-c]'); if (c) { path = c.dataset.c; loadDir(); } };
 $('files').onclick = e => {
@@ -304,16 +447,17 @@ $('files').onclick = e => {
   const ck = e.target.closest('[data-s]');
   if (ck) { ck.checked ? sel.add(ck.dataset.s) : sel.delete(ck.dataset.s); return ($('selc').textContent = sel.size + ' selected'); }
   if (n) { if (selMode) return; if (n.dataset.t === 'dir') { path = n.dataset.p; return loadDir(); } return openFile(n.dataset.p); }
+  const m = e.target.closest('[data-mv]'); if (m) return moveItem(m.dataset.mv);
   const d = e.target.closest('[data-del]'); if (d) removeMany([d.dataset.del]);
 };
 
 /* ===== Select / delete many in ONE commit ===== */
 function startSel(all) { selMode = true; sel = new Set(all ? cur.map(i => i.path) : []); show('selbar'); drawFiles(); }
-function endSel() { selMode = false; sel = new Set(); show('selbar', false); if (repo) drawFiles(); }
+function endSel() { selMode = false; sel = new Set(); show('selbar', false); if (repo && tab === 'files') drawFiles(); }
 $('selx').onclick = endSel;
 $('seld').onclick = () => sel.size ? removeMany([...sel]) : say('Select something first', true);
 async function removeMany(paths) {
-  if (!confirm(`Delete ${paths.length} item(s)? Folders are deleted with everything inside.`)) return;
+  if (!confirm(`Delete ${paths.length} item(s)? Folders go with everything inside.`)) return;
   try {
     const tree = await gh(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`), ents = [];
     tree.tree.filter(t => t.type === 'blob').forEach(t => { if (paths.some(p => t.path === p || t.path.startsWith(p + '/'))) ents.push({ path: t.path, mode: '100644', type: 'blob', sha: null }); });
@@ -321,29 +465,41 @@ async function removeMany(paths) {
   } catch (e) { say(e.message, true); }
 }
 
-/* ===== Actions menu ===== */
+/* ===== Actions sheet ===== */
 $('actb').onclick = () => show('mAct');
 document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('.modal').classList.add('hide'));
 $('mAct').onclick = e => {
-  const a = e.target.closest('[data-a]'); if (!a) return; show('mAct', false);
-  const k = a.dataset.a;
-  if (k === 'zip' || k === 'file') openUp(k); else if (k === 'new') showEditor(path ? path + '/' : '', '', null); else startSel(k === 'all');
+  const a = e.target.closest('[data-a]'); if (!a) return; show('mAct', false); setTab('files');
+  const k = a.dataset.a, pre = path ? path + '/' : '';
+  if (k === 'zip' || k === 'file') openUp(k); else if (k === 'fol') openUp('folder'); else if (k === 'dz') dlZip(path, path ? path.split('/').pop() : repo.split('/')[1]); else if (k === 'br') brList().then(() => show('mBr')); else if (k === 'new') showEditor(pre, '', null); else if (k === 'dir') showEditor(pre, '', null, true); else startSel(k === 'all');
 };
 
-/* ===== Editor ===== */
+/* ===== Editor, folder maker, image preview ===== */
+const MIME = { svg: 'image/svg+xml', jpg: 'image/jpeg', jpeg: 'image/jpeg', ico: 'image/x-icon' };
 async function openFile(p) {
   try {
-    const f = await gh(`/repos/${repo}/contents/${cp(p)}?ref=${encodeURIComponent(branch)}`);
+    const f = await gh(`/repos/${repo}/contents/${cp(p)}?ref=${encodeURIComponent(branch)}`), ext = p.split('.').pop().toLowerCase();
+    if (/^(png|jpe?g|gif|webp|svg|ico|bmp)$/.test(ext)) {
+      if (!f.content) return say('Image is too large to preview here.', true);
+      const src = `data:${MIME[ext] || 'image/' + ext};base64,${f.content.replace(/\n/g, '')}`;
+      $('imgv').src = src; $('imgn').textContent = f.name; $('imgd').href = src; $('imgd').download = f.name; return show('mImg');
+    }
     const text = f.content ? dec(f.content) : '';
-    if (text.includes('\u0000')) return say('Binary file (image etc.): it cannot be edited here.', true);
+    if (text.includes('\u0000')) return say('Binary file: it cannot be edited here.', true);
     showEditor(p, text, f.sha);
   } catch (e) { say(e.message, true); }
 }
-function showEditor(p, text, sha) { editSha = sha; $('epath').value = p; $('epath').disabled = !!sha; $('etext').value = text; $('emsg').textContent = ''; show('efold', !sha); show('editor'); }
+function showEditor(p, text, sha, folder) {
+  editSha = sha; $('epath').value = p; $('epath').disabled = !!sha; $('etext').value = text; $('emsg').textContent = '';
+  $('epath').placeholder = folder ? 'folder-name' : 'folder/file.txt';
+  show('etext', !folder); show('esave', !folder); show('efold', !!folder); show('ecp', !folder); show('edl', !folder); show('editor');
+}
 $('ecancel').onclick = () => show('editor', false);
+$('ecp').onclick = () => navigator.clipboard.writeText($('etext').value).then(() => say('Copied'), () => say('Copy failed', true));
+$('edl').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([$('etext').value])); a.download = $('epath').value.split('/').pop() || 'file.txt'; a.click(); };
 async function put(p, content, sha, msg) {
   const body = { message: msg, content: enc(content), branch }; if (sha) body.sha = sha;
-  await gh(`/repos/${repo}/contents/${cp(p)}`, { method: 'PUT', body: JSON.stringify(body) });
+  await gh(`/repos/${repo}/contents/${cp(p)}`, { method: 'PUT', body: JSON.stringify(body) }); tc = null;
 }
 $('esave').onclick = async () => {
   const p = $('epath').value.trim().replace(/^\/+/, ''); if (!p || p.endsWith('/')) return ($('emsg').textContent = 'Enter a file name.');
@@ -360,7 +516,7 @@ async function commitTree(entries, message) {
   const base = await gh(`/repos/${repo}/git/commits/${ref.object.sha}`);
   const tree = await gh(`/repos/${repo}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: base.tree.sha, tree: entries }) });
   const commit = await gh(`/repos/${repo}/git/commits`, { method: 'POST', body: JSON.stringify({ message, tree: tree.sha, parents: [ref.object.sha] }) });
-  await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
+  await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) }); tc = null;
 }
 
 /* ===== Fast resumable upload: 5 parallel, auto retry, skips identical files ===== */
@@ -382,7 +538,7 @@ async function upload(items, o) {
   busy = true; cancel = false; show('prog'); $('upGo').disabled = true; $('upCancel').textContent = 'Stop';
   const pre = o.tp ? o.tp + '/' : '';
   try {
-    prog(0, 'Checking existing files…');
+    prog(0, 'Checking what is already there…');
     const have = {};
     try { (await retry(() => gh(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`))).tree.forEach(t => have[t.path] = t.sha); } catch (e) {}
     const ents = [], n = items.length; let i = 0, done = 0, skip = 0;
@@ -390,7 +546,7 @@ async function upload(items, o) {
       while (i < n && !cancel) {
         const it = items[i++], p = pre + it.name;
         try {
-          const u = await it.get();
+          let u = await it.get(); if (o.img) u = await shrink(u, it.name);
           if (u.length > 1e8) say(p + ' is over 100 MB: skipped', true);
           else if (have[p] && (!o.over || have[p] === await gitSha(u))) skip++;
           else { const b = await retry(() => gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64(u), encoding: 'base64' }) })); ents.push({ path: p, mode: '100644', type: 'blob', sha: b.sha }); }
@@ -399,57 +555,167 @@ async function upload(items, o) {
       }
     };
     await Promise.all(Array.from({ length: Math.min(5, n) }, work));
-    if (cancel) say('Upload stopped. Nothing was committed.', true);
+    if (cancel) say('Stopped. Nothing was committed.', true);
     else if (!ents.length) say('Nothing new: everything is already there');
-    else { prog(100, 'Saving commit…'); await retry(() => commitTree(ents, o.msg)); say(`Uploaded ${ents.length} files` + (skip ? `, ${skip} skipped` : '')); }
+    else { prog(100, 'Saving commit…'); await retry(() => commitTree(ents, o.msg)); logUp(o.msg, ents.length, skip); say(`Uploaded ${ents.length} files 🎉` + (skip ? `, ${skip} skipped` : '')); }
   } catch (e) { say(/empty/i.test(e.message) ? 'Repository is empty: create a file first.' : e.message, true); }
   busy = false; $('upGo').disabled = false; $('upCancel').textContent = 'Cancel'; show('prog', false); show('mUp', false); pend = null; loadDir();
 }
 
 /* ===== Upload modal ===== */
 function openUp(mode) {
-  upMode = mode; pend = null; $('upT').textContent = mode === 'zip' ? 'Upload ZIP' : 'Upload Files';
-  $('dropT').textContent = mode === 'zip' ? 'Tap to select ZIP file' : 'Tap to select files (png, svg, any file)';
-  document.querySelectorAll('.zo').forEach(e => e.classList.toggle('hide', mode !== 'zip'));
+  upMode = mode; pend = null; $('upT').textContent = { zip: 'Upload ZIP', file: 'Upload files', folder: 'Upload folder' }[mode];
+  $('dropT').textContent = { zip: 'Tap to choose a ZIP', file: 'Tap to choose files (png, svg, anything)', folder: 'Tap to choose a folder' }[mode];
+  document.querySelectorAll('.zo').forEach(e => e.classList.toggle('hide', mode === 'file'));
   $('upPath').value = path; show('prog', false); show('mUp');
 }
-$('drop').onclick = () => $(upMode === 'zip' ? 'fz' : 'ff').click();
+$('drop').onclick = () => $({ zip: 'fz', file: 'ff', folder: 'fd' }[upMode]).click();
 $('drop').ondragover = e => { e.preventDefault(); $('drop').classList.add('drag'); };
 $('drop').ondragleave = () => $('drop').classList.remove('drag');
 $('drop').ondrop = e => { e.preventDefault(); $('drop').classList.remove('drag'); pick([...e.dataTransfer.files]); };
 $('fz').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
 $('ff').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
+$('fd').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
 async function pick(fs) {
   if (!fs.length) return;
   try {
     if (upMode === 'zip') { const z = await JSZip.loadAsync(fs[0]); pend = { zip: z }; $('dropT').textContent = `${fs[0].name} · ${Object.keys(z.files).filter(n => !z.files[n].dir).length} files`; }
-    else { pend = { files: fs }; $('dropT').textContent = fs.length + ' file(s) selected'; }
+    else { pend = { files: fs }; $('dropT').textContent = fs.length + ' file(s) ready'; }
   } catch (e) { say('Could not read this file: ' + e.message, true); }
 }
 $('upCancel').onclick = () => busy ? (cancel = true) : show('mUp', false);
 $('upGo').onclick = () => {
-  if (!pend) return say('Select a file first', true);
-  const o = { over: $('oOver').checked, msg: $('upMsg').value || 'Upload', tp: $('upPath').value.trim().replace(/^\/+|\/+$/g, '') };
-  let items;
-  if (pend.zip) {
-    const z = pend.zip; let names = Object.keys(z.files).filter(n => !z.files[n].dir);
-    if ($('oSys').checked) names = names.filter(n => !/(^|\/)(node_modules|__MACOSX|\.git)\//.test(n) && !/\.DS_Store$/.test(n));
-    const roots = new Set(names.map(n => n.split('/')[0])), strip = $('oStrip').checked && roots.size === 1 && names.every(n => n.includes('/'));
-    items = names.map(n => ({ name: strip ? n.split('/').slice(1).join('/') : n, get: () => z.files[n].async('uint8array') }));
-  } else items = pend.files.map(f => ({ name: f.name, get: async () => new Uint8Array(await f.arrayBuffer()) }));
+  if (!pend) return say('Choose a file first', true);
+  const o = { over: $('oOver').checked, img: $('oImg').checked, msg: $('upMsg').value || 'Upload', tp: $('upPath').value.trim().replace(/^\/+|\/+$/g, '') };
+  let list = pend.zip ? Object.keys(pend.zip.files).filter(n => !pend.zip.files[n].dir).map(n => ({ n, get: () => pend.zip.files[n].async('uint8array') }))
+    : pend.files.map(f => ({ n: f.webkitRelativePath || f.name, get: async () => new Uint8Array(await f.arrayBuffer()) }));
+  if (upMode !== 'file') {
+    if ($('oSys').checked) list = list.filter(x => !/(^|\/)(node_modules|__MACOSX|\.git)\//.test(x.n) && !/\.DS_Store$/.test(x.n));
+    const roots = new Set(list.map(x => x.n.split('/')[0]));
+    if ($('oStrip').checked && roots.size === 1 && list.every(x => x.n.includes('/'))) list.forEach(x => x.n = x.n.split('/').slice(1).join('/'));
+  }
+  const items = list.map(x => ({ name: x.n, get: x.get }));
   if (!items.length) return say('No files to upload', true);
   upload(items, o);
 };
-/* Drop files straight onto the file list */
 const fl = $('files');
 fl.ondragover = e => { e.preventDefault(); fl.classList.add('drag'); };
 fl.ondragleave = () => fl.classList.remove('drag');
-fl.ondrop = async e => { e.preventDefault(); fl.classList.remove('drag'); const fs = [...e.dataTransfer.files]; if (!fs.length) return; openUp(fs.length === 1 && /\.zip$/i.test(fs[0].name) ? 'zip' : 'file'); pick(fs); };
+fl.ondrop = e => { e.preventDefault(); fl.classList.remove('drag'); const fs = [...e.dataTransfer.files]; if (!fs.length) return; openUp(fs.length === 1 && /\.zip$/i.test(fs[0].name) ? 'zip' : 'file'); pick(fs); };
 addEventListener('beforeunload', e => { if (busy) { e.preventDefault(); e.returnValue = ''; } });
+
+/* ===== New: tree cache, search, move/rename, ZIP download ===== */
+let tc = null;
+async function getTree() {
+  const k = repo + '@' + branch; if (tc && tc.k === k) return tc.t;
+  const r = await gh(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`); tc = { k, t: r.tree }; return r.tree;
+}
+$('fq').oninput = async () => {
+  const q = $('fq').value.trim().toLowerCase(); show('fres', q.length > 1); show('files', q.length < 2); if (q.length < 2) return;
+  try {
+    const r = (await getTree()).filter(x => x.path.toLowerCase().includes(q)).slice(0, 40);
+    $('fres').innerHTML = r.map(x => `<div class="row"><span class="nm" data-sp="${esc(x.path)}" data-st="${x.type}">${x.type === 'tree' ? '📁' : '📄'} ${esc(x.path)}</span></div>`).join('') || '<div class="empty">No match</div>';
+  } catch (e) { $('fres').innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+};
+$('fres').onclick = e => {
+  const n = e.target.closest('[data-sp]'); if (!n) return; $('fq').value = ''; show('fres', false); show('files');
+  if (n.dataset.st === 'tree') path = n.dataset.sp; else path = n.dataset.sp.split('/').slice(0, -1).join('/');
+  loadDir(); if (n.dataset.st !== 'tree') openFile(n.dataset.sp);
+};
+async function moveItem(p) {
+  let np = (prompt('New name or full path:', p) || '').trim().replace(/^\/+|\/+$/g, ''); if (!np || np === p) return;
+  if (!np.includes('/') && p.includes('/')) np = p.slice(0, p.lastIndexOf('/') + 1) + np;
+  try {
+    const ents = []; (await getTree()).filter(x => x.type === 'blob' && (x.path === p || x.path.startsWith(p + '/'))).forEach(x => {
+      ents.push({ path: np + x.path.slice(p.length), mode: x.mode, type: 'blob', sha: x.sha }, { path: x.path, mode: x.mode, type: 'blob', sha: null });
+    });
+    if (!ents.length) return say('Not found', true);
+    await commitTree(ents, `Move ${p} to ${np}`); say('Moved ✅'); loadDir();
+  } catch (e) { say(e.message, true); }
+}
+async function dlZip(prefix, name) {
+  try {
+    const fs = (await getTree()).filter(x => x.type === 'blob' && (!prefix || x.path.startsWith(prefix + '/')));
+    if (!fs.length) return say('Nothing to download', true);
+    const total = fs.reduce((a, x) => a + (x.size || 0), 0);
+    if (total > 80e6 && !confirm('This is about ' + (total / 1e6).toFixed(0) + ' MB. A phone may run out of memory. Continue?')) return;
+    const z = new JSZip(); let i = 0, d = 0;
+    await Promise.all(Array.from({ length: 5 }, async () => {
+      while (i < fs.length) { const f = fs[i++], b = await retry(() => gh(`/repos/${repo}/git/blobs/${f.sha}`)); z.file(prefix ? f.path.slice(prefix.length + 1) : f.path, b.content.replace(/\n/g, ''), { base64: true }); say(`Packing ${++d} / ${fs.length}…`); }
+    }));
+    const a = document.createElement('a'); a.href = URL.createObjectURL(await z.generateAsync({ type: 'blob' })); a.download = name + '.zip'; a.click(); say('ZIP ready ⬇');
+  } catch (e) { say(e.message, true); }
+}
+
+/* ===== New: photo shrinker, upload log ===== */
+async function shrink(u, name) {
+  if (u.length < 8e5 || !/\.(jpe?g|png|webp)$/i.test(name)) return u;
+  try {
+    const type = /png$/i.test(name) ? 'image/png' : /webp$/i.test(name) ? 'image/webp' : 'image/jpeg', bm = await createImageBitmap(new Blob([u]));
+    const k = Math.min(1, 2048 / Math.max(bm.width, bm.height)), c = document.createElement('canvas'); c.width = Math.round(bm.width * k); c.height = Math.round(bm.height * k);
+    c.getContext('2d').drawImage(bm, 0, 0, c.width, c.height);
+    const o = new Uint8Array(await (await new Promise(r => c.toBlob(r, type, .82))).arrayBuffer()); return o.length < u.length ? o : u;
+  } catch (e) { return u; }
+}
+function logUp(m, n, s) { let L = []; try { L = JSON.parse(store.get('gz_log') || '[]'); } catch (e) {} L.unshift({ t: Date.now(), repo, m, n, s }); store.set('gz_log', JSON.stringify(L.slice(0, 30))); }
+$('mhb').onclick = () => {
+  show('menu', false); let L = []; try { L = JSON.parse(store.get('gz_log') || '[]'); } catch (e) {}
+  $('hlist').innerHTML = L.length ? L.map(x => `<div class="row"><div style="flex:1;min-width:0"><b style="word-break:break-all">${esc(x.repo)}</b><br><small>${esc(x.m)} · ${x.n} files${x.s ? ', ' + x.s + ' skipped' : ''} · ${ago(x.t)}</small></div></div>`).join('') : '<div class="empty">No uploads yet</div>'; show('mHist');
+};
+
+/* ===== New: commit diff, branches, Pages, star, fork ===== */
+$('pHist').onclick = e => { const r = e.target.closest('[data-sha]'); if (r) openDiff(r.dataset.sha); };
+async function openDiff(sha) {
+  show('mDiff'); $('dft').textContent = 'Loading…'; $('dfb').innerHTML = '';
+  try {
+    const c = await gh(`/repos/${repo}/commits/${sha}`); $('dft').textContent = c.commit.message.split('\n')[0];
+    $('dfb').innerHTML = c.files.map(f => `<div class="df"><b style="word-break:break-all">${esc(f.filename)}</b> <small>${f.status} +${f.additions} −${f.deletions}</small><pre>${f.patch ? f.patch.split('\n').map(l => `<span class="${l[0] === '+' ? 'ad' : l[0] === '-' ? 'rm' : ''}">${esc(l) || ' '}</span>`).join('') : '(binary or too large to show)'}</pre></div>`).join('');
+  } catch (e) { $('dfb').innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+}
+async function brList() {
+  const bs = await gh(`/repos/${repo}/branches?per_page=100`);
+  $('br').innerHTML = bs.map(b => `<option ${b.name === branch ? 'selected' : ''}>${esc(b.name)}</option>`).join('');
+  $('msrc').innerHTML = bs.filter(b => b.name !== branch).map(b => `<option>${esc(b.name)}</option>`).join('');
+}
+$('bcreate').onclick = async () => {
+  const n = $('bname').value.trim(); if (!n) return say('Enter a branch name', true);
+  try {
+    const r = await gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
+    await gh(`/repos/${repo}/git/refs`, { method: 'POST', body: JSON.stringify({ ref: 'refs/heads/' + n, sha: r.object.sha }) });
+    branch = n; path = ''; await brList(); show('mBr', false); say('Branch created 🌿'); setTab(tab);
+  } catch (e) { say(e.message, true); }
+};
+$('bmerge').onclick = async () => {
+  const s2 = $('msrc').value; if (!s2) return say('No other branch to merge', true);
+  if (!confirm(`Merge "${s2}" into "${branch}"?`)) return;
+  try { const r = await gh(`/repos/${repo}/merges`, { method: 'POST', body: JSON.stringify({ base: branch, head: s2 }) }); tc = null; show('mBr', false); say(r ? 'Merged ✅' : 'Already up to date'); setTab(tab); }
+  catch (e) { say(e.message, true); }
+};
+async function pagesBox() {
+  const box = $('pgbox');
+  try {
+    const p = await gh(`/repos/${repo}/pages`);
+    box.innerHTML = `🌐 GitHub Pages is <b>ON</b><br><a class="lnk" target="_blank" rel="noopener" href="${esc(p.html_url)}" style="word-break:break-all">${esc(p.html_url)}</a><br><button id="pgoff" class="dng" style="margin-top:8px">Turn off</button>`;
+    $('pgoff').onclick = async () => { if (!confirm('Turn off GitHub Pages for this repo?')) return; try { await gh(`/repos/${repo}/pages`, { method: 'DELETE' }); pagesBox(); } catch (e) { say(e.message, true); } };
+  } catch (e) {
+    box.innerHTML = `🌐 GitHub Pages is <b>off</b><br><button id="pgon" class="pri" style="margin-top:8px">Turn on (${esc(branch)})</button>`;
+    $('pgon').onclick = async () => { try { await gh(`/repos/${repo}/pages`, { method: 'POST', body: JSON.stringify({ source: { branch, path: '/' } }) }); say('Pages turned on. It can take a minute.'); pagesBox(); } catch (e2) { say(e2.message, true); } };
+  }
+}
+async function starBox() {
+  const b = $('istar'); let on = true;
+  try { await gh(`/user/starred/${repo}`); } catch (e) { on = false; }
+  b.textContent = on ? '⭐ Starred (tap to unstar)' : '☆ Star this repo';
+  b.onclick = async () => { try { await gh(`/user/starred/${repo}`, { method: on ? 'DELETE' : 'PUT' }); say(on ? 'Unstarred' : 'Starred ⭐'); starBox(); } catch (e) { say(e.message, true); } };
+}
+$('mfb').onclick = () => { show('menu', false); show('mFork'); };
+const fkParse = () => { const v = $('fkn').value.trim(), m = v.match(/github\.com\/([^\/\s]+)\/([^\/\s#?]+)/) || v.match(/^([^\/\s]+)\/([^\/\s]+)$/); return m ? [m[1], m[2].replace(/\.git$/, '')] : null; };
+$('fkgo').onclick = async () => { const p = fkParse(); if (!p) return say('Use the form owner/name', true); try { await gh(`/repos/${p[0]}/${p[1]}/forks`, { method: 'POST', body: '{}' }); say('Fork started 🍴 It takes a few seconds.'); show('mFork', false); setTimeout(loadRepos, 4000); } catch (e) { say(e.message, true); } };
+$('fkst').onclick = async () => { const p = fkParse(); if (!p) return say('Use the form owner/name', true); try { await gh(`/user/starred/${p[0]}/${p[1]}`, { method: 'PUT' }); say('Starred ⭐'); show('mFork', false); } catch (e) { say(e.message, true); } };
 
 /* ===== Start ===== */
 try { const t = sessionStorage.getItem('gm_token'); if (t) connect(t); } catch (e) {}
 /* নতুন ফিচার: gh('/repos/...') কল লিখে একটা বাটনের সাথে জুড়ুন। */
 </script>
 </body>
-      </html>
+                                                                                                                                                                                                                                             </html>
