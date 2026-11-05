@@ -1,967 +1,133 @@
 <!DOCTYPE html>
-<html lang="en" data-t="pink">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>github-zip-up</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff4fa3">
-<link rel="icon" href="icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{--fg:#fff2fb;--mut:#c4a6bd;--card:rgba(255,255,255,.06);--ac:#ff4fa3;--ac2:#ff9be0;--vi:#a855f7;--dng:#ff6b81;--ok:#5eead4;--bd:color-mix(in srgb,var(--ac) 28%,transparent)}
-html[data-t=aurora]{--ac:#22d3ee;--ac2:#5eead4;--vi:#8b5cf6}
-html[data-t=sunset]{--ac:#fb923c;--ac2:#fde047;--vi:#f43f5e}
-html[data-t=ocean]{--ac:#3b82f6;--ac2:#67e8f9;--vi:#06b6d4}
-html[data-t=lime]{--ac:#84cc16;--ac2:#bef264;--vi:#22c55e}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;font:15px/1.55 Outfit,"Hind Siliguri","Segoe UI",system-ui,sans-serif;color:var(--fg);background:#09050f;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/26px 26px}
-.bg svg{width:100%;height:100%}
-.b1{animation:fl 14s ease-in-out infinite}.b2{animation:fl 19s ease-in-out infinite reverse}.b3{animation:fl 23s ease-in-out infinite}
-@keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(70px,-60px)}}
-@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
-@keyframes shine{to{background-position:200% center}}
-@keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@keyframes rev{from{opacity:0;transform:translateY(8px) scale(.8)}to{opacity:1;transform:none}}
-@keyframes hue{to{filter:hue-rotate(360deg)}}
-@keyframes draw{from{stroke-dasharray:0 252}}
-@keyframes blink{50%{opacity:0}}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 60%,transparent)}70%{box-shadow:0 0 0 12px transparent}}
-button,input,textarea,select{font:inherit;color:inherit}
-button{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 14px;cursor:pointer;transition:.2s}
-button:hover{border-color:var(--ac);transform:translateY(-1px)}
-button:disabled{opacity:.5;cursor:default;transform:none}
-button.pri{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:600}
-button.pri:hover{box-shadow:0 6px 24px color-mix(in srgb,var(--ac) 55%,transparent)}
-button.dng{color:var(--dng)}
-input[type=text],input[type=password],textarea,select{width:100%;background:rgba(0,0,0,.38);border:1px solid var(--bd);border-radius:12px;padding:10px 13px}
-select{appearance:none}
-select option{background:#1a0f24}
-:focus-visible{outline:2px solid var(--ac2);outline-offset:1px}
-.hide{display:none!important}
-.mono{font-family:"Space Mono",monospace}
-.disp{font-family:Righteous,Outfit,"Hind Siliguri",sans-serif}
-.grad{background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:22px;backdrop-filter:blur(12px);animation:up .5s backwards}
-.tilt{transition:transform .15s ease-out,border-color .2s,box-shadow .2s;will-change:transform}
-.err-t{color:var(--dng)}
-.wv{display:inline-block}
-.wv span{display:inline-block;animation:rev .5s backwards}
-.cur{display:inline-block;width:2px;height:1em;background:var(--ac2);margin-left:3px;vertical-align:-2px;animation:blink 1s infinite}
-.scene{--s:92px;width:var(--s);height:var(--s);margin:6px auto 18px}
-.scene.mini{--s:40px;margin:0}
-.gl{width:100%;height:100%;overflow:visible;animation:glf 4s ease-in-out infinite}
-.gl .ring{transform-origin:50px 50px;animation:glr 14s linear infinite}
-.gl .ear{transform-box:fill-box;transform-origin:50% 100%;animation:gle 5s ease-in-out infinite}
-.gl .ear2{animation-delay:.3s}
-.gl .eye{transform-box:fill-box;transform-origin:center;animation:glb 4.5s infinite}
-.gl .nd{transform-box:fill-box;transform-origin:center;animation:gln 2s ease-in-out infinite}
-.gl .flow{animation:glw 1s linear infinite}
-@keyframes glf{50%{transform:translateY(-5px)}}
-@keyframes glr{to{transform:rotate(360deg)}}
-@keyframes gle{0%,88%,100%{transform:rotate(0)}92%{transform:rotate(-12deg)}96%{transform:rotate(4deg)}}
-@keyframes glb{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
-@keyframes gln{50%{transform:scale(1.4)}}
-@keyframes glw{to{stroke-dashoffset:-16}}
-#login{max-width:430px;margin:7vh auto 0;padding:26px 22px;text-align:center}
-#login h1{font-size:36px;margin:0;line-height:1.2}
-.tagl{height:24px;color:var(--ac2);font-size:14px;margin:2px 0 18px}
-.pw{position:relative}
-.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:4px 9px}
-label.l{display:block;margin:14px 0 6px;font:700 11px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;text-align:left}
-.stepper{display:flex;justify-content:space-between;gap:8px;margin:18px 0 6px}
-.stepper div{flex:1;font-size:12px;color:var(--mut);padding:10px 6px;border-radius:14px;border:1px dashed var(--bd)}
-.stepper b{display:grid;place-items:center;width:26px;height:26px;margin:0 auto 4px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;animation:pulse 2.4s infinite}
-.stepper div:nth-child(2) b{animation-delay:.8s}.stepper div:nth-child(3) b{animation-delay:1.6s}
-.lnk{color:var(--ac2);font-size:13px}
-.tokbtn{display:inline-block;font:700 20px Outfit,"Hind Siliguri",sans-serif;color:#fff;background:linear-gradient(135deg,#ff1f3d,#ff5a3c);padding:12px 24px;border-radius:99px;text-decoration:none;box-shadow:0 0 0 0 rgba(255,45,74,.7);animation:tokpulse 1.2s infinite,tokshake 3s infinite}
-@keyframes tokpulse{0%{box-shadow:0 0 0 0 rgba(255,45,74,.7)}70%{box-shadow:0 0 0 18px rgba(255,45,74,0)}100%{box-shadow:0 0 0 0 rgba(255,45,74,0)}}
-@keyframes tokshake{0%,86%,100%{transform:none}88%{transform:scale(1.12) rotate(-3deg)}92%{transform:scale(1.12) rotate(3deg)}96%{transform:scale(1.08) rotate(-2deg)}}
-.credit{display:block;font:400 clamp(15px,4vw,19px)/1.4 Righteous,"Segoe UI Symbol",sans-serif;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ac) 55%,transparent))}
-.credit small{display:block;font:11px "Space Mono",monospace;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
-.jimg{display:block;width:92px;height:92px;margin:0 auto 12px;border-radius:50%;object-fit:cover;border:2px solid var(--ac);box-shadow:0 0 26px color-mix(in srgb,var(--ac) 55%,transparent)}
-.foot{text-align:center;margin:28px 0 22px;animation:up .8s backwards}
-.foot .credit{font-size:clamp(18px,5vw,24px)}
-.mini-c{font-size:11px;color:var(--mut)}
-#app{max-width:1000px;margin:0 auto;padding:0 14px}
-nav{display:flex;align-items:center;gap:10px;padding:14px 2px;position:relative}
-nav .brand{flex:1;display:flex;align-items:center;gap:12px}
-nav b{font-size:19px;display:block;line-height:1.1}
-#av{width:42px;height:42px;border-radius:50%;padding:0;border:2px solid var(--ac);overflow:hidden}
-#av img{width:100%;height:100%;display:block}
-#menu{position:absolute;right:2px;top:64px;z-index:20;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:170px;animation:pop .2s}
-#themes{display:flex;gap:8px;justify-content:center;padding:4px 0}
-#themes button{width:26px;height:26px;padding:0;border-radius:50%;border:2px solid transparent}
-#themes button.on{border-color:#fff;transform:scale(1.15)}
-.hero{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:20px;margin:6px 0 14px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 22%,transparent),color-mix(in srgb,var(--vi) 16%,transparent))}
-.hero h2{margin:0;font-size:28px;line-height:1.2}
-.hero .tagl{margin:4px 0 14px}
-.dn{width:112px;height:112px;display:block}
-.dn .arc{animation:draw 1.3s ease-out backwards}
-.dw{position:relative}
-.dw b{position:absolute;inset:0;display:grid;place-items:center;font-size:22px}
-#stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
-.tile{padding:14px;border-top:3px solid hsl(var(--h) 90% 62%);background:linear-gradient(180deg,hsl(var(--h) 90% 62%/.13),transparent)}
-.tile b{display:block;font-size:28px;line-height:1.1;color:hsl(var(--h) 95% 74%)}
-.tile span{font:12px "Space Mono",monospace;color:var(--mut)}
-.lang{padding:14px;margin-bottom:14px}
-#lbar{display:flex;gap:3px;height:12px;border-radius:9px;overflow:hidden}
-#lbar button{padding:0;border:0;border-radius:0;transition:flex .3s,opacity .2s}
-#lbar button:not(.on){opacity:.8}#lbar button.on{outline:2px solid #fff;outline-offset:-2px}
-#llegend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-#llegend button{border-radius:99px;padding:3px 11px;font-size:13px}
-#llegend button.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:var(--ac)}
-.tool{display:flex;gap:8px;margin-bottom:10px}
-.tool input{flex:1}
-.tool select{width:auto}
-#seg{display:flex;gap:4px;padding:4px;margin-bottom:12px;overflow:auto;border-radius:16px}
-#seg button{flex:1;border:0;background:none;white-space:nowrap}
-#seg button.on{background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;font-weight:600}
-.sec{display:flex;justify-content:space-between;font:700 12px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;margin:8px 2px 10px}
-#rlist{display:grid;gap:12px;grid-template-columns:1fr}
-@media(min-width:700px){#rlist:not(.l1){grid-template-columns:1fr 1fr}}
-.rc{display:flex;gap:13px;padding:15px;cursor:pointer;border-left:4px solid hsl(var(--h) 90% 62%);position:relative}
-.rc:hover{border-color:hsl(var(--h) 90% 66%);box-shadow:0 14px 34px hsl(var(--h) 90% 60%/.25)}
-.rc .ic{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-size:22px;flex:none;background:hsl(var(--h) 85% 60%/.2)}
-.rc b{font-size:17px;word-break:break-all}
-.rb{min-width:0;flex:1;padding-right:30px}
-.pin{position:absolute;right:8px;top:8px;padding:2px 7px;border:0;background:none;font-size:16px}
-.pill{font:11px "Space Mono",monospace;padding:2px 9px;border-radius:99px;border:1px solid var(--bd);margin-left:7px;vertical-align:middle}
-.pill.pu{color:var(--ok)}.pill.pr{color:#fbbf24}.pill.fk{color:var(--ac2)}
-.meta{color:var(--mut);font-size:13px;display:flex;gap:11px;flex-wrap:wrap;margin-top:3px}
-.rh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
-.rh h2{margin:0;font-size:20px;flex:1;min-width:120px;word-break:break-all}
-.rh select{width:auto;max-width:150px}
-#tabs{display:flex;gap:6px;margin-bottom:12px}
-#tabs button{flex:1;border-radius:99px}
-#tabs button.on{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:600}
-.crumb{margin-bottom:10px;font-weight:500;word-break:break-all}
-.crumb span{cursor:pointer;color:var(--ac2)}
-.list{border:1px solid var(--bd);border-radius:16px;overflow:hidden;background:var(--card)}
-.list.drag{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 14%,transparent)}
-.row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bd);animation:up .4s backwards}
-.row:last-child{border:0}
-.row .nm{flex:1;cursor:pointer;word-break:break-all}
-.row .nm:hover{color:var(--ac2)}
-.row small{color:var(--mut)}
-.row input{width:18px;height:18px;accent-color:var(--ac)}
-.empty{padding:30px;text-align:center;color:var(--mut)}
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.facts div{padding:11px 13px;border:1px solid var(--bd);border-radius:14px;background:var(--card)}
-.facts small{display:block;color:var(--mut);font:11px "Space Mono",monospace}
-#selbar{position:sticky;top:6px;z-index:8;display:flex;gap:8px;align-items:center;padding:10px 14px;margin-bottom:10px}
-#selbar span{flex:1}
-#selbar label.ck{margin:0;padding:6px 10px}
-.modal{position:fixed;inset:0;z-index:30;background:rgba(5,2,10,.75);backdrop-filter:blur(6px);display:grid;place-items:center;padding:14px;overflow:auto}
-.sheet{width:100%;max-width:430px;background:#130a1d;border:1px solid var(--bd);border-radius:22px;animation:pop .25s}
-.mh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--bd)}
-.mb{padding:16px 20px}
-.mf{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--bd)}
-.mf button{flex:1}
-.x{border:0;background:none;font-size:18px;padding:2px 8px}
-.agrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px}
-.agrid button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 8px;border-radius:16px;border-color:hsl(var(--h) 80% 60%/.4);background:hsl(var(--h) 80% 60%/.1)}
-.agrid button i{font-style:normal;font-size:26px}
-.drop{border:2px dashed var(--bd);border-radius:16px;padding:24px 14px;text-align:center;cursor:pointer;transition:.2s}
-.drop:hover,.drop.drag{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent)}
-.drop .ic{font-size:30px}
-.drop small{display:block;color:var(--mut)}
-.ck{display:flex;gap:10px;align-items:center;padding:11px 13px;margin-top:8px;border:1px solid var(--bd);border-radius:12px;font:700 12px "Space Mono",monospace;cursor:pointer}
-.ck input{width:18px;height:18px;accent-color:var(--ac)}
-#prog{margin-top:14px}
-#track{height:10px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
-#bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% 100%;animation:shine 1.4s linear infinite;transition:width .2s}
-#flist{margin-top:10px;max-height:200px;overflow:auto;border:1px solid var(--bd);border-radius:12px;background:rgba(0,0,0,.3);scroll-behavior:smooth}
-#flist div{display:flex;gap:8px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--bd);font:12px "Space Mono",monospace;animation:rev .25s backwards}
-#flist div:last-child{border:0}
-#flist i{font-style:normal;flex:none;width:26px;text-align:center;font-weight:700}
-#flist span{flex:1;min-width:0;word-break:break-all}
-#flist small{flex:none;color:var(--mut)}
-#flist .wip i{color:var(--ac2);animation:blink 1s infinite}
-#flist .ok i{color:var(--ok);font-size:15px}
-#flist .sk{color:var(--mut)}
-#flist .er i{color:var(--dng)}
-#imgv{max-width:100%;max-height:55vh;display:block;margin:0 auto;border-radius:12px;background:repeating-conic-gradient(#222 0 25%,#333 0 50%) 0 0/16px 16px}
-#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#2a1238;border:1px solid var(--ac);padding:10px 16px;border-radius:14px;max-width:90vw;z-index:50;animation:pop .2s}
-#status.err{background:#6b1a2e;border-color:var(--dng)}
-#editor{position:fixed;inset:0;z-index:40;background:#09050f;padding:16px;display:flex;flex-direction:column;gap:10px}
-#editor textarea{flex:1;font:13px/1.5 "Space Mono",monospace;resize:none;white-space:pre}
-.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.df{margin-bottom:12px}.df pre{overflow:auto;margin:6px 0 0;font:12px/1.5 "Space Mono",monospace;background:rgba(0,0,0,.4);padding:8px;border-radius:10px}
-.df pre span{display:block}.ad{color:#4ade80;background:rgba(74,222,128,.12)}.rm{color:#fb7185;background:rgba(251,113,133,.12)}
-#login{position:relative}
-.lsw{position:absolute;top:12px;right:12px;display:flex;gap:4px}
-.lsw button,.lsw2 button{padding:3px 9px;font-size:12px}
-.lsw2{display:flex;gap:6px;justify-content:center}
-.lsw button.on,.lsw2 button.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.about{text-align:left;margin:4px 0 16px;padding:14px;border:1px solid var(--bd);border-radius:16px;background:color-mix(in srgb,var(--ac) 8%,transparent);font-size:14px}
-.about b{font-family:Righteous,sans-serif;color:var(--ac2)}
-.about p{margin:6px 0 8px}
-.about ul{margin:0;padding:0;list-style:none;color:var(--mut)}
-.about li{margin:4px 0}
-#off{background:#5c4100;border:1px solid #fbbf24;border-radius:14px;padding:9px 14px;margin:6px 0 10px;text-align:center}
-#ebody{flex:1;display:flex;gap:10px;min-height:0}
-#ebody>*{flex:1;min-width:0;overflow:auto}
-#ehl,#emd{background:rgba(0,0,0,.38);border:1px solid var(--bd);border-radius:12px;padding:10px 13px;margin:0}
-#ehl{font:13px/1.5 "Space Mono",monospace;white-space:pre}
-#emd h1,#emd h2,#emd h3{color:var(--ac2);margin:.6em 0 .3em}
-#emd code{background:rgba(255,255,255,.1);padding:1px 5px;border-radius:5px;font-family:"Space Mono",monospace}
-#emd pre{background:rgba(0,0,0,.4);padding:10px;border-radius:10px;overflow:auto}
-#emd img{max-width:100%}#emd a{color:var(--ac2)}
-.hc{color:#9b8aa8}.hs{color:#86efac}.ht{color:var(--ac2)}.hk{color:#ff7ab8}.hn{color:#fbbf24}
-.mb textarea{min-height:90px}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
-</head>
-<body>
-<div class="bg"><svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><defs>
-<radialGradient id="g1"><stop offset="0" style="stop-color:var(--ac)" stop-opacity=".55"/><stop offset="1" style="stop-color:var(--ac)" stop-opacity="0"/></radialGradient>
-<radialGradient id="g2"><stop offset="0" style="stop-color:var(--vi)" stop-opacity=".5"/><stop offset="1" style="stop-color:var(--vi)" stop-opacity="0"/></radialGradient>
-<radialGradient id="g3"><stop offset="0" style="stop-color:var(--ac2)" stop-opacity=".35"/><stop offset="1" style="stop-color:var(--ac2)" stop-opacity="0"/></radialGradient></defs>
-<circle class="b1" cx="120" cy="150" r="340" fill="url(#g1)"/><circle class="b2" cx="700" cy="480" r="360" fill="url(#g2)"/><circle class="b3" cx="260" cy="760" r="300" fill="url(#g3)"/></svg></div>
-
-<section id="login" class="card">
-  <div class="lsw"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div>
-  <div class="scene"></div>
-  <h1 class="disp" id="ltitle"></h1>
-  <div class="tagl mono"><span id="tw"></span><span class="cur"></span></div>
-  <div class="about"><b>What is this?</b><p>github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.</p><ul><li>📦 Upload a ZIP and it unpacks straight into your repo</li><li>⚡ Fast uploads that resume by themselves if your internet drops</li><li>🖼️ Edit, rename, delete files, upload images and whole folders</li><li>🔐 Your token never leaves your browser</li></ul></div>
-  <label class="l" for="tok">Access token</label>
-  <div class="pw"><input id="tok" type="password" autocomplete="off" placeholder="ghp_••••••••••••••••"><button id="eye" type="button">👁</button></div>
-  <p style="text-align:center;margin:14px 0 8px"><a class="tokbtn" href="https://github.com/settings/tokens/new?scopes=repo&description=github-zip-up" target="_blank" rel="noopener">🔑 Make a token ↗</a></p>
-  <button class="pri" id="connect" style="width:100%;padding:12px;margin-top:6px">🚀 Let's go</button>
-  <p id="lerr" class="err-t"></p>
-  <div class="stepper"><div><b>1</b>Make a token</div><div><b>2</b>Paste it above</div><div><b>3</b>Push files</div></div>
-  <p class="mono" style="font-size:11px;color:var(--mut)">🔐 Token stays in this tab only and is wiped when you close it.</p>
-  <div style="margin-top:18px"><img class="jimg" src="https://i.imgur.com/pAv2xEd.jpeg" alt="" referrerpolicy="no-referrer" onerror="this.remove()"><span class="credit"><small>crafted by</small><b class="grad" style="font-weight:400">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></span></div>
-</section>
-
-<div id="app" class="hide">
-  <nav>
-    <div class="brand"><div class="scene mini"></div>
-      <div><b class="disp grad">github-zip-up</b><span class="mini-c">by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</span></div></div>
-    <button id="av"><img id="avi" alt=""></button>
-    <div id="menu" class="card hide"><div id="themes"><button data-th="pink" style="background:#ff4fa3"></button><button data-th="aurora" style="background:#22d3ee"></button><button data-th="sunset" style="background:#fb923c"></button><button data-th="ocean" style="background:#3b82f6"></button><button data-th="lime" style="background:#84cc16"></button></div><button id="mhb">🕘 Upload log</button><button id="mfb">🍴 Fork / ⭐ Star</button><div class="lsw2"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div><button id="inst" class="hide">📲 Install app</button><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
-  </nav>
-
-  <div id="off" class="hide">📴 Offline — showing your saved repo list</div>
-  <div id="vDash">
-    <div class="hero card tilt"><div><h2 class="disp">Hey <span id="hello" class="wv"></span> 👋</h2><div class="tagl mono"><span id="tw2"></span><span class="cur"></span></div><button class="pri" id="nrb">＋ Create repo</button></div><div class="dw" id="donut"></div></div>
-    <div id="stats"></div>
-    <div class="lang card" id="langc"><div class="sec" style="margin-top:0"><span>Languages</span><span>tap to filter</span></div><div id="lbar"></div><div id="llegend"></div></div>
-    <div class="tool"><input id="rq" type="text" placeholder="🔎 Find a repo…"><select id="fs"><option value="upd">Latest</option><option value="name">A–Z</option><option value="star">Stars</option></select><button id="vt" title="Layout">▦</button></div>
-    <div id="seg" class="card"><button data-v="all">All</button><button data-v="pub">🌐 Public</button><button data-v="pri">🔒 Private</button><button data-v="fork">🍴 Forks</button></div>
-    <div class="sec"><span>Your repos</span><span id="cnt"></span></div>
-    <div id="rlist"></div>
-  </div>
-
-  <div id="vRepo" class="hide">
-    <div class="rh"><button id="back">←</button><h2 class="disp" id="rname"></h2><select id="br"></select><button class="pri" id="zipb">🗜️ Upload ZIP</button><button id="selb" title="Select">☑</button><button id="actb">⋯</button></div>
-    <div id="tabs"><button data-tab="files">Files</button><button data-tab="iss">Issues</button><button data-tab="hist">History</button><button data-tab="info">Info</button></div>
-    <div id="pFiles"><input id="fq" type="text" placeholder="🔎 Search every file in this repo…" style="margin-bottom:10px"><div class="list hide" id="fres" style="margin-bottom:10px"></div><div class="crumb mono" id="crumb"></div>
-      <div id="selbar" class="card hide"><span id="selc"></span><label class="ck"><input type="checkbox" id="selall"> All</label><button class="dng" id="seld">Delete</button><button id="selx">Done</button></div>
-      <div class="list" id="files"></div>
-      <p class="empty" style="padding:10px;font-size:13px">Tip: drop files or a ZIP onto the list.</p></div>
-    <div id="pIss" class="hide"></div>
-    <div id="pHist" class="hide"></div>
-    <div id="pInfo" class="hide"></div>
-  </div>
-
-  <div class="foot"><span class="credit"><small>crafted by</small><b class="grad" style="font-weight:400">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></span></div>
-</div>
-
-<div class="modal hide" id="mAct"><div class="sheet"><div class="mh"><b>What do you want to do?</b><button class="x" data-close>✕</button></div>
-  <div class="agrid"><button data-a="zip" style="--h:330"><i>🗜️</i>Upload ZIP</button><button data-a="file" style="--h:190"><i>🖼️</i>Upload files</button><button data-a="new" style="--h:45"><i>📝</i>New file</button><button data-a="dir" style="--h:140"><i>📂</i>New folder</button><button data-a="fol" style="--h:210"><i>📁</i>Upload folder</button><button data-a="dz" style="--h:100"><i>⬇️</i>Download ZIP</button><button data-a="br" style="--h:290"><i>🌿</i>Branches</button><button data-a="sel" style="--h:270"><i>☑️</i>Select</button><button data-a="all" style="--h:10"><i>✅</i>Select all</button></div></div></div>
-
-<div class="modal hide" id="mUp"><div class="sheet"><div class="mh"><b id="upT">Upload ZIP</b><button class="x" data-close>✕</button></div>
-  <div class="mb"><div class="drop" id="drop"><div class="ic">📦</div><b id="dropT">Tap to choose a ZIP</b><small>or drop it here</small></div>
-  <input type="file" id="fz" accept=".zip" class="hide"><input type="file" id="ff" multiple class="hide"><input type="file" id="fd" webkitdirectory multiple class="hide">
-  <label class="l">Send into folder (blank = root)</label><input id="upPath" type="text" placeholder="src/components">
-  <label class="l">Commit note</label><input id="upMsg" type="text" value="Upload via github-zip-up">
-  <label class="ck zo"><input type="checkbox" id="oStrip"> Flatten the top folder</label>
-  <label class="ck zo"><input type="checkbox" id="oSys"> Ignore junk (node_modules, __MACOSX, .git)</label>
-  <label class="ck"><input type="checkbox" id="oSmart" checked> Smart match: update files with the same name</label>
-  <label class="ck"><input type="checkbox" id="oOver" checked> Replace files that changed</label>
-  <label class="ck"><input type="checkbox" id="oImg"> Shrink big photos (max 2048px)</label>
-  <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:12px"></div><div id="track"><div id="bar"></div></div><div id="flist"></div></div></div>
-  <div class="mf"><button id="upCancel">Cancel</button><button class="pri" id="upGo">🚀 Push</button></div></div></div>
-
-<div class="modal hide" id="mNr"><div class="sheet"><div class="mh"><b>Create repo</b><button class="x" data-close>✕</button></div>
-  <div class="mb"><label class="l">Name</label><input id="nrn" type="text" placeholder="my-project"><label class="ck"><input type="checkbox" id="nrp"> Make it private</label><p id="nre" class="err-t"></p></div>
-  <div class="mf"><button data-close>Cancel</button><button class="pri" id="nrgo">Create</button></div></div></div>
-
-<div class="modal hide" id="mImg"><div class="sheet"><div class="mh"><b id="imgn" style="word-break:break-all"></b><button class="x" data-close>✕</button></div>
-  <div class="mb"><img id="imgv" alt=""></div><div class="mf"><a id="imgd" style="flex:1;text-decoration:none"><button class="pri" style="width:100%">⬇ Download</button></a></div></div></div>
-
-<div class="modal hide" id="mBr"><div class="sheet"><div class="mh"><b>🌿 Branches</b><button class="x" data-close>✕</button></div><div class="mb"><label class="l">New branch from current</label><input id="bname" type="text" placeholder="feature-x"><button class="pri" id="bcreate" style="margin-top:8px;width:100%">Create &amp; switch</button><label class="l">Merge another branch into current</label><select id="msrc"></select><button id="bmerge" style="margin-top:8px;width:100%">Merge</button></div></div></div>
-<div class="modal hide" id="mDiff"><div class="sheet" style="max-width:760px"><div class="mh"><b id="dft" style="word-break:break-word"></b><button class="x" data-close>✕</button></div><div class="mb" id="dfb"></div></div></div>
-<div class="modal hide" id="mFork"><div class="sheet"><div class="mh"><b>Fork or star a repo</b><button class="x" data-close>✕</button></div><div class="mb"><label class="l">owner/name or GitHub link</label><input id="fkn" type="text" placeholder="octocat/Hello-World"><div class="mf" style="padding:12px 0 0;border:0"><button class="pri" id="fkgo">🍴 Fork</button><button id="fkst">⭐ Star</button></div></div></div></div>
-<div class="modal hide" id="mHist"><div class="sheet"><div class="mh"><b>🕘 Upload log</b><button class="x" data-close>✕</button></div><div class="mb" id="hlist"></div></div></div>
-<div class="modal hide" id="mIss"><div class="sheet"><div class="mh"><b>New issue</b><button class="x" data-close>✕</button></div><div class="mb"><label class="l">Title</label><input id="isT" type="text"><label class="l">Details</label><textarea id="isB"></textarea></div><div class="mf"><button data-close>Cancel</button><button class="pri" id="isgo">Create</button></div></div></div>
-<div class="modal hide" id="mCol"><div class="sheet"><div class="mh"><b>Collaborators</b><button class="x" data-close>✕</button></div><div class="mb"><div class="list" id="colL"></div><label class="l">Invite by GitHub username</label><input id="colN" type="text" placeholder="username"></div><div class="mf"><button class="pri" id="colgo">＋ Invite</button></div></div></div>
-<div id="editor" class="hide">
-  <input type="text" id="epath" placeholder="folder/file.txt">
-  <div id="ebody"><textarea id="etext" spellcheck="false"></textarea><pre id="ehl" class="hide"></pre><div id="emd" class="hide"></div></div>
-  <div class="bar"><button class="pri" id="esave">Save to GitHub</button><button class="pri hide" id="efold">Create folder</button><button id="ehb">🎨 Colors</button><button id="emb" class="hide">👁 Preview</button><button id="ecp">Copy</button><button id="edl">⬇</button><button id="ecancel">Close</button><span id="emsg" class="err-t"></span></div>
-</div>
-<div id="status" class="hide"></div>
-
+<html lang="bn"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>github-zip-up demo</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script>
-/* ===== Core: সব GitHub API কল gh() দিয়ে যায় ===== */
-const API = 'https://api.github.com';
-let token = '', me = null, allRepos = [], repo = null, branch = '', path = '', cur = [], sel = new Set(), selMode = false, editSha = null, busy = false, cancel = false, pend = null, upMode = 'zip', fv = 'all', lang = '', tab = 'files', pins = new Set();
-const $ = id => document.getElementById(id);
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const cp = p => p.split('/').map(encodeURIComponent).join('/');
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-const enc = s => { let x = ''; new TextEncoder().encode(s).forEach(c => x += String.fromCharCode(c)); return btoa(x); };
-const dec = b => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g, '')), c => c.charCodeAt(0)));
-const b64 = u => { let s = ''; for (let i = 0; i < u.length; i += 32768) s += String.fromCharCode.apply(null, u.subarray(i, i + 32768)); return btoa(s); };
-const show = (id, on = true) => $(id).classList.toggle('hide', !on);
-const hash = s => [...String(s)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
-const LC = { HTML: '#e34c26', JavaScript: '#f1e05a', TypeScript: '#3178c6', Python: '#3572a5', CSS: '#a855f7', Java: '#b07219', PHP: '#4f5d95', Shell: '#89e051' };
-const lcol = l => LC[l] || `hsl(${hash(l) % 360} 80% 60%)`;
-const ago = d => { const s = (Date.now() - new Date(d)) / 1000; return s < 60 ? 'just now' : s < 3600 ? Math.floor(s / 60) + 'm ago' : s < 86400 ? Math.floor(s / 3600) + 'h ago' : s < 2592000 ? Math.floor(s / 86400) + 'd ago' : new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
-const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+<style>
+:root{--bg:#09050f;--fg:#fff2fb;--mut:#c4a6bd;--ac:#ff4fa3;--ac2:#ff9be0;--vi:#a855f7;--ok:#5eead4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#09050f}}
+*{box-sizing:inherit}html,body{height:auto}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,"Segoe UI",sans-serif;padding:14px}
+.w{max-width:440px;margin:0 auto}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:22px 0 8px}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,79,163,.3);border-radius:20px;padding:18px;text-align:center}
+button{font:inherit;color:inherit;background:rgba(255,255,255,.08);border:1px solid rgba(255,79,163,.4);border-radius:12px;padding:10px 14px}
+.pri{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:600}
+.logo{width:92px;height:92px;display:block;margin:0 auto 8px;animation:f 4s ease-in-out infinite}
+.ring{transform-origin:50px 50px;animation:r 14s linear infinite}
+@keyframes f{50%{transform:translateY(-5px)}}@keyframes r{to{transform:rotate(360deg)}}
+.track{height:10px;background:rgba(255,255,255,.12);border-radius:9px;overflow:hidden;margin:10px 0}
+#bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--vi));transition:width .25s}
+.row{display:flex;gap:8px;margin-top:12px}.row button{flex:1}
+.fl{font:12px monospace;text-align:left;color:var(--mut);margin-top:6px}
+.ok{color:var(--ok)}
+#out{font-size:13px;color:var(--mut);white-space:pre-line;margin-top:10px;text-align:left}
+input[type=file]{width:100%;margin:8px 0}
+</style></head><body><div class="w">
 
-async function gh(url, opt = {}) {
-  const r = await fetch(url.startsWith('http') ? url : API + url, { ...opt, headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' } });
-  if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error(e.message || 'Request failed (' + r.status + ')'); }
-  return r.status === 204 ? null : r.json();
-}
-let st;
-function say(m, bad) { const s = $('status'); s.textContent = m; s.className = bad ? 'err' : ''; clearTimeout(st); st = setTimeout(() => show('status', false), bad ? 7000 : 3000); }
+<h2>১) নতুন লোগো ও লগ ইন বাটন</h2>
+<div class="card">
+<svg class="logo" viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="47" fill="none" stroke-width="2" stroke-dasharray="6 8" stroke-linecap="round" style="stroke:var(--ac2)"/><circle cx="50" cy="50" r="40" stroke-width="2.5" style="fill:#130a1d;stroke:var(--ac)"/><path transform="translate(22 22) scale(3.5)" style="fill:var(--ac)" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+<b>github-zip-up</b>
+<p style="margin:12px 0 0"><button class="pri" style="width:100%;padding:12px">🚀 লগ ইন নাও</button></p>
+</div>
 
-/* ===== Animated text helpers ===== */
-const wave = (el, t) => el.innerHTML = [...t].map((c, i) => `<span style="animation-delay:${i * .09}s;color:hsl(${(i * 34 + 320) % 360} 95% 72%)">${c === ' ' ? '&nbsp;' : esc(c)}</span>`).join('');
-function typer(el, list) {
-  let i = 0, j = 0, del = false;
-  (function tick() {
-    const w = list[i]; j += del ? -1 : 1; el.textContent = w.slice(0, j); let d = del ? 30 : 65;
-    if (!del && j === w.length) { del = true; d = 1500; } else if (del && j === 0) { del = false; i = (i + 1) % list.length; d = 350; }
-    setTimeout(tick, d);
-  })();
-}
-function countUp(el) {
-  const n = +el.dataset.n, t0 = performance.now();
-  (function f(t) { const k = Math.min(1, (t - t0) / 900); el.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); })(t0);
-}
-/* 3D tilt on any .tilt element */
-document.addEventListener('pointermove', e => {
-  const t = e.target.closest && e.target.closest('.tilt'); if (!t) return;
-  const r = t.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-  t.style.transform = `perspective(700px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateZ(6px)`;
-});
-document.addEventListener('pointerout', e => { const t = e.target.closest && e.target.closest('.tilt'); if (t && !t.contains(e.relatedTarget)) t.style.transform = ''; });
+<h2>২) আপলোড শেষে Reload</h2>
+<div class="card">
+<div id="pt" style="font-size:13px;text-align:left">অপেক্ষায়…</div>
+<div class="track"><div id="bar"></div></div>
+<div class="fl" id="fl"></div>
+<div class="row"><button id="c">Cancel</button><button class="pri" id="g">🚀 Push</button></div>
+</div>
 
-/* ===== Themes ===== */
-function setTheme(t) { document.documentElement.dataset.t = t; store.set('gz_theme', t); document.querySelectorAll('#themes button').forEach(b => b.classList.toggle('on', b.dataset.th === t)); }
-$('themes').onclick = e => { const b = e.target.closest('button'); if (b) setTheme(b.dataset.th); };
-setTheme(store.get('gz_theme') || 'pink');
-try { pins = new Set(JSON.parse(store.get('gz_pins') || '[]')); } catch (e) {}
+<h2>৩) আপনার ফাইলে বদলগুলো বসান</h2>
+<div class="card">
+<div style="text-align:left;font-size:14px">আপনার <b>index.html</b> বেছে নিন। চারটা বদলই নিজে বসে যাবে, তারপর ZIP বা HTML ডাউনলোড করবেন।</div>
+<input type="file" id="pf" accept=".html,text/html">
+<div class="row"><button class="pri" id="dz" disabled>ZIP ডাউনলোড</button><button id="dh" disabled>HTML ডাউনলোড</button></div>
+<div id="out"></div>
+</div>
+</div>
 
-/* ===== Animated logo: cat head + git branch (GitHub-like, not the same) ===== */
-const LOGO = '<svg class="gl" viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="47" fill="none" stroke-width="2" stroke-dasharray="6 8" stroke-linecap="round" style="stroke:var(--ac2)"/><circle cx="50" cy="50" r="40" stroke-width="2.5" style="fill:#130a1d;stroke:var(--ac)"/><path class="ear" d="M27 44L28 22L43 33Z" style="fill:var(--ac)"/><path class="ear ear2" d="M73 44L72 22L57 33Z" style="fill:var(--ac)"/><ellipse cx="50" cy="50" rx="24" ry="20" style="fill:var(--ac)"/><circle class="eye" cx="41" cy="48" r="4" fill="#fff"/><circle class="eye" cx="59" cy="48" r="4" fill="#fff"/><path d="M47 56Q50 59 53 56" fill="none" stroke="#130a1d" stroke-width="2" stroke-linecap="round"/><path class="flow" d="M50 68V84M50 74Q40 74 36 83M50 74Q60 74 64 83" fill="none" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 5" style="stroke:var(--ac2)"/><circle class="nd" cx="50" cy="85" r="3.5" style="fill:var(--ac2)"/><circle class="nd" cx="36" cy="84" r="3.5" style="fill:var(--ac2);animation-delay:.5s"/><circle class="nd" cx="64" cy="84" r="3.5" style="fill:var(--ac2);animation-delay:1s"/></svg>';
-document.querySelectorAll('.scene').forEach(e => e.innerHTML = LOGO);
-wave($('ltitle'), 'github-zip-up');
-typer($('tw'), ['Drop a ZIP. Push in seconds.', 'Uploads that never give up.', 'Your repos, your rules.']);
-typer($('tw2'), ['Drop a ZIP, push in seconds.', 'Interrupted? It resumes by itself.', 'Same file twice? Skipped.']);
-
-/* ===== Login ===== */
-async function connect(t) {
-  token = t.trim(); $('lerr').textContent = '';
-  try {
-    me = await gh('/user');
-    try { sessionStorage.setItem('gm_token', token); } catch (e) {}
-    show('login', false); show('app'); $('avi').src = me.avatar_url; wave($('hello'), '@' + me.login);
-    await loadRepos();
-  } catch (e) { if (e instanceof TypeError && offlineView()) return; token = ''; $('lerr').textContent = 'Could not sign in: ' + e.message; }
-}
-$('connect').onclick = () => connect($('tok').value);
-$('tok').onkeydown = e => { if (e.key === 'Enter') connect($('tok').value); };
-$('eye').onclick = () => { const t = $('tok'); t.type = t.type === 'password' ? 'text' : 'password'; };
-$('logout').onclick = () => { try { sessionStorage.removeItem('gm_token'); } catch (e) {} location.reload(); };
-$('refresh').onclick = () => { show('menu', false); loadRepos(); };
-$('av').onclick = e => { e.stopPropagation(); $('menu').classList.toggle('hide'); };
-addEventListener('click', e => { if (!e.target.closest('#menu')) show('menu', false); });
-
-/* ===== Dashboard ===== */
-async function loadRepos() {
-  allRepos = [];
-  for (let p = 1; p <= 5; p++) { const r = await gh(`/user/repos?per_page=100&sort=updated&page=${p}`); allRepos.push(...r); if (r.length < 100) break; }
-  cacheRepos(); renderStats();
-}
-function renderStats() {
-  const R = allRepos, n = f => R.filter(f).length, sum = k => R.reduce((a, r) => a + r[k], 0), pub = n(r => !r.private), pri = R.length - pub;
-  const C = 2 * Math.PI * 40, a = (R.length ? pub / R.length : 0) * C;
-  $('donut').innerHTML = `<svg viewBox="0 0 100 100" class="dn"><circle cx="50" cy="50" r="40" fill="none" stroke="#fbbf24" stroke-width="12" opacity=".85"/><circle class="arc" cx="50" cy="50" r="40" fill="none" stroke="var(--ac2)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${a} ${C}" transform="rotate(-90 50 50)"/></svg><b class="disp">${R.length}</b>`;
-  $('stats').innerHTML = [[330, R.length, '📁 Repos'], [45, pri, '🔒 Private'], [160, pub, '🌐 Public'], [55, sum('stargazers_count'), '⭐ Stars'], [265, sum('forks_count'), '🍴 Forks']]
-    .map((t, i) => `<div class="tile card tilt" style="--h:${t[0]};animation-delay:${i * 80}ms"><b data-n="${t[1]}">0</b><span>${t[2]}</span></div>`).join('');
-  document.querySelectorAll('#stats b').forEach(countUp);
-  drawRepos();
-}
-function drawLang() {
-  const cnt = {}; allRepos.forEach(r => r.language && (cnt[r.language] = (cnt[r.language] || 0) + 1));
-  const L = Object.entries(cnt).sort((a, b) => b[1] - a[1]); show('langc', L.length > 0);
-  $('lbar').innerHTML = L.map(([l, c]) => `<button class="${lang === l ? 'on' : ''}" data-l="${esc(l)}" style="flex:${c};background:${lcol(l)}" title="${esc(l)} ${c}"></button>`).join('');
-  $('llegend').innerHTML = L.map(([l, c]) => `<button class="${lang === l ? 'on' : ''}" data-l="${esc(l)}"><span class="dot" style="background:${lcol(l)}"></span>${esc(l)} ${c}</button>`).join('');
-}
-function drawRepos() {
-  const q = $('rq').value.toLowerCase(), s = $('fs').value, t = r => new Date(r.pushed_at || r.updated_at);
-  const ok = r => (fv === 'all' || (fv === 'pub' && !r.private) || (fv === 'pri' && r.private) || (fv === 'fork' && r.fork)) && (!lang || r.language === lang) && r.full_name.toLowerCase().includes(q);
-  const L = allRepos.filter(ok).sort((a, b) => (pins.has(b.full_name) - pins.has(a.full_name)) || (s === 'name' ? a.name.localeCompare(b.name) : s === 'star' ? b.stargazers_count - a.stargazers_count : t(b) - t(a)));
-  document.querySelectorAll('#seg button').forEach(b => b.classList.toggle('on', b.dataset.v === fv)); drawLang();
-  $('cnt').textContent = L.length + ' shown';
-  $('rlist').innerHTML = L.map((r, i) => `<div class="rc card tilt" data-r="${esc(r.full_name)}" style="--h:${hash(r.name) % 360};animation-delay:${Math.min(i, 10) * 50}ms"><div class="ic">${r.private ? '🔒' : '📘'}</div><div class="rb">
-    <b>${esc(r.name)}</b><span class="pill ${r.private ? 'pr' : 'pu'}">${r.private ? 'Private' : 'Public'}</span>${r.fork ? '<span class="pill fk">Fork</span>' : ''}
-    <div class="meta">${r.language ? `<span><span class="dot" style="background:${lcol(r.language)}"></span>${esc(r.language)}</span>` : ''}<span>⎇ ${esc(r.default_branch)}</span><span>${ago(r.pushed_at || r.updated_at)}</span><span>⭐ ${r.stargazers_count}</span><span>🍴 ${r.forks_count}</span></div></div>
-    <button class="pin" data-pin="${esc(r.full_name)}" title="Pin">${pins.has(r.full_name) ? '📌' : '📍'}</button></div>`).join('') || '<div class="empty card">Nothing matches</div>';
-}
-$('rq').oninput = drawRepos; $('fs').oninput = drawRepos;
-$('seg').onclick = e => { const b = e.target.closest('button'); if (b) { fv = b.dataset.v; drawRepos(); } };
-$('vt').onclick = () => $('rlist').classList.toggle('l1');
-const pickLang = e => { const b = e.target.closest('[data-l]'); if (b) { lang = lang === b.dataset.l ? '' : b.dataset.l; drawRepos(); } };
-$('lbar').onclick = pickLang; $('llegend').onclick = pickLang;
-$('rlist').onclick = e => {
-  const p = e.target.closest('[data-pin]');
-  if (p) { const k = p.dataset.pin; pins.has(k) ? pins.delete(k) : pins.add(k); store.set('gz_pins', JSON.stringify([...pins])); return drawRepos(); }
-  const c = e.target.closest('.rc'); if (c) openRepo(c.dataset.r);
-};
-
-/* ===== New repository (auto README so it is never empty) ===== */
-$('nrb').onclick = () => { $('nre').textContent = ''; $('nrn').value = ''; show('mNr'); };
-$('nrgo').onclick = async () => {
-  const name = $('nrn').value.trim(); if (!name) return ($('nre').textContent = 'Enter a name');
-  try { await gh('/user/repos', { method: 'POST', body: JSON.stringify({ name, private: $('nrp').checked, auto_init: true }) }); show('mNr', false); say('Repo created 🎉'); loadRepos(); }
-  catch (e) { $('nre').textContent = e.message; }
-};
-
-/* ===== Repo view: files / history / info / branch switch ===== */
-async function openRepo(full) {
-  if (!$('off').classList.contains('hide')) return say('Offline: reconnect to open a repo', true);
-  const r = allRepos.find(x => x.full_name === full); repo = full; branch = r.default_branch; path = '';
-  $('rname').textContent = r.name; $('br').innerHTML = `<option>${esc(branch)}</option>`; endSel(); $('fq').value = ''; show('fres', false); show('files'); setTab('files');
-  show('vDash', false); show('vRepo'); scrollTo(0, 0); loadDir();
-  try { const bs = await gh(`/repos/${repo}/branches?per_page=100`); $('br').innerHTML = bs.map(b => `<option ${b.name === branch ? 'selected' : ''}>${esc(b.name)}</option>`).join(''); } catch (e) {}
-}
-$('br').onchange = () => { branch = $('br').value; path = ''; endSel(); setTab(tab); };
-$('back').onclick = () => { repo = null; show('vRepo', false); show('vDash'); };
-function setTab(t) {
-  tab = t; document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
-  show('pFiles', t === 'files'); show('pIss', t === 'iss'); show('pHist', t === 'hist'); show('pInfo', t === 'info');
-  if (t === 'files') loadDir(); else if (t === 'iss') loadIss(); else if (t === 'hist') loadHist(); else drawInfo();
-}
-$('tabs').onclick = e => { const b = e.target.closest('button'); if (b) setTab(b.dataset.tab); };
-async function loadHist() {
-  $('pHist').innerHTML = '<div class="empty">Loading…</div>';
-  try {
-    const c = await gh(`/repos/${repo}/commits?sha=${encodeURIComponent(branch)}&per_page=25`);
-    $('pHist').innerHTML = '<div class="list">' + c.map(x => `<div class="row" data-sha="${x.sha}" style="cursor:pointer"><span class="dot"></span><div style="flex:1;min-width:0"><div style="word-break:break-word">${esc(x.commit.message.split('\n')[0])}</div><small>${esc(x.commit.author.name)} · ${ago(x.commit.author.date)}</small></div><code class="mono" style="color:var(--ac2)">${x.sha.slice(0, 7)}</code></div>`).join('') + '</div>';
-  } catch (e) { $('pHist').innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
-}
-function drawInfo() {
-  const r = allRepos.find(x => x.full_name === repo), f = (k, v) => `<div><small>${k}</small>${v}</div>`;
-  $('pInfo').innerHTML = `<p style="color:var(--mut)">${esc(r.description || 'No description')}</p><div class="facts">${f('Visibility', r.private ? '🔒 Private' : '🌐 Public')}${f('Language', esc(r.language || '—'))}${f('Stars', '⭐ ' + r.stargazers_count)}${f('Forks', '🍴 ' + r.forks_count)}${f('Size', (r.size / 1024).toFixed(1) + ' MB')}${f('Updated', ago(r.pushed_at || r.updated_at))}${f('Created', new Date(r.created_at).toLocaleDateString())}${f('Default branch', '⎇ ' + esc(r.default_branch))}</div>
-  <div class="bar"><button class="pri" id="icl">📋 Copy clone URL</button><a href="${esc(r.html_url)}" target="_blank" rel="noopener" style="text-decoration:none"><button>↗ Open on GitHub</button></a><button id="ivis">${r.private ? '🌐 Make public' : '🔒 Make private'}</button></div>`;
-  $('pInfo').insertAdjacentHTML('beforeend', `<div class="card" style="padding:14px;margin-top:12px"><div id="pgbox"></div></div><div class="card" style="padding:14px;margin-top:12px"><button id="istar"></button> <button id="idz">⬇ Download repo ZIP</button></div><div class="card" style="padding:14px;margin-top:12px"><label class="l">Description</label><input id="idesc" type="text" value="${esc(r.description || '')}"><label class="l">Topics (comma separated)</label><input id="itop" type="text"><button class="pri" id="isave" style="margin-top:10px">Save details</button></div>`);
-  pagesBox(); starBox(); $('idz').onclick = () => dlZip('', r.name);
-  gh(`/repos/${repo}/topics`).then(x => $('itop').value = x.names.join(', '), () => {});
-  $('isave').onclick = async () => { try { const u = await gh(`/repos/${repo}`, { method: 'PATCH', body: JSON.stringify({ description: $('idesc').value }) }); r.description = u.description; const names = $('itop').value.split(',').map(t => t.trim().toLowerCase().replace(/\s+/g, '-')).filter(Boolean); await gh(`/repos/${repo}/topics`, { method: 'PUT', body: JSON.stringify({ names }) }); say('Saved ✅'); } catch (e) { say(e.message, true); } };
-  $('icl').onclick = () => navigator.clipboard.writeText(r.clone_url).then(() => say('Copied'), () => say(r.clone_url));
-  $('ivis').onclick = async () => {
-    if (!confirm(r.private ? 'Make this repository PUBLIC? Anyone can see it.' : 'Make this repository private?')) return;
-    try { const u = await gh(`/repos/${repo}`, { method: 'PATCH', body: JSON.stringify({ private: !r.private }) }); Object.assign(r, u); say('Visibility changed'); drawInfo(); } catch (e) { say(e.message, true); }
-  };
-  $('pInfo').insertAdjacentHTML('beforeend', '<div class="card" style="padding:14px;margin-top:12px"><div class="bar"><button id="ird">📘 Edit README</button><button id="icol">👥 Collaborators</button></div></div>');
-  $('ird').onclick = editReadme; $('icol').onclick = () => { show('mCol'); loadCol(); };
-}
-
-/* ===== File browser ===== */
-async function loadDir() {
-  drawCrumb(); $('files').innerHTML = '<div class="empty">Loading…</div>';
-  try {
-    let items = await gh(`/repos/${repo}/contents/${cp(path)}?ref=${encodeURIComponent(branch)}`);
-    if (!Array.isArray(items)) items = [items];
-    items.sort((a, b) => (a.type === 'dir' ? 0 : 1) - (b.type === 'dir' ? 0 : 1) || a.name.localeCompare(b.name));
-    cur = items; drawFiles();
-  } catch (e) { cur = []; $('files').innerHTML = `<div class="empty">${/empty/i.test(e.message) ? 'This repository is empty. Create a file first.' : esc(e.message)}</div>`; }
-}
-const icon = i => i.type === 'dir' ? '📁' : /\.(png|jpe?g|gif|webp|svg|ico|bmp)$/i.test(i.name) ? '🖼️' : /\.(zip|rar|7z|gz)$/i.test(i.name) ? '🗜️' : '📄';
-function drawFiles() {
-  $('files').innerHTML = (path ? '<div class="row"><span class="nm" data-up="1">⬆ ..</span></div>' : '') + (cur.map((i, k) => `<div class="row" style="animation-delay:${Math.min(k, 12) * 30}ms">
-    ${selMode ? `<input type="checkbox" data-s="${esc(i.path)}" ${sel.has(i.path) ? 'checked' : ''}>` : ''}
-    <span class="nm" data-t="${i.type}" data-p="${esc(i.path)}">${icon(i)} ${esc(i.name)}</span>
-    <small>${i.type === 'file' ? (i.size / 1024).toFixed(1) + ' KB' : ''}</small>
-    ${selMode ? '' : `<button data-mv="${esc(i.path)}">✏️</button><button class="dng" data-del="${esc(i.path)}">🗑</button>`}</div>`).join('') || '<div class="empty">Empty folder. Open Actions to upload.</div>');
-  selSync();
-}
-function selSync() { $('selc').textContent = sel.size + ' selected'; $('selall').checked = cur.length > 0 && sel.size === cur.length; }
-function drawCrumb() {
-  const parts = path ? path.split('/') : [];
-  $('crumb').innerHTML = `<span data-c="">${esc(repo)}</span>` + parts.map((p, i) => ` / <span data-c="${esc(parts.slice(0, i + 1).join('/'))}">${esc(p)}</span>`).join('');
-}
-$('crumb').onclick = e => { const c = e.target.closest('[data-c]'); if (c) { path = c.dataset.c; loadDir(); } };
-$('files').onclick = e => {
-  const n = e.target.closest('.nm');
-  if (n && n.dataset.up) { path = path.split('/').slice(0, -1).join('/'); return loadDir(); }
-  const ck = e.target.closest('[data-s]');
-  if (ck) { ck.checked ? sel.add(ck.dataset.s) : sel.delete(ck.dataset.s); return selSync(); }
-  if (n) {
-    if (selMode) { const cb = n.closest('.row').querySelector('[data-s]'); if (cb) { cb.checked = !cb.checked; cb.checked ? sel.add(cb.dataset.s) : sel.delete(cb.dataset.s); selSync(); } return; }
-    if (n.dataset.t === 'dir') { path = n.dataset.p; return loadDir(); } return openFile(n.dataset.p);
+<script type="text/plain" id="ct">async function commitTree(entries, message) {
+  for (let k = 0; ; k++) {
+    try {
+      const ref = await gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
+      const base = await gh(`/repos/${repo}/git/commits/${ref.object.sha}`);
+      const tree = await gh(`/repos/${repo}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: base.tree.sha, tree: entries }) });
+      const commit = await gh(`/repos/${repo}/git/commits`, { method: 'POST', body: JSON.stringify({ message, tree: tree.sha, parents: [ref.object.sha] }) });
+      await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
+      tc = null; return;
+    } catch (e) {
+      if (k < 4 && /fast.forward|Reference update failed|conflict/i.test(e.message)) { await sleep(600 * (k + 1)); continue; }
+      throw e;
+    }
   }
-  const m = e.target.closest('[data-mv]'); if (m) return moveItem(m.dataset.mv);
-  const d = e.target.closest('[data-del]'); if (d) removeMany([d.dataset.del]);
-};
-
-/* ===== Select / delete many in ONE commit (fast: instant UI, no full-repo tree) ===== */
-function startSel(all) { selMode = true; sel = new Set(all ? cur.map(i => i.path) : []); show('selbar'); drawFiles(); }
-function endSel() { selMode = false; sel = new Set(); show('selbar', false); if (repo && tab === 'files') drawFiles(); }
-$('selx').onclick = endSel;
-$('selall').onchange = () => { sel = new Set($('selall').checked ? cur.map(i => i.path) : []); drawFiles(); };
-$('selb').onclick = () => { setTab('files'); startSel(false); };
-$('seld').onclick = () => sel.size ? removeMany([...sel]) : say('Select something first', true);
+}</script>
+<script type="text/plain" id="rm">let delChain = Promise.resolve(), delN = 0;
 async function removeMany(paths) {
   if (!confirm(`Delete ${paths.length} item(s)? Folders go with everything inside.`)) return;
   const snap = cur, gone = new Set(paths);
   cur = cur.filter(i => !gone.has(i.path)); endSel(); drawFiles(); say(`Deleting ${paths.length} item(s)…`);
-  try {
-    const ents = [], dirs = [];
-    paths.forEach(p => { const it = snap.find(i => i.path === p); if (it && it.type === 'dir') dirs.push(it); else ents.push({ path: p, mode: '100644', type: 'blob', sha: null }); });
-    await Promise.all(dirs.map(async d => {
-      const t = await retry(() => gh(`/repos/${repo}/git/trees/${d.sha}?recursive=1`));
-      t.tree.forEach(x => { if (x.type === 'blob') ents.push({ path: d.path + '/' + x.path, mode: '100644', type: 'blob', sha: null }); });
-    }));
-    if (!ents.length) { say('Nothing to delete'); return loadDir(); }
-    await retry(() => commitTree(ents, `Delete ${paths.length} item(s)`)); say('Deleted ✅'); loadDir();
-  } catch (e) { say(e.message, true); loadDir(); }
-}
+  delN++;
+  delChain = delChain.then(async () => {
+    try {
+      const ents = [], dirs = [];
+      paths.forEach(p => { const it = snap.find(i => i.path === p); if (it && it.type === 'dir') dirs.push(it); else ents.push({ path: p, mode: '100644', type: 'blob', sha: null }); });
+      await Promise.all(dirs.map(async d => {
+        const t = await retry(() => gh(`/repos/${repo}/git/trees/${d.sha}?recursive=1`));
+        t.tree.forEach(x => { if (x.type === 'blob') ents.push({ path: d.path + '/' + x.path, mode: '100644', type: 'blob', sha: null }); });
+      }));
+      if (ents.length) { await retry(() => commitTree(ents, `Delete ${paths.length} item(s)`)); say('Deleted ✅'); }
+    } catch (e) { say(e.message, true); }
+  }).then(() => { if (--delN === 0) loadDir(); });
+}</script>
+<script type="text/plain" id="lg">const LOGO = '<svg class="gl" viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="47" fill="none" stroke-width="2" stroke-dasharray="6 8" stroke-linecap="round" style="stroke:var(--ac2)"/><circle cx="50" cy="50" r="40" stroke-width="2.5" style="fill:#130a1d;stroke:var(--ac)"/><path transform="translate(22 22) scale(3.5)" style="fill:var(--ac)" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';</script>
 
-/* ===== Actions sheet ===== */
-$('actb').onclick = () => show('mAct');
-document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('.modal').classList.add('hide'));
-$('mAct').onclick = e => {
-  const a = e.target.closest('[data-a]'); if (!a) return; show('mAct', false); setTab('files');
-  const k = a.dataset.a, pre = path ? path + '/' : '';
-  if (k === 'zip' || k === 'file') openUp(k); else if (k === 'fol') openUp('folder'); else if (k === 'dz') dlZip(path, path ? path.split('/').pop() : repo.split('/')[1]); else if (k === 'br') brList().then(() => show('mBr')); else if (k === 'new') showEditor(pre, '', null); else if (k === 'dir') showEditor(pre, '', null, true); else startSel(k === 'all');
+<script>
+const T = id => document.getElementById(id).textContent;
+/* demo: upload progress, then the Reload button */
+let tm;
+function demo(){
+  clearInterval(tm);
+  const g=document.getElementById('g'),c=document.getElementById('c'),bar=document.getElementById('bar'),pt=document.getElementById('pt'),fl=document.getElementById('fl');
+  g.textContent='🚀 Push';c.textContent='Cancel';g.disabled=false;bar.style.width='0';fl.innerHTML='';pt.textContent='Pushing…';
+  c.textContent='Stop';g.disabled=true;let n=0;const names=['index.html','style.css','app.js','logo.png','README.md'];
+  tm=setInterval(()=>{
+    n++;bar.style.width=n*20+'%';pt.textContent=n+' / 5 files ('+n*20+'%)';
+    fl.insertAdjacentHTML('beforeend','<div><span class="ok">✓</span> '+names[n-1]+'</div>');
+    if(n===5){clearInterval(tm);pt.textContent='✅ Done! Press Reload';g.disabled=false;g.textContent='🔄 Reload';c.textContent='Close';g.onclick=()=>demo();}
+  },700);
+}
+document.getElementById('c').onclick=demo;demo();
+
+/* patcher */
+let html='',cnt=0;
+function swap(src,start,end,rep,label,log){
+  const a=src.indexOf(start);if(a<0){log.push('✕ '+label+' পাওয়া যায়নি');return src;}
+  const b=src.indexOf(end,a);if(b<0){log.push('✕ '+label+' শেষ পাওয়া যায়নি');return src;}
+  log.push('✓ '+label);return src.slice(0,a)+rep+src.slice(b+end.length);
+}
+function put(src,from,to,label,log){
+  if(!src.includes(from)){log.push('✕ '+label+' পাওয়া যায়নি');return src;}
+  log.push('✓ '+label);return src.replace(from,()=>to);
+}
+document.getElementById('pf').onchange=async e=>{
+  const f=e.target.files[0];if(!f)return;let s=await f.text();const L=[];
+  s=swap(s,'async function commitTree(entries, message) {','\n}',T('ct'),'commitTree',L);
+  s=swap(s,'async function removeMany(paths) {','\n}',T('rm'),'ডিলেট (removeMany)',L);
+  s=swap(s,"const LOGO = '","</svg>';",T('lg'),'লোগো',L);
+  s=put(s,"🚀 Let's go</button>",'🚀 Log in now</button>','লগ ইন বাটন',L);
+  s=put(s,`"🚀 Let's go": '🚀 শুরু করুন'`,`'🚀 Log in now': '🚀 লগ ইন নাও', '🔄 Reload': '🔄 রিলোড'`,'বাংলা অনুবাদ',L);
+  s=put(s,'let hlOn = false, mdOn = false;','let upDone = false;\nlet hlOn = false, mdOn = false;','upDone ভ্যারিয়েবল',L);
+  const re=/await sleep\(700\);\s*busy = false;[^\n]*loadDir\(\);/;
+  if(re.test(s)){s=s.replace(re,()=>"busy = false; pend = null; upDone = true;\n  if (!hold) prog(100, '✅ Done! Press Reload');\n  $('upGo').disabled = false; $('upGo').textContent = '🔄 Reload'; $('upCancel').textContent = 'Close';");L.push('✓ আপলোড শেষ অংশ');}else L.push('✕ আপলোড শেষ অংশ পাওয়া যায়নি');
+  s=put(s,'function openUp(mode) {',"function openUp(mode) {\n  upDone = false; $('upGo').textContent = '🚀 Push'; $('upCancel').textContent = 'Cancel';",'openUp',L);
+  s=put(s,"$('upGo').onclick = () => {","$('upGo').onclick = () => {\n  if (upDone) { upDone = false; show('prog', false); show('mUp', false); tc = null; loadDir(); loadRepos().catch(() => {}); return; }",'Reload বাটনের কাজ',L);
+  html=s;document.getElementById('out').textContent=L.join('\n');
+  const bad=L.some(x=>x[0]==='✕');document.getElementById('dz').disabled=bad;document.getElementById('dh').disabled=bad;
 };
-
-/* ===== Editor, folder maker, image preview ===== */
-const MIME = { svg: 'image/svg+xml', jpg: 'image/jpeg', jpeg: 'image/jpeg', ico: 'image/x-icon' };
-async function openFile(p) {
-  try {
-    const f = await gh(`/repos/${repo}/contents/${cp(p)}?ref=${encodeURIComponent(branch)}`), ext = p.split('.').pop().toLowerCase();
-    if (/^(png|jpe?g|gif|webp|svg|ico|bmp)$/.test(ext)) {
-      if (!f.content) return say('Image is too large to preview here.', true);
-      const src = `data:${MIME[ext] || 'image/' + ext};base64,${f.content.replace(/\n/g, '')}`;
-      $('imgv').src = src; $('imgn').textContent = f.name; $('imgd').href = src; $('imgd').download = f.name; return show('mImg');
-    }
-    const text = f.content ? dec(f.content) : '';
-    if (text.includes('\u0000')) return say('Binary file: it cannot be edited here.', true);
-    showEditor(p, text, f.sha);
-  } catch (e) { say(e.message, true); }
-}
-let hlOn = false, mdOn = false;
-const isMd = p => /\.(md|markdown)$/i.test(p);
-function renderEd() {
-  const t = $('etext').value, ext = $('epath').value.split('.').pop().toLowerCase();
-  show('ehl', hlOn); show('emd', mdOn); show('etext', !(hlOn || (mdOn && innerWidth < 800)));
-  if (hlOn) $('ehl').innerHTML = hl(t, ext); if (mdOn) $('emd').innerHTML = md(t);
-}
-function showEditor(p, text, sha, folder) {
-  editSha = sha; $('epath').value = p; $('epath').disabled = !!sha; $('etext').value = text; $('emsg').textContent = '';
-  $('epath').placeholder = folder ? 'folder-name' : 'folder/file.txt'; hlOn = false; mdOn = !folder && isMd(p) && innerWidth >= 800;
-  show('esave', !folder); show('efold', !!folder); show('ecp', !folder); show('edl', !folder); show('ehb', !folder); show('emb', !folder && isMd(p));
-  renderEd(); show('editor');
-}
-$('ehb').onclick = () => { hlOn = !hlOn; if (hlOn) mdOn = false; renderEd(); };
-$('emb').onclick = () => { mdOn = !mdOn; if (mdOn) hlOn = false; renderEd(); };
-$('etext').oninput = () => { if (mdOn) renderEd(); };
-$('ecancel').onclick = () => show('editor', false);
-$('ecp').onclick = () => navigator.clipboard.writeText($('etext').value).then(() => say('Copied'), () => say('Copy failed', true));
-$('edl').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([$('etext').value])); a.download = $('epath').value.split('/').pop() || 'file.txt'; a.click(); };
-async function put(p, content, sha, msg) {
-  const body = { message: msg, content: enc(content), branch }; if (sha) body.sha = sha;
-  await gh(`/repos/${repo}/contents/${cp(p)}`, { method: 'PUT', body: JSON.stringify(body) }); tc = null;
-}
-$('esave').onclick = async () => {
-  const p = $('epath').value.trim().replace(/^\/+/, ''); if (!p || p.endsWith('/')) return ($('emsg').textContent = 'Enter a file name.');
-  try { await put(p, $('etext').value, editSha, (editSha ? 'Update ' : 'Create ') + p); show('editor', false); say('Saved ' + p); loadDir(); } catch (e) { $('emsg').textContent = e.message; }
-};
-$('efold').onclick = async () => {
-  const p = $('epath').value.trim().replace(/^\/+|\/+$/g, ''); if (!p) return ($('emsg').textContent = 'Enter a folder name.');
-  try { await put(p + '/.gitkeep', '', null, 'Create folder ' + p); show('editor', false); say('Folder created'); loadDir(); } catch (e) { $('emsg').textContent = e.message; }
-};
-
-/* ===== One commit for many files ===== */
-async function commitTree(entries, message) {
-  const ref = await gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
-  const base = await gh(`/repos/${repo}/git/commits/${ref.object.sha}`);
-  const tree = await gh(`/repos/${repo}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: base.tree.sha, tree: entries }) });
-  const commit = await gh(`/repos/${repo}/git/commits`, { method: 'POST', body: JSON.stringify({ message, tree: tree.sha, parents: [ref.object.sha] }) });
-  await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) }); tc = null;
-}
-
-/* ===== Fast resumable upload ===== */
-async function retry(fn) {
-  for (let i = 0; ; i++) {
-    try { return await fn(); } catch (e) {
-      if (/Bad credentials|Not Found|Validation|too large|fast.forward/i.test(e.message) || i >= 5 || cancel) throw e;
-      if (!navigator.onLine) await new Promise(r => addEventListener('online', r, { once: true }));
-      await sleep(1000 * 2 ** i);
-    }
-  }
-}
-async function gitSha(u) {
-  const h = new TextEncoder().encode('blob ' + u.length + '\0'), m = new Uint8Array(h.length + u.length); m.set(h); m.set(u, h.length);
-  return [...new Uint8Array(await crypto.subtle.digest('SHA-1', m))].map(x => x.toString(16).padStart(2, '0')).join('');
-}
-function prog(p, t) { $('bar').style.width = p + '%'; $('ptxt').textContent = t; }
-
-/* Live per-file list: </> = working, ✓ = done, ＝ = same (skipped), ✕ = failed */
-const TD = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true });
-const asText = u => { try { const s = TD.decode(u); return s.includes('\u0000') ? null : s; } catch (e) { return null; } };
-const bname = p => p.slice(p.lastIndexOf('/') + 1);
-function addRow(p, tag) {
-  const f = $('flist'), d = document.createElement('div'); d.className = 'wip';
-  d.innerHTML = `<i>&lt;/&gt;</i><span>${esc(p)}</span><small>${esc(tag)}</small>`;
-  f.appendChild(d); while (f.children.length > 250) f.removeChild(f.firstChild); f.scrollTop = f.scrollHeight; return d;
-}
-function mark(d, c) { d.className = c; d.firstChild.textContent = { ok: '✓', sk: '＝', er: '✕' }[c]; }
-
-/* Replace mode: ZIP files overwrite same-named files already in the repo (case-insensitive), the top ZIP folder is auto-stripped, new files are added */
-function plan(items, have, o, pre) {
-  const low = Object.create(null); Object.keys(have).forEach(p => low[p.toLowerCase()] = p);
-  const real = p => low[p.toLowerCase()];
-  const roots = new Set(items.map(x => x.name.split('/')[0])), inRepo = p => real(pre + p) !== undefined, rest = x => x.name.split('/').slice(1).join('/');
-  let strip = false;
-  if (roots.size === 1 && items.every(x => x.name.includes('/'))) strip = items.filter(x => inRepo(rest(x))).length > items.filter(x => inRepo(x.name)).length;
-  const nm = x => strip ? rest(x) : x.name, bn = Object.create(null), zc = Object.create(null);
-  if (o.smart) {
-    Object.keys(have).filter(p => p.startsWith(pre)).forEach(p => (bn[bname(p)] = bn[bname(p)] || []).push(p));
-    items.forEach(x => { const b = bname(nm(x)); zc[b] = (zc[b] || 0) + 1; });
-  }
-  items.forEach(x => {
-    const n = nm(x), ex = real(pre + n);
-    x.dest = ex !== undefined ? ex : pre + n; x.kind = ex !== undefined ? 'update' : 'new'; x.moved = false;
-    if (x.kind === 'new' && o.smart) { const b = bname(n), c = bn[b]; if (c && c.length === 1 && zc[b] === 1) { x.dest = c[0]; x.kind = 'update'; x.moved = true; } }
-  });
-}
-
-async function upload(items, o) {
-  busy = true; cancel = false; show('prog'); $('upGo').disabled = true; $('upCancel').textContent = 'Stop'; $('flist').innerHTML = '';
-  const pre = o.tp ? o.tp + '/' : ''; let hold = false;
-  try {
-    prog(0, 'Checking what is already there…');
-    const ref = await retry(() => gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`)), head = ref.object.sha;
-    const bc = await retry(() => gh(`/repos/${repo}/git/commits/${head}`)), have = Object.create(null);
-    try { (await retry(() => gh(`/repos/${repo}/git/trees/${bc.tree.sha}?recursive=1`))).tree.forEach(t => { if (t.type === 'blob') have[t.path] = t.sha; }); } catch (e) {}
-    plan(items, have, o, pre);
-    /* two ZIP files that land on the same path: keep the last one, count the rest */
-    const last = Object.create(null); items.forEach(x => last[x.dest] = x);
-    const dupN = items.length - Object.keys(last).length; items = items.filter(x => last[x.dest] === x);
-    const n = items.length; let i = 0, skip = 0, add = 0, upd = 0, okc = 0, bad = [], q = 0, pb = 0, fail = null, tsha = bc.tree.sha, queue = [], chain = Promise.resolve();
-    const tick = () => { const d = okc + skip; prog(d / n * 100, `${d} / ${n} files (${Math.round(d / n * 100)}%)` + (skip ? ` · ${skip} skipped` : '')); };
-    /* text files go inside the tree request itself (no separate blob call), so thousands of files take only a few requests */
-    const flush = () => {
-      if (!queue.length) return;
-      const b = queue; queue = []; pb = 0; q++;
-      chain = chain.then(async () => {
-        if (cancel || fail) return;
-        const t = await retry(() => gh(`/repos/${repo}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: tsha, tree: b.map(x => x.e) }) }));
-        tsha = t.sha; b.forEach(x => mark(x.row, 'ok')); okc += b.length; tick();
-      }).catch(e => { fail = fail || e; }).then(() => { q--; });
-    };
-    const work = async () => {
-      while (i < n && !cancel && !fail) {
-        const it = items[i++], p = it.dest, row = addRow(p, it.moved ? 'update ↪' : it.kind);
-        try {
-          let u = await it.get(); if (o.img) u = await shrink(u, it.name);
-          const sh = await gitSha(u); it.exp = sh;
-          if (u.length > 1e8) { it.exp = null; bad.push(p + ' (over 100 MB, skipped)'); say(p + ' is over 100 MB: skipped', true); mark(row, 'er'); }
-          else if (have[p] !== undefined && (!o.over || have[p] === sh)) { if (have[p] !== sh) it.exp = null; skip++; mark(row, 'sk'); tick(); }
-          else {
-            const txt = u.length && u.length < 7e5 ? asText(u) : null;
-            if (txt !== null) { queue.push({ e: { path: p, mode: '100644', type: 'blob', content: txt }, row }); pb += txt.length; }
-            else { const b = await retry(() => gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64(u), encoding: 'base64' }) })); queue.push({ e: { path: p, mode: '100644', type: 'blob', sha: b.sha }, row }); }
-            it.kind === 'new' ? add++ : upd++;
-            if (pb > 1e6 || queue.length >= 60) { flush(); if (q >= 3) await chain; }
-          }
-        } catch (e) { mark(row, 'er'); fail = fail || e; }
-      }
-    };
-    await Promise.all(Array.from({ length: Math.min(6, n) }, work));
-    flush(); await chain; if (fail) throw fail;
-    if (cancel) say('Stopped. Nothing was committed.', true);
-    else if (!add && !upd) say('Nothing new: everything is already there');
-    else {
-      prog(100, 'Saving commit…');
-      const c = await retry(() => gh(`/repos/${repo}/git/commits`, { method: 'POST', body: JSON.stringify({ message: o.msg, tree: tsha, parents: [head] }) }));
-      await retry(() => gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: c.sha }) })); tc = null;
-      logUp(o.msg, add + upd, skip); say(`✅ ${add} new · ${upd} updated` + (skip ? ` · ${skip} skipped` : ''));
-    }
-    /* ===== Zero-miss check: compare every file with the real branch, re-send anything missing ===== */
-    if (!cancel) {
-      prog(100, 'Verifying every file…');
-      const need = items.filter(x => x.exp); let missing = [], vtrunc = false;
-      for (let k = 0; k < 3; k++) {
-        const r = await retry(() => gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`));
-        const cm = await retry(() => gh(`/repos/${repo}/git/commits/${r.object.sha}`));
-        const t = await retry(() => gh(`/repos/${repo}/git/trees/${cm.tree.sha}?recursive=1`));
-        if (t.truncated) { vtrunc = true; break; }
-        const live = Object.create(null); t.tree.forEach(x => { if (x.type === 'blob') live[x.path] = x.sha; });
-        missing = need.filter(x => live[x.dest] !== x.exp);
-        if (!missing.length || k === 2) break;
-        prog(100, `Re-sending ${missing.length} missing file(s)…`);
-        const ents = [];
-        for (const x of missing) {
-          let u = await x.get(); if (o.img) u = await shrink(u, x.name);
-          const b = await retry(() => gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64(u), encoding: 'base64' }) }));
-          ents.push({ path: x.dest, mode: '100644', type: 'blob', sha: b.sha });
-        }
-        await retry(() => commitTree(ents, o.msg + ' (repair)'));
-      }
-      const probs = [...missing.map(x => x.dest + ' (not found after upload)'), ...bad];
-      if (probs.length) {
-        hold = true;
-        $('flist').insertAdjacentHTML('beforeend', probs.map(p => `<div class="er"><i>✕</i><span>${esc(p)}</span></div>`).join('')); $('flist').scrollTop = 1e9;
-        prog(100, `⚠️ ${probs.length} file(s) have a problem`); say(`⚠️ ${probs.length} file(s) have a problem. See the list.`, true);
-      } else say(vtrunc ? '✅ Pushed (repo too big for the full check)' : `✅ Verified: all ${need.length} files are in the repo` + (dupN ? ` · ${dupN} duplicate name(s) merged` : ''));
-    }
-  } catch (e) { say(/empty/i.test(e.message) ? 'Repository is empty: create a file first.' : e.message, true); }
-  await sleep(700);
-  busy = false; $('upGo').disabled = false; $('upCancel').textContent = 'Cancel'; pend = null; if (!hold) { show('prog', false); show('mUp', false); } loadDir();
-}
-
-/* ===== Upload modal ===== */
-function openUp(mode) {
-  upMode = mode; pend = null; $('upT').textContent = { zip: 'Upload ZIP', file: 'Upload files', folder: 'Upload folder' }[mode];
-  $('dropT').textContent = { zip: 'Tap to choose a ZIP', file: 'Tap to choose files (png, svg, anything)', folder: 'Tap to choose a folder' }[mode];
-  document.querySelectorAll('.zo').forEach(e => e.classList.toggle('hide', mode === 'file'));
-  $('upPath').value = path; show('prog', false); show('mUp');
-}
-$('drop').onclick = () => $({ zip: 'fz', file: 'ff', folder: 'fd' }[upMode]).click();
-$('drop').ondragover = e => { e.preventDefault(); $('drop').classList.add('drag'); };
-$('drop').ondragleave = () => $('drop').classList.remove('drag');
-$('drop').ondrop = e => { e.preventDefault(); $('drop').classList.remove('drag'); pick([...e.dataTransfer.files]); };
-$('fz').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
-$('ff').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
-$('fd').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
-async function pick(fs) {
-  if (!fs.length) return;
-  try {
-    if (upMode === 'zip') { const z = await JSZip.loadAsync(fs[0]); pend = { zip: z }; $('dropT').textContent = `${fs[0].name} · ${Object.keys(z.files).filter(n => !z.files[n].dir).length} files`; }
-    else { pend = { files: fs }; $('dropT').textContent = fs.length + ' file(s) ready'; }
-  } catch (e) { say('Could not read this file: ' + e.message, true); }
-}
-$('upCancel').onclick = () => busy ? (cancel = true) : show('mUp', false);
-$('upGo').onclick = () => {
-  if (!pend) return say('Choose a file first', true);
-  if (busy) return;
-  const o = { smart: $('oSmart').checked, over: $('oOver').checked, img: $('oImg').checked, msg: $('upMsg').value || 'Upload', tp: $('upPath').value.trim().replace(/^\/+|\/+$/g, '') };
-  let list = pend.zip ? Object.keys(pend.zip.files).filter(n => !pend.zip.files[n].dir).map(n => ({ n, get: () => pend.zip.files[n].async('uint8array') }))
-    : pend.files.map(f => ({ n: f.webkitRelativePath || f.name, get: async () => new Uint8Array(await f.arrayBuffer()) }));
-  if (upMode !== 'file') {
-    if ($('oSys').checked) list = list.filter(x => !/(^|\/)(node_modules|__MACOSX|\.git)\//.test(x.n) && !/\.DS_Store$/.test(x.n));
-    const roots = new Set(list.map(x => x.n.split('/')[0]));
-    if ($('oStrip').checked && roots.size === 1 && list.every(x => x.n.includes('/'))) list.forEach(x => x.n = x.n.split('/').slice(1).join('/'));
-  }
-  const items = list.map(x => ({ name: x.n, get: x.get }));
-  if (!items.length) return say('No files to upload', true);
-  upload(items, o);
-};
-const fl = $('files');
-fl.ondragover = e => { e.preventDefault(); fl.classList.add('drag'); };
-fl.ondragleave = () => fl.classList.remove('drag');
-fl.ondrop = e => { e.preventDefault(); fl.classList.remove('drag'); const fs = [...e.dataTransfer.files]; if (!fs.length) return; openUp(fs.length === 1 && /\.zip$/i.test(fs[0].name) ? 'zip' : 'file'); pick(fs); };
-addEventListener('beforeunload', e => { if (busy) { e.preventDefault(); e.returnValue = ''; } });
-
-/* ===== New: tree cache, search, move/rename, ZIP download ===== */
-let tc = null;
-async function getTree() {
-  const k = repo + '@' + branch; if (tc && tc.k === k) return tc.t;
-  const r = await gh(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`); tc = { k, t: r.tree }; return r.tree;
-}
-$('fq').oninput = async () => {
-  const q = $('fq').value.trim().toLowerCase(); show('fres', q.length > 1); show('files', q.length < 2); if (q.length < 2) return;
-  try {
-    const r = (await getTree()).filter(x => x.path.toLowerCase().includes(q)).slice(0, 40);
-    $('fres').innerHTML = r.map(x => `<div class="row"><span class="nm" data-sp="${esc(x.path)}" data-st="${x.type}">${x.type === 'tree' ? '📁' : '📄'} ${esc(x.path)}</span></div>`).join('') || '<div class="empty">No match</div>';
-  } catch (e) { $('fres').innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
-};
-$('fres').onclick = e => {
-  const n = e.target.closest('[data-sp]'); if (!n) return; $('fq').value = ''; show('fres', false); show('files');
-  if (n.dataset.st === 'tree') path = n.dataset.sp; else path = n.dataset.sp.split('/').slice(0, -1).join('/');
-  loadDir(); if (n.dataset.st !== 'tree') openFile(n.dataset.sp);
-};
-async function moveItem(p) {
-  let np = (prompt('New name or full path:', p) || '').trim().replace(/^\/+|\/+$/g, ''); if (!np || np === p) return;
-  if (!np.includes('/') && p.includes('/')) np = p.slice(0, p.lastIndexOf('/') + 1) + np;
-  try {
-    const ents = []; (await getTree()).filter(x => x.type === 'blob' && (x.path === p || x.path.startsWith(p + '/'))).forEach(x => {
-      ents.push({ path: np + x.path.slice(p.length), mode: x.mode, type: 'blob', sha: x.sha }, { path: x.path, mode: x.mode, type: 'blob', sha: null });
-    });
-    if (!ents.length) return say('Not found', true);
-    await commitTree(ents, `Move ${p} to ${np}`); say('Moved ✅'); loadDir();
-  } catch (e) { say(e.message, true); }
-}
-async function dlZip(prefix, name) {
-  try {
-    const fs = (await getTree()).filter(x => x.type === 'blob' && (!prefix || x.path.startsWith(prefix + '/')));
-    if (!fs.length) return say('Nothing to download', true);
-    const total = fs.reduce((a, x) => a + (x.size || 0), 0);
-    if (total > 80e6 && !confirm('This is about ' + (total / 1e6).toFixed(0) + ' MB. A phone may run out of memory. Continue?')) return;
-    const z = new JSZip(); let i = 0, d = 0;
-    await Promise.all(Array.from({ length: 5 }, async () => {
-      while (i < fs.length) { const f = fs[i++], b = await retry(() => gh(`/repos/${repo}/git/blobs/${f.sha}`)); z.file(prefix ? f.path.slice(prefix.length + 1) : f.path, b.content.replace(/\n/g, ''), { base64: true }); say(`Packing ${++d} / ${fs.length}…`); }
-    }));
-    const a = document.createElement('a'); a.href = URL.createObjectURL(await z.generateAsync({ type: 'blob' })); a.download = name + '.zip'; a.click(); say('ZIP ready ⬇');
-  } catch (e) { say(e.message, true); }
-}
-
-/* ===== New: photo shrinker, upload log ===== */
-async function shrink(u, name) {
-  if (u.length < 8e5 || !/\.(jpe?g|png|webp)$/i.test(name)) return u;
-  try {
-    const type = /png$/i.test(name) ? 'image/png' : /webp$/i.test(name) ? 'image/webp' : 'image/jpeg', bm = await createImageBitmap(new Blob([u]));
-    const k = Math.min(1, 2048 / Math.max(bm.width, bm.height)), c = document.createElement('canvas'); c.width = Math.round(bm.width * k); c.height = Math.round(bm.height * k);
-    c.getContext('2d').drawImage(bm, 0, 0, c.width, c.height);
-    const o = new Uint8Array(await (await new Promise(r => c.toBlob(r, type, .82))).arrayBuffer()); return o.length < u.length ? o : u;
-  } catch (e) { return u; }
-}
-function logUp(m, n, s) { let L = []; try { L = JSON.parse(store.get('gz_log') || '[]'); } catch (e) {} L.unshift({ t: Date.now(), repo, m, n, s }); store.set('gz_log', JSON.stringify(L.slice(0, 30))); }
-$('mhb').onclick = () => {
-  show('menu', false); let L = []; try { L = JSON.parse(store.get('gz_log') || '[]'); } catch (e) {}
-  $('hlist').innerHTML = L.length ? L.map(x => `<div class="row"><div style="flex:1;min-width:0"><b style="word-break:break-all">${esc(x.repo)}</b><br><small>${esc(x.m)} · ${x.n} files${x.s ? ', ' + x.s + ' skipped' : ''} · ${ago(x.t)}</small></div></div>`).join('') : '<div class="empty">No uploads yet</div>'; show('mHist');
-};
-
-/* ===== New: commit diff, branches, Pages, star, fork ===== */
-$('pHist').onclick = e => { const r = e.target.closest('[data-sha]'); if (r) openDiff(r.dataset.sha); };
-async function openDiff(sha) {
-  show('mDiff'); $('dft').textContent = 'Loading…'; $('dfb').innerHTML = '';
-  try {
-    const c = await gh(`/repos/${repo}/commits/${sha}`); $('dft').textContent = c.commit.message.split('\n')[0];
-    $('dfb').innerHTML = c.files.map(f => `<div class="df"><b style="word-break:break-all">${esc(f.filename)}</b> <small>${f.status} +${f.additions} −${f.deletions}</small><pre>${f.patch ? f.patch.split('\n').map(l => `<span class="${l[0] === '+' ? 'ad' : l[0] === '-' ? 'rm' : ''}">${esc(l) || ' '}</span>`).join('') : '(binary or too large to show)'}</pre></div>`).join('');
-  } catch (e) { $('dfb').innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
-}
-async function brList() {
-  const bs = await gh(`/repos/${repo}/branches?per_page=100`);
-  $('br').innerHTML = bs.map(b => `<option ${b.name === branch ? 'selected' : ''}>${esc(b.name)}</option>`).join('');
-  $('msrc').innerHTML = bs.filter(b => b.name !== branch).map(b => `<option>${esc(b.name)}</option>`).join('');
-}
-$('bcreate').onclick = async () => {
-  const n = $('bname').value.trim(); if (!n) return say('Enter a branch name', true);
-  try {
-    const r = await gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
-    await gh(`/repos/${repo}/git/refs`, { method: 'POST', body: JSON.stringify({ ref: 'refs/heads/' + n, sha: r.object.sha }) });
-    branch = n; path = ''; await brList(); show('mBr', false); say('Branch created 🌿'); setTab(tab);
-  } catch (e) { say(e.message, true); }
-};
-$('bmerge').onclick = async () => {
-  const s2 = $('msrc').value; if (!s2) return say('No other branch to merge', true);
-  if (!confirm(`Merge "${s2}" into "${branch}"?`)) return;
-  try { const r = await gh(`/repos/${repo}/merges`, { method: 'POST', body: JSON.stringify({ base: branch, head: s2 }) }); tc = null; show('mBr', false); say(r ? 'Merged ✅' : 'Already up to date'); setTab(tab); }
-  catch (e) { say(e.message, true); }
-};
-async function pagesBox() {
-  const box = $('pgbox');
-  try {
-    const p = await gh(`/repos/${repo}/pages`);
-    box.innerHTML = `🌐 GitHub Pages is <b>ON</b><br><a class="lnk" target="_blank" rel="noopener" href="${esc(p.html_url)}" style="word-break:break-all">${esc(p.html_url)}</a><br><button id="pgoff" class="dng" style="margin-top:8px">Turn off</button>`;
-    $('pgoff').onclick = async () => { if (!confirm('Turn off GitHub Pages for this repo?')) return; try { await gh(`/repos/${repo}/pages`, { method: 'DELETE' }); pagesBox(); } catch (e) { say(e.message, true); } };
-  } catch (e) {
-    box.innerHTML = `🌐 GitHub Pages is <b>off</b><br><button id="pgon" class="pri" style="margin-top:8px">Turn on (${esc(branch)})</button>`;
-    $('pgon').onclick = async () => { try { await gh(`/repos/${repo}/pages`, { method: 'POST', body: JSON.stringify({ source: { branch, path: '/' } }) }); say('Pages turned on. It can take a minute.'); pagesBox(); } catch (e2) { say(e2.message, true); } };
-  }
-}
-async function starBox() {
-  const b = $('istar'); let on = true;
-  try { await gh(`/user/starred/${repo}`); } catch (e) { on = false; }
-  b.textContent = on ? '⭐ Starred (tap to unstar)' : '☆ Star this repo';
-  b.onclick = async () => { try { await gh(`/user/starred/${repo}`, { method: on ? 'DELETE' : 'PUT' }); say(on ? 'Unstarred' : 'Starred ⭐'); starBox(); } catch (e) { say(e.message, true); } };
-}
-$('mfb').onclick = () => { show('menu', false); show('mFork'); };
-const fkParse = () => { const v = $('fkn').value.trim(), m = v.match(/github\.com\/([^\/\s]+)\/([^\/\s#?]+)/) || v.match(/^([^\/\s]+)\/([^\/\s]+)$/); return m ? [m[1], m[2].replace(/\.git$/, '')] : null; };
-$('fkgo').onclick = async () => { const p = fkParse(); if (!p) return say('Use the form owner/name', true); try { await gh(`/repos/${p[0]}/${p[1]}/forks`, { method: 'POST', body: '{}' }); say('Fork started 🍴 It takes a few seconds.'); show('mFork', false); setTimeout(loadRepos, 4000); } catch (e) { say(e.message, true); } };
-$('fkst').onclick = async () => { const p = fkParse(); if (!p) return say('Use the form owner/name', true); try { await gh(`/user/starred/${p[0]}/${p[1]}`, { method: 'PUT' }); say('Starred ⭐'); show('mFork', false); } catch (e) { say(e.message, true); } };
-
-/* ===== More: colors, README, issues, collaborators, offline, install, language ===== */
-$('zipb').onclick = () => openUp('zip');
-function hl(src, ext) {
-  const hs = /^(py|sh|bash|yml|yaml|rb|toml|ini)$/.test(ext), kw = 'const|let|var|function|return|if|else|for|while|class|new|import|export|from|async|await|try|catch|throw|def|in|is|not|and|or|None|True|False|null|true|false|undefined|this|switch|case|break|default|typeof|print|elif|lambda|self';
-  const re = new RegExp('(\\/\\*[\\s\\S]*?\\*\\/|<!--[\\s\\S]*?-->|\\/\\/[^\\n]*' + (hs ? '|#[^\\n]*' : '') + ')|("(?:\\\\.|[^"\\\\\\n])*"|\'(?:\\\\.|[^\'\\\\\\n])*\'|`(?:\\\\.|[^`\\\\])*`)|(<\\/?[a-zA-Z][\\w-]*)|\\b(' + kw + ')\\b|\\b(\\d+\\.?\\d*)\\b', 'g');
-  let out = '', last = 0, m;
-  while ((m = re.exec(src))) { out += esc(src.slice(last, m.index)) + `<span class="h${m[1] ? 'c' : m[2] ? 's' : m[3] ? 't' : m[4] ? 'k' : 'n'}">${esc(m[0])}</span>`; last = re.lastIndex; }
-  return out + esc(src.slice(last));
-}
-function md(s) {
-  const blocks = [];
-  s = esc(s).replace(/```[\w-]*\n([\s\S]*?)```/g, (_, c) => { blocks.push(c); return '\u0001' + (blocks.length - 1) + '\u0001'; });
-  return s.replace(/^(#{1,6}) (.*)$/gm, (_, h, t) => `<h${h.length}>${t}</h${h.length}>`).replace(/^(?:-{3,}|\*{3,})$/gm, '<hr>')
-    .replace(/^[-*] (.*)$/gm, '<li>$1</li>').replace(/!\[([^\]]*)\]\((https?:[^)\s]+)\)/g, '<img alt="$1" src="$2">')
-    .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
-    .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/\*([^*\n]+)\*/g, '<i>$1</i>').replace(/`([^`\n]+)`/g, '<code>$1</code>')
-    .replace(/((?:<li>.*<\/li>\n?)+)/g, m => '<ul>' + m.replace(/\n/g, '') + '</ul>').replace(/\n/g, '<br>').replace(/\u0001(\d+)\u0001/g, (_, i) => `<pre>${blocks[i]}</pre>`);
-}
-async function editReadme() {
-  try { const f = await gh(`/repos/${repo}/readme?ref=${encodeURIComponent(branch)}`); openFile(f.path); }
-  catch (e) { showEditor('README.md', '# ' + repo.split('/')[1] + '\n', null); }
-}
-async function loadIss() {
-  const p = $('pIss'); p.innerHTML = '<div class="empty">Loading…</div>';
-  try {
-    const L = (await gh(`/repos/${repo}/issues?state=all&per_page=40`)).filter(x => !x.pull_request);
-    p.innerHTML = '<div class="bar" style="margin-bottom:10px"><button class="pri" id="isnew">＋ New issue</button></div><div class="list">' + (L.map(x => `<div class="row"><span>${x.state === 'open' ? '🟢' : '🟣'}</span><div style="flex:1;min-width:0"><div style="word-break:break-word">#${x.number} ${esc(x.title)}</div><small>${esc(x.user.login)} · ${ago(x.created_at)}</small></div><button data-iss="${x.number}" data-st="${x.state}">${x.state === 'open' ? 'Close' : 'Reopen'}</button></div>`).join('') || '<div class="empty">No issues</div>') + '</div>';
-    $('isnew').onclick = () => { $('isT').value = ''; $('isB').value = ''; show('mIss'); };
-  } catch (e) { p.innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
-}
-$('pIss').onclick = async e => { const b = e.target.closest('[data-iss]'); if (!b) return; try { await gh(`/repos/${repo}/issues/${b.dataset.iss}`, { method: 'PATCH', body: JSON.stringify({ state: b.dataset.st === 'open' ? 'closed' : 'open' }) }); loadIss(); } catch (er) { say(er.message, true); } };
-$('isgo').onclick = async () => { const t = $('isT').value.trim(); if (!t) return say('Add a title', true); try { await gh(`/repos/${repo}/issues`, { method: 'POST', body: JSON.stringify({ title: t, body: $('isB').value }) }); show('mIss', false); say('Issue created'); loadIss(); } catch (e) { say(e.message, true); } };
-async function loadCol() {
-  const L = $('colL'); L.innerHTML = '<div class="empty">Loading…</div>';
-  try { const c = await gh(`/repos/${repo}/collaborators?per_page=50`); L.innerHTML = c.map(x => `<div class="row"><img src="${esc(x.avatar_url)}" width="28" height="28" style="border-radius:50%" alt=""><span style="flex:1">${esc(x.login)}</span>${x.login === me.login ? '<small>you</small>' : `<button class="dng" data-rc="${esc(x.login)}">Remove</button>`}</div>`).join(''); }
-  catch (e) { L.innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
-}
-$('colL').onclick = async e => { const b = e.target.closest('[data-rc]'); if (!b || !confirm('Remove ' + b.dataset.rc + '?')) return; try { await gh(`/repos/${repo}/collaborators/${encodeURIComponent(b.dataset.rc)}`, { method: 'DELETE' }); loadCol(); } catch (er) { say(er.message, true); } };
-$('colgo').onclick = async () => { const u = $('colN').value.trim(); if (!u) return; try { await gh(`/repos/${repo}/collaborators/${encodeURIComponent(u)}`, { method: 'PUT', body: JSON.stringify({ permission: 'push' }) }); $('colN').value = ''; say('Invite sent to ' + u); loadCol(); } catch (e) { say(e.message, true); } };
-const SL = ['full_name', 'name', 'private', 'fork', 'language', 'default_branch', 'pushed_at', 'updated_at', 'stargazers_count', 'forks_count', 'description', 'topics', 'html_url', 'clone_url', 'size', 'created_at'];
-function cacheRepos() { store.set('gz_cache', JSON.stringify({ login: me.login, avatar: me.avatar_url, repos: allRepos.map(r => Object.fromEntries(SL.map(k => [k, r[k]]))) })); }
-function offlineView() {
-  let c; try { c = JSON.parse(store.get('gz_cache')); } catch (e) {} if (!c) return false;
-  me = { login: c.login, avatar_url: c.avatar }; allRepos = c.repos; show('login', false); show('app'); show('off'); $('avi').src = c.avatar; wave($('hello'), '@' + c.login); renderStats(); return true;
-}
-addEventListener('online', () => { if (token && !$('off').classList.contains('hide')) { show('off', false); connect(token); } });
-let dip = null; addEventListener('beforeinstallprompt', e => { e.preventDefault(); dip = e; show('inst'); });
-$('inst').onclick = () => { if (dip) { dip.prompt(); dip = null; show('inst', false); } };
-if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', '🔑 Make a token ↗': '🔑 টোকেন বানান ↗', "🚀 Let's go": '🚀 শুরু করুন', 'Make a token': 'টোকেন বানান', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token stays in this tab only and is wiped when you close it.': '🔐 টোকেন শুধু এই ট্যাবে থাকে, বন্ধ করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', '🚀 Push': '🚀 পাঠান', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ', 'Smart match: update files with the same name': 'স্মার্ট ম্যাচ: একই নামের ফাইল আপডেট করুন' };
-const BNP = { '🔎 Search every file in this repo…': '🔎 এই repo-র সব ফাইলে খুঁজুন…' };
-const orig = new WeakMap(); let lg = store.get('gz_lg') === 'bn' ? 'bn' : 'en', trBusy = false;
-const tx = o => { const t = o.trim(); return lg === 'bn' && BN[t] ? o.replace(t, BN[t]) : o; };
-function tr(root) {
-  if (trBusy) return; trBusy = true;
-  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); let n;
-  while ((n = w.nextNode())) {
-    if (/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode.nodeName)) continue;
-    let o = orig.get(n); if (o === undefined || (n.nodeValue !== o && n.nodeValue !== tx(o))) { o = n.nodeValue; orig.set(n, o); }
-    const v = tx(o); if (n.nodeValue !== v) n.nodeValue = v;
-  }
-  document.querySelectorAll('[placeholder]').forEach(el => { if (el.dataset.ph === undefined) el.dataset.ph = el.placeholder; el.placeholder = (lg === 'bn' && BNP[el.dataset.ph]) || el.dataset.ph; });
-  trBusy = false;
-}
-new MutationObserver(m => { if (lg === 'bn' && !trBusy && m.some(x => { const el = x.target.nodeType === 3 ? x.target.parentNode : x.target; return el && el.closest && !el.closest('.tagl') && !el.closest('#flist'); })) requestAnimationFrame(() => tr(document.body)); }).observe(document.body, { childList: true, subtree: true, characterData: true });
-function setLang(l) { lg = l; store.set('gz_lg', l); document.documentElement.lang = l; document.querySelectorAll('[data-lg]').forEach(b => b.classList.toggle('on', b.dataset.lg === l)); tr(document.body); }
-document.addEventListener('click', e => { const b = e.target.closest('[data-lg]'); if (b) setLang(b.dataset.lg); });
-setLang(lg);
-
-/* ===== Start ===== */
-try { const t = sessionStorage.getItem('gm_token'); if (t) connect(t); else if (!navigator.onLine) offlineView(); } catch (e) {}
-/* নতুন ফিচার: gh('/repos/...') কল লিখে একটা বাটনের সাথে জুড়ুন। */
-</script>
-</body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </html>
+function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
+document.getElementById('dh').onclick=()=>save(new Blob([html],{type:'text/html'}),'index.html');
+document.getElementById('dz').onclick=async()=>{const z=new JSZip();z.file('index.html',html);save(await z.generateAsync({type:'blob'}),'github-zip-up.zip');};
+</script></body></html>
