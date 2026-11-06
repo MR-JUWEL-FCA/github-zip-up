@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-t="matrix">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,250 +8,215 @@
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--fg:#fff2fb;--mut:#c4a6bd;--card:rgba(255,255,255,.06);--ac:#ff4fa3;--ac2:#ff9be0;--vi:#a855f7;--dng:#ff6b81;--ok:#5eead4;--bd:color-mix(in srgb,var(--ac) 28%,transparent)}
-html[data-t=aurora]{--ac:#22d3ee;--ac2:#5eead4;--vi:#8b5cf6}
-html[data-t=sunset]{--ac:#fb923c;--ac2:#fde047;--vi:#f43f5e}
-html[data-t=ocean]{--ac:#3b82f6;--ac2:#67e8f9;--vi:#06b6d4}
-html[data-t=lime]{--ac:#84cc16;--ac2:#bef264;--vi:#22c55e}
+/* ONE fixed theme: red + hacker. No theme switching. */
+:root{--fg:#ffe1e1;--mut:#b27a7a;--card:rgba(255,255,255,.06);--ac:#ff2a3d;--ac2:#ff8a8a;--vi:#9b0016;--dng:#ff6b81;--ok:#4ade80;--bd:color-mix(in srgb,var(--ac) 30%,transparent)}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font:15px/1.55 Outfit,"Hind Siliguri","Segoe UI",system-ui,sans-serif;color:var(--fg);background:#09050f;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/26px 26px}
-.bg svg{width:100%;height:100%}
-.b1{animation:fl 14s ease-in-out infinite}.b2{animation:fl 19s ease-in-out infinite reverse}.b3{animation:fl 23s ease-in-out infinite}
-@keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(70px,-60px)}}
+body{margin:0;min-height:100vh;font:13px/1.5 "Space Mono","Hind Siliguri",monospace;color:var(--fg);background:#000;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;background:#000}
+#rain{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
 @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
 @keyframes shine{to{background-position:200% center}}
-@keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes rev{from{opacity:0;transform:translateY(8px) scale(.8)}to{opacity:1;transform:none}}
-@keyframes hue{to{filter:hue-rotate(360deg)}}
 @keyframes draw{from{stroke-dasharray:0 252}}
 @keyframes blink{50%{opacity:0}}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 60%,transparent)}70%{box-shadow:0 0 0 12px transparent}}
 button,input,textarea,select{font:inherit;color:inherit}
-button{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 14px;cursor:pointer;transition:.2s}
+button{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:7px 12px;cursor:pointer;transition:.2s}
 button:hover{border-color:var(--ac);transform:translateY(-1px)}
 button:disabled{opacity:.5;cursor:default;transform:none}
-button.pri{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:600}
+button.pri{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:700}
 button.pri:hover{box-shadow:0 6px 24px color-mix(in srgb,var(--ac) 55%,transparent)}
 button.dng{color:var(--dng)}
-input[type=text],input[type=password],textarea,select{width:100%;background:rgba(0,0,0,.38);border:1px solid var(--bd);border-radius:12px;padding:10px 13px}
+input[type=text],input[type=password],textarea,select{width:100%;background:rgba(0,0,0,.5);border:1px solid var(--bd);border-radius:8px;padding:9px 12px}
 select{appearance:none}
-select option{background:#1a0f24}
+select option{background:#1a0509}
 :focus-visible{outline:2px solid var(--ac2);outline-offset:1px}
 .hide{display:none!important}
 .mono{font-family:"Space Mono",monospace}
-.disp{font-family:Righteous,Outfit,"Hind Siliguri",sans-serif}
-.grad{background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:22px;backdrop-filter:blur(12px);animation:up .5s backwards}
+.disp{font-family:"Space Mono","Hind Siliguri",monospace;font-weight:700}
+.grad{background:linear-gradient(90deg,var(--ac),var(--ac2),#4ade80,var(--ac));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+.card{background:rgba(12,0,3,.72);border:1px solid var(--bd);border-radius:10px;backdrop-filter:blur(8px);animation:up .5s backwards}
 .tilt{transition:transform .15s ease-out,border-color .2s,box-shadow .2s;will-change:transform}
 .err-t{color:var(--dng)}
 .wv{display:inline-block}
 .wv span{display:inline-block;animation:rev .5s backwards}
 .cur{display:inline-block;width:2px;height:1em;background:var(--ac2);margin-left:3px;vertical-align:-2px;animation:blink 1s infinite}
-.scene{--s:92px;width:var(--s);height:var(--s);margin:6px auto 18px}
-.scene.mini{--s:40px;margin:0}
+.scene{--s:72px;width:var(--s);height:var(--s);margin:4px auto 12px}
+.scene.mini{--s:34px;margin:0}
 .gl{width:100%;height:100%;overflow:visible;animation:glf 4s ease-in-out infinite}
 .gl .ring{transform-origin:50px 50px;animation:glr 14s linear infinite}
-.gl .ear{transform-box:fill-box;transform-origin:50% 100%;animation:gle 5s ease-in-out infinite}
-.gl .ear2{animation-delay:.3s}
-.gl .eye{transform-box:fill-box;transform-origin:center;animation:glb 4.5s infinite}
-.gl .nd{transform-box:fill-box;transform-origin:center;animation:gln 2s ease-in-out infinite}
-.gl .flow{animation:glw 1s linear infinite}
 @keyframes glf{50%{transform:translateY(-5px)}}
 @keyframes glr{to{transform:rotate(360deg)}}
-@keyframes gle{0%,88%,100%{transform:rotate(0)}92%{transform:rotate(-12deg)}96%{transform:rotate(4deg)}}
-@keyframes glb{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
-@keyframes gln{50%{transform:scale(1.4)}}
-@keyframes glw{to{stroke-dashoffset:-16}}
-#login{max-width:430px;margin:7vh auto 0;padding:26px 22px;text-align:center}
-#login h1{font-size:36px;margin:0;line-height:1.2}
-.tagl{height:24px;color:var(--ac2);font-size:14px;margin:2px 0 18px}
+#login{max-width:400px;margin:5vh auto 0;padding:22px 18px;text-align:center;position:relative}
+#login h1{font-size:24px;margin:0;line-height:1.2}
+.tagl{height:22px;color:var(--ac2);font-size:12px;margin:2px 0 14px}
 .pw{position:relative}
-.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:4px 9px}
-label.l{display:block;margin:14px 0 6px;font:700 11px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;text-align:left}
-.stepper{display:flex;justify-content:space-between;gap:8px;margin:18px 0 6px}
-.stepper div{flex:1;font-size:12px;color:var(--mut);padding:10px 6px;border-radius:14px;border:1px dashed var(--bd)}
-.stepper b{display:grid;place-items:center;width:26px;height:26px;margin:0 auto 4px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;animation:pulse 2.4s infinite}
+.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:3px 8px}
+label.l{display:block;margin:12px 0 5px;font:700 10px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;text-align:left}
+.stepper{display:flex;justify-content:space-between;gap:8px;margin:16px 0 6px}
+.stepper div{flex:1;font-size:11px;color:var(--mut);padding:8px 5px;border-radius:10px;border:1px dashed var(--bd)}
+.stepper b{display:grid;place-items:center;width:24px;height:24px;margin:0 auto 4px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;animation:pulse 2.4s infinite}
 .stepper div:nth-child(2) b{animation-delay:.8s}.stepper div:nth-child(3) b{animation-delay:1.6s}
-.lnk{color:var(--ac2);font-size:13px}
-.tokbtn{display:inline-block;font:700 20px Outfit,"Hind Siliguri",sans-serif;color:#fff;background:linear-gradient(135deg,#ff1f3d,#ff5a3c);padding:12px 24px;border-radius:99px;text-decoration:none;box-shadow:0 0 0 0 rgba(255,45,74,.7);animation:tokpulse 1.2s infinite,tokshake 3s infinite}
+.lnk{color:var(--ac2);font-size:12px}
+.tokbtn{display:inline-block;font:700 14px "Space Mono","Hind Siliguri",monospace;color:#fff;background:linear-gradient(135deg,#ff1f3d,#ff5a3c);padding:9px 18px;border-radius:99px;text-decoration:none;animation:tokpulse 1.2s infinite,tokshake 3s infinite}
 @keyframes tokpulse{0%{box-shadow:0 0 0 0 rgba(255,45,74,.7)}70%{box-shadow:0 0 0 18px rgba(255,45,74,0)}100%{box-shadow:0 0 0 0 rgba(255,45,74,0)}}
 @keyframes tokshake{0%,86%,100%{transform:none}88%{transform:scale(1.12) rotate(-3deg)}92%{transform:scale(1.12) rotate(3deg)}96%{transform:scale(1.08) rotate(-2deg)}}
-.credit{display:block;font:400 clamp(15px,4vw,19px)/1.4 Righteous,"Segoe UI Symbol",sans-serif;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ac) 55%,transparent))}
-.credit small{display:block;font:11px "Space Mono",monospace;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
-.jimg{display:block;width:92px;height:92px;margin:0 auto 12px;border-radius:50%;object-fit:cover;border:2px solid var(--ac);box-shadow:0 0 26px color-mix(in srgb,var(--ac) 55%,transparent)}
-.foot{text-align:center;margin:28px 0 22px;animation:up .8s backwards}
-.foot .credit{font-size:clamp(18px,5vw,24px)}
-.mini-c{font-size:11px;color:var(--mut)}
-#app{max-width:1000px;margin:0 auto;padding:0 14px}
-nav{display:flex;align-items:center;gap:10px;padding:14px 2px;position:relative}
-nav .brand{flex:1;display:flex;align-items:center;gap:12px}
-nav b{font-size:19px;display:block;line-height:1.1}
-#av{width:42px;height:42px;border-radius:50%;padding:0;border:2px solid var(--ac);overflow:hidden}
+.credit{display:block;font:700 clamp(12px,3.4vw,15px)/1.4 "Space Mono","Segoe UI Symbol",sans-serif;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ac) 55%,transparent))}
+.credit small{display:block;font:10px "Space Mono",monospace;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
+.jimg{display:block;width:78px;height:78px;margin:0 auto 10px;border-radius:50%;object-fit:cover;border:2px solid var(--ac);box-shadow:0 0 26px color-mix(in srgb,var(--ac) 55%,transparent)}
+.foot{text-align:center;margin:24px 0 20px;animation:up .8s backwards}
+.foot .credit{font-size:clamp(13px,3.6vw,17px)}
+.mini-c{font-size:10px;color:var(--mut)}
+#app{max-width:1000px;margin:0 auto;padding:0 12px}
+nav{display:flex;align-items:center;gap:10px;padding:12px 2px;position:relative}
+nav .brand{flex:1;display:flex;align-items:center;gap:10px}
+nav b{font-size:16px;display:block;line-height:1.1}
+#av{width:38px;height:38px;border-radius:50%;padding:0;border:2px solid var(--ac);overflow:hidden}
 #av img{width:100%;height:100%;display:block}
-#menu{position:absolute;right:2px;top:64px;z-index:20;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:170px;animation:pop .2s}
-#themes{display:flex;gap:8px;justify-content:center;padding:4px 0}
-#themes button{width:26px;height:26px;padding:0;border-radius:50%;border:2px solid transparent}
-#themes button.on{border-color:#fff;transform:scale(1.15)}
-.hero{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:20px;margin:6px 0 14px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 22%,transparent),color-mix(in srgb,var(--vi) 16%,transparent))}
-.hero h2{margin:0;font-size:28px;line-height:1.2}
-.hero .tagl{margin:4px 0 14px}
-.dn{width:112px;height:112px;display:block}
+#menu{position:absolute;right:2px;top:58px;z-index:20;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:190px;animation:pop .2s}
+.hero{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:16px;margin:6px 0 12px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 20%,transparent),color-mix(in srgb,var(--vi) 14%,transparent))}
+.hero h2{margin:0;font-size:20px;line-height:1.2}
+.hero .tagl{margin:4px 0 12px}
+.dn{width:92px;height:92px;display:block}
 .dn .arc{animation:draw 1.3s ease-out backwards}
 .dw{position:relative}
-.dw b{position:absolute;inset:0;display:grid;place-items:center;font-size:22px}
-#stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
-.tile{padding:14px;border-top:3px solid hsl(var(--h) 90% 62%);background:linear-gradient(180deg,hsl(var(--h) 90% 62%/.13),transparent)}
-.tile b{display:block;font-size:28px;line-height:1.1;color:hsl(var(--h) 95% 74%)}
-.tile span{font:12px "Space Mono",monospace;color:var(--mut)}
-.lang{padding:14px;margin-bottom:14px}
-#lbar{display:flex;gap:3px;height:12px;border-radius:9px;overflow:hidden}
+.dw b{position:absolute;inset:0;display:grid;place-items:center;font-size:18px}
+#stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:12px}
+.tile{padding:11px;border-top:3px solid hsl(var(--h) 90% 62%);background:linear-gradient(180deg,hsl(var(--h) 90% 62%/.13),transparent)}
+.tile b{display:block;font-size:20px;line-height:1.1;color:hsl(var(--h) 95% 74%)}
+.tile span{font:11px "Space Mono",monospace;color:var(--mut)}
+.lang{padding:12px;margin-bottom:12px}
+#lbar{display:flex;gap:3px;height:10px;border-radius:9px;overflow:hidden}
 #lbar button{padding:0;border:0;border-radius:0;transition:flex .3s,opacity .2s}
 #lbar button:not(.on){opacity:.8}#lbar button.on{outline:2px solid #fff;outline-offset:-2px}
-#llegend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-#llegend button{border-radius:99px;padding:3px 11px;font-size:13px}
+#llegend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+#llegend button{border-radius:99px;padding:2px 10px;font-size:11px}
 #llegend button.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:var(--ac)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--ac)}
 .tool{display:flex;gap:8px;margin-bottom:10px}
 .tool input{flex:1}
 .tool select{width:auto}
-#seg{display:flex;gap:4px;padding:4px;margin-bottom:12px;overflow:auto;border-radius:16px}
+#seg{display:flex;gap:4px;padding:4px;margin-bottom:10px;overflow:auto;border-radius:10px}
 #seg button{flex:1;border:0;background:none;white-space:nowrap}
-#seg button.on{background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;font-weight:600}
-.sec{display:flex;justify-content:space-between;font:700 12px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;margin:8px 2px 10px}
-#rlist{display:grid;gap:12px;grid-template-columns:1fr}
+#seg button.on{background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;font-weight:700}
+.sec{display:flex;justify-content:space-between;font:700 11px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;margin:8px 2px 10px}
+#rlist{display:grid;gap:10px;grid-template-columns:1fr}
 @media(min-width:700px){#rlist:not(.l1){grid-template-columns:1fr 1fr}}
-.rc{display:flex;gap:13px;padding:15px;cursor:pointer;border-left:4px solid hsl(var(--h) 90% 62%);position:relative}
+.rc{display:flex;gap:12px;padding:13px;cursor:pointer;border-left:4px solid hsl(var(--h) 90% 62%);position:relative}
 .rc:hover{border-color:hsl(var(--h) 90% 66%);box-shadow:0 14px 34px hsl(var(--h) 90% 60%/.25)}
-.rc .ic{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-size:22px;flex:none;background:hsl(var(--h) 85% 60%/.2)}
-.rc b{font-size:17px;word-break:break-all}
+.rc .ic{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;font-size:19px;flex:none;background:hsl(var(--h) 85% 60%/.2)}
+.rc b{font-size:15px;word-break:break-all}
 .rb{min-width:0;flex:1;padding-right:30px}
-.pin{position:absolute;right:8px;top:8px;padding:2px 7px;border:0;background:none;font-size:16px}
-.pill{font:11px "Space Mono",monospace;padding:2px 9px;border-radius:99px;border:1px solid var(--bd);margin-left:7px;vertical-align:middle}
+.pin{position:absolute;right:8px;top:8px;padding:2px 7px;border:0;background:none;font-size:15px}
+.pill{font:10px "Space Mono",monospace;padding:2px 8px;border-radius:99px;border:1px solid var(--bd);margin-left:7px;vertical-align:middle}
 .pill.pu{color:var(--ok)}.pill.pr{color:#fbbf24}.pill.fk{color:var(--ac2)}
-.meta{color:var(--mut);font-size:13px;display:flex;gap:11px;flex-wrap:wrap;margin-top:3px}
+.meta{color:var(--mut);font-size:11px;display:flex;gap:10px;flex-wrap:wrap;margin-top:3px}
 .rh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
-.rh h2{margin:0;font-size:20px;flex:1;min-width:120px;word-break:break-all}
+.rh h2{margin:0;font-size:17px;flex:1;min-width:120px;word-break:break-all}
 .rh select{width:auto;max-width:150px}
 #tabs{display:flex;gap:6px;margin-bottom:12px}
 #tabs button{flex:1;border-radius:99px}
-#tabs button.on{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:600}
+#tabs button.on{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:700}
 .crumb{margin-bottom:10px;font-weight:500;word-break:break-all}
 .crumb span{cursor:pointer;color:var(--ac2)}
-.list{border:1px solid var(--bd);border-radius:16px;overflow:hidden;background:var(--card)}
+.list{border:1px solid var(--bd);border-radius:10px;overflow:hidden;background:var(--card)}
 .list.drag{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 14%,transparent)}
-.row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bd);animation:up .4s backwards}
+.row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--bd);animation:up .4s backwards}
 .row:last-child{border:0}
 .row .nm{flex:1;cursor:pointer;word-break:break-all}
 .row .nm:hover{color:var(--ac2)}
 .row small{color:var(--mut)}
-.row input{width:18px;height:18px;accent-color:var(--ac)}
-.empty{padding:30px;text-align:center;color:var(--mut)}
+.row input{width:17px;height:17px;accent-color:var(--ac)}
+.empty{padding:26px;text-align:center;color:var(--mut)}
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.facts div{padding:11px 13px;border:1px solid var(--bd);border-radius:14px;background:var(--card)}
-.facts small{display:block;color:var(--mut);font:11px "Space Mono",monospace}
-#selbar{position:sticky;top:6px;z-index:8;display:flex;gap:8px;align-items:center;padding:10px 14px;margin-bottom:10px}
+.facts div{padding:9px 11px;border:1px solid var(--bd);border-radius:10px;background:var(--card)}
+.facts small{display:block;color:var(--mut);font:10px "Space Mono",monospace}
+#selbar{position:sticky;top:6px;z-index:8;display:flex;gap:8px;align-items:center;padding:9px 12px;margin-bottom:10px}
 #selbar span{flex:1}
 #selbar label.ck{margin:0;padding:6px 10px}
-.modal{position:fixed;inset:0;z-index:30;background:rgba(5,2,10,.75);backdrop-filter:blur(6px);display:grid;place-items:center;padding:14px;overflow:auto}
-.sheet{width:100%;max-width:430px;background:#130a1d;border:1px solid var(--bd);border-radius:22px;animation:pop .25s}
-.mh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--bd)}
-.mb{padding:16px 20px}
-.mf{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--bd)}
+.modal{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.78);backdrop-filter:blur(6px);display:grid;place-items:center;padding:12px;overflow:auto}
+/* sheet is a flex column: header + footer always visible, only the middle scrolls (Reload never hides) */
+.sheet{width:100%;max-width:420px;max-height:92vh;display:flex;flex-direction:column;background:#12060a;border:1px solid var(--bd);border-radius:14px;animation:pop .25s}
+.sheet .mb{overflow:auto;flex:1;min-height:0}
+.mh{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:1px solid var(--bd);flex:none}
+.mb{padding:14px 16px}
+.mf{display:flex;gap:10px;padding:12px 16px;border-top:1px solid var(--bd);flex:none}
 .mf button{flex:1}
-.x{border:0;background:none;font-size:18px;padding:2px 8px}
-.agrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px}
-.agrid button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 8px;border-radius:16px;border-color:hsl(var(--h) 80% 60%/.4);background:hsl(var(--h) 80% 60%/.1)}
-.agrid button i{font-style:normal;font-size:26px}
-.drop{border:2px dashed var(--bd);border-radius:16px;padding:24px 14px;text-align:center;cursor:pointer;transition:.2s}
+.x{border:0;background:none;font-size:16px;padding:2px 8px}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;overflow:auto}
+.agrid button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:13px 8px;border-radius:12px;border-color:hsl(var(--h) 80% 60%/.4);background:hsl(var(--h) 80% 60%/.1)}
+.agrid button i{font-style:normal;font-size:22px}
+.drop{border:2px dashed var(--bd);border-radius:12px;padding:20px 12px;text-align:center;cursor:pointer;transition:.2s}
 .drop:hover,.drop.drag{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent)}
-.drop .ic{font-size:30px}
+.drop .ic{font-size:26px}
 .drop small{display:block;color:var(--mut)}
-.ck{display:flex;gap:10px;align-items:center;padding:11px 13px;margin-top:8px;border:1px solid var(--bd);border-radius:12px;font:700 12px "Space Mono",monospace;cursor:pointer}
-.ck input{width:18px;height:18px;accent-color:var(--ac)}
-#prog{margin-top:14px}
-#track{height:10px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
-#bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% 100%;animation:shine 1.4s linear infinite;transition:width .2s}
-#flist{margin-top:10px;max-height:200px;overflow:auto;border:1px solid var(--bd);border-radius:12px;background:rgba(0,0,0,.3);scroll-behavior:smooth}
-#flist div{display:flex;gap:8px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--bd);font:12px "Space Mono",monospace;animation:rev .25s backwards}
+.ck{display:flex;gap:10px;align-items:center;padding:9px 11px;margin-top:8px;border:1px solid var(--bd);border-radius:8px;font:700 11px "Space Mono",monospace;cursor:pointer}
+.ck input{width:17px;height:17px;accent-color:var(--ac)}
+#prog{margin-top:12px}
+#track{height:9px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
+#bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2),#4ade80,var(--ac));background-size:200% 100%;animation:shine 1.4s linear infinite;transition:width .2s}
+#flist{margin-top:10px;max-height:130px;overflow:auto;border:1px solid var(--bd);border-radius:8px;background:rgba(0,0,0,.4);scroll-behavior:smooth}
+#flist div{display:flex;gap:8px;align-items:center;padding:5px 9px;border-bottom:1px solid var(--bd);font:11px "Space Mono",monospace;animation:rev .25s backwards}
 #flist div:last-child{border:0}
 #flist i{font-style:normal;flex:none;width:26px;text-align:center;font-weight:700}
 #flist span{flex:1;min-width:0;word-break:break-all}
 #flist small{flex:none;color:var(--mut)}
 #flist .wip i{color:var(--ac2);animation:blink 1s infinite}
-#flist .ok i{color:var(--ok);font-size:15px}
+#flist .ok i{color:var(--ok);font-size:14px}
 #flist .sk{color:var(--mut)}
 #flist .er i{color:var(--dng)}
-#imgv{max-width:100%;max-height:55vh;display:block;margin:0 auto;border-radius:12px;background:repeating-conic-gradient(#222 0 25%,#333 0 50%) 0 0/16px 16px}
-#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#2a1238;border:1px solid var(--ac);padding:10px 16px;border-radius:14px;max-width:90vw;z-index:50;animation:pop .2s}
+#imgv{max-width:100%;max-height:55vh;display:block;margin:0 auto;border-radius:10px;background:repeating-conic-gradient(#222 0 25%,#333 0 50%) 0 0/16px 16px}
+#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#2a0810;border:1px solid var(--ac);padding:9px 14px;border-radius:10px;max-width:90vw;z-index:50;animation:pop .2s}
 #status.err{background:#6b1a2e;border-color:var(--dng)}
-#editor{position:fixed;inset:0;z-index:40;background:#09050f;padding:16px;display:flex;flex-direction:column;gap:10px}
-#editor textarea{flex:1;font:13px/1.5 "Space Mono",monospace;resize:none;white-space:pre}
+#editor{position:fixed;inset:0;z-index:40;background:#050001;padding:14px;display:flex;flex-direction:column;gap:10px}
+#editor textarea{flex:1;font:12px/1.5 "Space Mono",monospace;resize:none;white-space:pre;color:#ff9a9a}
 .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.df{margin-bottom:12px}.df pre{overflow:auto;margin:6px 0 0;font:12px/1.5 "Space Mono",monospace;background:rgba(0,0,0,.4);padding:8px;border-radius:10px}
+.df{margin-bottom:12px}.df pre{overflow:auto;margin:6px 0 0;font:11px/1.5 "Space Mono",monospace;background:rgba(0,0,0,.5);padding:8px;border-radius:8px;color:#ff9a9a}
 .df pre span{display:block}.ad{color:#4ade80;background:rgba(74,222,128,.12)}.rm{color:#fb7185;background:rgba(251,113,133,.12)}
-#login{position:relative}
 .lsw{position:absolute;top:12px;right:12px;display:flex;gap:4px}
-.lsw button,.lsw2 button{padding:3px 9px;font-size:12px}
+.lsw button,.lsw2 button{padding:3px 9px;font-size:11px}
 .lsw2{display:flex;gap:6px;justify-content:center}
 .lsw button.on,.lsw2 button.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.about{text-align:left;margin:4px 0 16px;padding:14px;border:1px solid var(--bd);border-radius:16px;background:color-mix(in srgb,var(--ac) 8%,transparent);font-size:14px}
-.about b{font-family:Righteous,sans-serif;color:var(--ac2)}
+.about{text-align:left;margin:4px 0 14px;padding:12px;border:1px solid var(--bd);border-radius:10px;background:color-mix(in srgb,var(--ac) 8%,transparent);font-size:12px}
+.about b{color:var(--ac2)}
 .about p{margin:6px 0 8px}
 .about ul{margin:0;padding:0;list-style:none;color:var(--mut)}
 .about li{margin:4px 0}
-#off{background:#5c4100;border:1px solid #fbbf24;border-radius:14px;padding:9px 14px;margin:6px 0 10px;text-align:center}
+#off{background:#5c4100;border:1px solid #fbbf24;border-radius:10px;padding:8px 12px;margin:6px 0 10px;text-align:center}
 #ebody{flex:1;display:flex;gap:10px;min-height:0}
 #ebody>*{flex:1;min-width:0;overflow:auto}
-#ehl,#emd{background:rgba(0,0,0,.38);border:1px solid var(--bd);border-radius:12px;padding:10px 13px;margin:0}
-#ehl{font:13px/1.5 "Space Mono",monospace;white-space:pre}
+#ehl,#emd{background:rgba(0,0,0,.45);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;margin:0}
+#ehl{font:12px/1.5 "Space Mono",monospace;white-space:pre;color:#ff9a9a}
+#emd{color:#ff9a9a}
 #emd h1,#emd h2,#emd h3{color:var(--ac2);margin:.6em 0 .3em}
 #emd code{background:rgba(255,255,255,.1);padding:1px 5px;border-radius:5px;font-family:"Space Mono",monospace}
-#emd pre{background:rgba(0,0,0,.4);padding:10px;border-radius:10px;overflow:auto}
+#emd pre{background:rgba(0,0,0,.5);padding:10px;border-radius:8px;overflow:auto}
 #emd img{max-width:100%}#emd a{color:var(--ac2)}
-.hc{color:#9b8aa8}.hs{color:#86efac}.ht{color:var(--ac2)}.hk{color:#ff7ab8}.hn{color:#fbbf24}
+.hc{color:#8a5a5a}.hs{color:#4ade80}.ht{color:var(--ac2)}.hk{color:#ff5c6c}.hn{color:#ffb86b}
 .mb textarea{min-height:90px}
-
-html[data-t=matrix]{--ac:#00ff41;--ac2:#7dff9a;--vi:#00b86b;--fg:#d4ffe0;--mut:#6fbf88}
-html[data-t=terminal]{--ac:#ffb000;--ac2:#ffd36b;--vi:#ff7a00;--fg:#fff1d6;--mut:#b8955a}
-html[data-t=cyber]{--ac:#00e5ff;--ac2:#ff2bd6;--vi:#7a5cff;--fg:#e6fbff;--mut:#7fb5c4}
-html[data-t=matrix] body,html[data-t=terminal] body,html[data-t=cyber] body{background:#000;font-family:"Space Mono","Hind Siliguri",monospace}
-html[data-t=matrix] .disp,html[data-t=terminal] .disp,html[data-t=cyber] .disp,html[data-t=matrix] .credit,html[data-t=terminal] .credit,html[data-t=cyber] .credit{font-family:"Space Mono","Hind Siliguri",monospace;font-weight:700}
-html[data-t=matrix] .hero h2::before,html[data-t=terminal] .hero h2::before,html[data-t=cyber] .hero h2::before{content:"> ";color:var(--ac2)}
-html[data-t=matrix] .sec span:first-child::before,html[data-t=terminal] .sec span:first-child::before,html[data-t=cyber] .sec span:first-child::before{content:"// ";color:var(--ac2)}
-html[data-t=matrix] .rc b::before,html[data-t=terminal] .rc b::before,html[data-t=cyber] .rc b::before{content:"$ ";color:var(--ac2)}
-html[data-t=matrix] .card,html[data-t=terminal] .card,html[data-t=cyber] .card{border-radius:10px}
-html[data-t=terminal] .bg::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.3) 0 1px,transparent 1px 3px)}
-html[data-t=cyber] .bg{background:linear-gradient(rgba(0,229,255,.09) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,rgba(0,229,255,.09) 1px,transparent 1px) 0 0/32px 32px}
-.bgpick{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}.bgpick button{padding:4px 10px;font-size:12px}.bgpick button.on{background:var(--ac);border-color:var(--ac);color:#fff}
-
+/* hacker prefixes */
 #login h1::before{content:"> ";color:var(--ac2)}
+.hero h2::before{content:"> ";color:var(--ac2)}
+.sec span:first-child::before{content:"// ";color:var(--ac2)}
+.rc b::before{content:"$ ";color:var(--ac2)}
 .about b::before{content:"// ";color:var(--ac2)}
 label.l::before{content:"$ ";color:var(--ac2)}
 .tile span::before{content:"// ";color:var(--ac2)}
 .crumb::before{content:"$ cd ";color:var(--ac2)}
 .empty::before{content:"// ";color:var(--ac2)}
-.meta span:first-child{}
-button{border-radius:8px}
 #connect::before{content:"> ";margin-right:4px}
-#rain{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none}
-#themes{flex-wrap:wrap}#menu{min-width:200px}
-#connect{font-size:24px;font-weight:700;letter-spacing:.02em;padding:18px 12px!important;border-radius:16px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% auto;animation:shine 3s linear infinite,gopulse 1.8s ease-in-out infinite}
+#connect{font-size:16px;font-weight:700;letter-spacing:.02em;padding:13px 12px!important;border-radius:10px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% auto;animation:shine 3s linear infinite,gopulse 1.8s ease-in-out infinite}
 #connect::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:sweep 2.4s ease-in-out infinite}
-@keyframes gopulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 55%,transparent)}50%{transform:scale(1.04);box-shadow:0 0 34px 4px color-mix(in srgb,var(--ac) 55%,transparent)}}
+@keyframes gopulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 55%,transparent)}50%{transform:scale(1.03);box-shadow:0 0 28px 4px color-mix(in srgb,var(--ac) 55%,transparent)}}
 @keyframes sweep{0%{left:-60%}60%,100%{left:130%}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="bg"><svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><defs>
-<radialGradient id="g1"><stop offset="0" style="stop-color:var(--ac)" stop-opacity=".55"/><stop offset="1" style="stop-color:var(--ac)" stop-opacity="0"/></radialGradient>
-<radialGradient id="g2"><stop offset="0" style="stop-color:var(--vi)" stop-opacity=".5"/><stop offset="1" style="stop-color:var(--vi)" stop-opacity="0"/></radialGradient>
-<radialGradient id="g3"><stop offset="0" style="stop-color:var(--ac2)" stop-opacity=".35"/><stop offset="1" style="stop-color:var(--ac2)" stop-opacity="0"/></radialGradient></defs>
-<circle class="b1" cx="120" cy="150" r="340" fill="url(#g1)"/><circle class="b2" cx="700" cy="480" r="360" fill="url(#g2)"/><circle class="b3" cx="260" cy="760" r="300" fill="url(#g3)"/></svg><canvas id="rain" class="hide"></canvas></div>
+<div class="bg"><canvas id="rain"></canvas></div>
 
 <section id="login" class="card">
   <div class="lsw"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div>
@@ -262,11 +227,11 @@ button{border-radius:8px}
   <label class="l" for="tok">Access token</label>
   <div class="pw"><input id="tok" type="password" autocomplete="off" placeholder="ghp_••••••••••••••••"><button id="eye" type="button">👁</button></div>
   <p style="text-align:center;margin:14px 0 8px"><a class="tokbtn" href="https://github.com/settings/tokens/new?scopes=repo&description=github-zip-up" target="_blank" rel="noopener">🔑 Create Token ↗</a></p>
-  <button class="pri" id="connect" style="width:100%;padding:12px;margin-top:6px">🚀 Log in now</button>
+  <button class="pri" id="connect" style="width:100%;margin-top:6px">🚀 Log in now</button>
   <p id="lerr" class="err-t"></p>
   <div class="stepper"><div><b>1</b>Create token</div><div><b>2</b>Paste it above</div><div><b>3</b>Push files</div></div>
-  <p class="mono" style="font-size:11px;color:var(--mut)">🔐 Token is saved only in this browser, so you log in once. Log out to remove it.</p>
-  <div style="margin-top:18px"><img class="jimg" src="https://i.imgur.com/pAv2xEd.jpeg" alt="" referrerpolicy="no-referrer" onerror="this.remove()"><span class="credit"><small>crafted by</small><b class="grad" style="font-weight:400">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></span></div>
+  <p class="mono" style="font-size:10px;color:var(--mut)">🔐 Token is saved only in this browser, so you log in once. Log out to remove it.</p>
+  <div style="margin-top:16px"><img class="jimg" src="https://i.imgur.com/pAv2xEd.jpeg" alt="" referrerpolicy="no-referrer" onerror="this.remove()"><span class="credit"><small>crafted by</small><b class="grad" style="font-weight:400">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></span></div>
 </section>
 
 <div id="app" class="hide">
@@ -274,7 +239,7 @@ button{border-radius:8px}
     <div class="brand"><div class="scene mini"></div>
       <div><b class="disp grad">github-zip-up</b><span class="mini-c">by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</span></div></div>
     <button id="av"><img id="avi" alt=""></button>
-    <div id="menu" class="card hide"><div id="themes" class="hide"></div><button id="mhb">🕘 Upload log</button><button id="mfb">🍴 Fork / ⭐ Star</button><div class="lsw2"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div><button id="inst" class="hide">📲 Install app</button><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
+    <div id="menu" class="card hide"><button id="mhb">🕘 Upload log</button><button id="mfb">🍴 Fork / ⭐ Star</button><div class="lsw2"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div><button id="inst" class="hide">📲 Install app</button><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
   </nav>
 
   <div id="off" class="hide">📴 Offline — showing your saved repo list</div>
@@ -294,7 +259,7 @@ button{border-radius:8px}
     <div id="pFiles"><input id="fq" type="text" placeholder="🔎 Search every file in this repo…" style="margin-bottom:10px"><div class="list hide" id="fres" style="margin-bottom:10px"></div><div class="crumb mono" id="crumb"></div>
       <div id="selbar" class="card hide"><span id="selc"></span><label class="ck"><input type="checkbox" id="selall"> All</label><button class="dng" id="seld">Delete</button><button id="selx">Done</button></div>
       <div class="list" id="files"></div>
-      <p class="empty" style="padding:10px;font-size:13px">Tip: drop files or a ZIP onto the list.</p></div>
+      <p class="empty" style="padding:10px;font-size:12px">Tip: drop files or a ZIP onto the list.</p></div>
     <div id="pIss" class="hide"></div>
     <div id="pHist" class="hide"></div>
     <div id="pInfo" class="hide"></div>
@@ -307,7 +272,7 @@ button{border-radius:8px}
   <div class="agrid"><button data-a="zip" style="--h:330"><i>🗜️</i>Upload ZIP</button><button data-a="file" style="--h:190"><i>🖼️</i>Upload files</button><button data-a="new" style="--h:45"><i>📝</i>New file</button><button data-a="dir" style="--h:140"><i>📂</i>New folder</button><button data-a="fol" style="--h:210"><i>📁</i>Upload folder</button><button data-a="dz" style="--h:100"><i>⬇️</i>Download ZIP</button><button data-a="br" style="--h:290"><i>🌿</i>Branches</button><button data-a="sel" style="--h:270"><i>☑️</i>Select</button><button data-a="all" style="--h:10"><i>✅</i>Select all</button></div></div></div>
 
 <div class="modal hide" id="mUp"><div class="sheet"><div class="mh"><b id="upT">Upload ZIP</b><button class="x" data-close>✕</button></div>
-  <div class="mb"><div class="drop" id="drop"><div class="ic">📦</div><b id="dropT">Tap to choose a ZIP</b><small>or drop it here</small></div>
+  <div class="mb"><div class="drop" id="drop"><div class="ic">📦</div><b id="dropT">Select your ZIP</b><small>or drop it here</small></div>
   <input type="file" id="fz" accept=".zip" class="hide"><input type="file" id="ff" multiple class="hide"><input type="file" id="fd" webkitdirectory multiple class="hide">
   <label class="l">Send into folder (blank = root)</label><input id="upPath" type="text" placeholder="src/components">
   <label class="l">Commit note</label><input id="upMsg" type="text" value="Upload via github-zip-up">
@@ -316,8 +281,8 @@ button{border-radius:8px}
   <label class="ck"><input type="checkbox" id="oSmart" checked> Smart match: update files with the same name</label>
   <label class="ck"><input type="checkbox" id="oOver" checked> Replace files that changed</label>
   <label class="ck"><input type="checkbox" id="oImg"> Shrink big photos (max 2048px)</label>
-  <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:12px"></div><div id="track"><div id="bar"></div></div><div id="flist"></div></div></div>
-  <div class="mf"><button id="upCancel">Cancel</button><button class="pri" id="upGo">🚀 Push</button></div></div></div>
+  <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:11px"></div><div id="track"><div id="bar"></div></div><div id="flist"></div></div></div>
+  <div class="mf"><button id="upCancel">Cancel</button><button class="pri" id="upGo">⬆ Upload ZIP now</button></div></div></div>
 
 <div class="modal hide" id="mNr"><div class="sheet"><div class="mh"><b>Create repo</b><button class="x" data-close>✕</button></div>
   <div class="mb"><label class="l">Name</label><input id="nrn" type="text" placeholder="my-project"><label class="ck"><input type="checkbox" id="nrp"> Make it private</label><p id="nre" class="err-t"></p></div>
@@ -367,7 +332,7 @@ let st;
 function say(m, bad) { const s = $('status'); s.textContent = m; s.className = bad ? 'err' : ''; clearTimeout(st); st = setTimeout(() => show('status', false), bad ? 7000 : 3000); }
 
 /* ===== Animated text helpers ===== */
-const wave = (el, t) => el.innerHTML = [...t].map((c, i) => `<span style="animation-delay:${i * .09}s;color:hsl(${110 + (i % 6) * 8} 100% 62%)">${c === ' ' ? '&nbsp;' : esc(c)}</span>`).join('');
+const wave = (el, t) => el.innerHTML = [...t].map((c, i) => `<span style="animation-delay:${i * .09}s;color:hsl(${(i * 13) % 40} 100% 66%)">${c === ' ' ? '&nbsp;' : esc(c)}</span>`).join('');
 function typer(el, list) {
   let i = 0, j = 0, del = false;
   (function tick() {
@@ -388,64 +353,39 @@ document.addEventListener('pointermove', e => {
 });
 document.addEventListener('pointerout', e => { const t = e.target.closest && e.target.closest('.tilt'); if (t && !t.contains(e.relatedTarget)) t.style.transform = ''; });
 
-/* ===== Hacker backgrounds (work with every color theme, on login and home) ===== */
-var BG = { t: null, m: 'none' };
-function bgSet(m) {
-  BG.m = m; store.set('gz_bg', m);
-  document.querySelectorAll('[data-bg]').forEach(b => b.classList.toggle('on', b.dataset.bg === m));
-  bgRun();
-}
+/* ===== Background: Termux-style English coding animation (one fixed look, no switcher) ===== */
+var BG = { t: null };
+const BGS = [['pkg update && pkg upgrade -y', 'Hit:1 https://packages.termux.dev stable InRelease', 'All packages are up to date.'],
+['git clone https://github.com/user/repo.git', 'Cloning into repo...', 'remote: Counting objects: 100%', '[+] done.'],
+['nmap -sV 192.168.0.1', 'Starting Nmap 7.94', '22/tcp open ssh', '80/tcp open http'],
+['python3 scan.py --target 10.0.0.5', '[*] connecting...', '[+] connection established'],
+['unzip site.zip -d public', 'inflating: public/index.html', 'inflating: public/app.js'],
+['git push origin main', 'Writing objects: 100% (42/42)', '[+] pushed to origin/main'],
+['./decrypt --key 0xDEADBEEF', '[*] bruteforcing... 73%', '[+] access granted'],
+['sudo apt install hydra -y', 'Reading package lists... Done', 'Setting up hydra (9.5)']];
 function bgRun() {
-  const c = $('rain'); clearInterval(BG.t); const x = c.getContext('2d');
-  if (BG.m === 'none' || matchMedia('(prefers-reduced-motion:reduce)').matches) { c.classList.add('hide'); return; }
-  c.classList.remove('hide'); c.width = innerWidth; c.height = innerHeight; x.clearRect(0, 0, c.width, c.height);
-  const W = c.width, H = c.height, col = () => getComputedStyle(document.documentElement).getPropertyValue('--ac').trim() || '#0f0';
-  let f;
-  if (BG.m === 'rain') {
-    const fs = 16, ch = '01{}<>/;=$#()[]ｱｲｳｴｵ'.split(''), D = Array.from({ length: Math.ceil(W / fs) }, () => Math.random() * -50);
-    f = () => {
-      x.fillStyle = 'rgba(0,0,0,.08)'; x.fillRect(0, 0, W, H); x.fillStyle = col(); x.font = fs + 'px monospace';
-      D.forEach((y, i) => { x.fillText(ch[Math.random() * ch.length | 0], i * fs, y * fs); D[i] = y * fs > H && Math.random() > .975 ? 0 : y + 1; });
-    };
-  } else if (BG.m === 'binary') {
-    const fs = 18, cols = Math.ceil(W / fs), rows = Math.ceil(H / fs);
-    f = () => {
-      x.fillStyle = 'rgba(0,0,0,.12)'; x.fillRect(0, 0, W, H); x.fillStyle = col(); x.font = 'bold ' + fs + 'px monospace';
-      for (let k = 0; k < 26; k++) { x.globalAlpha = .3 + Math.random() * .7; x.fillText(Math.random() < .5 ? '0' : '1', (Math.random() * cols | 0) * fs, ((Math.random() * rows | 0) + 1) * fs); }
-      x.globalAlpha = 1;
-    };
-  } else if (BG.m === 'net') {
-    const N = Math.min(60, Math.round(W * H / 14000)), P = Array.from({ length: N }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * 1.2, vy: (Math.random() - .5) * 1.2 }));
-    f = () => {
-      x.clearRect(0, 0, W, H); const cc = col(); x.fillStyle = cc; x.strokeStyle = cc;
-      P.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; x.globalAlpha = .9; x.beginPath(); x.arc(p.x, p.y, 2, 0, 7); x.fill(); });
-      for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) { const d = Math.hypot(P[i].x - P[j].x, P[i].y - P[j].y); if (d < 120) { x.globalAlpha = 1 - d / 120; x.beginPath(); x.moveTo(P[i].x, P[i].y); x.lineTo(P[j].x, P[j].y); x.stroke(); } }
-      x.globalAlpha = 1;
-    };
-  } else {
-    const fs = 13, cw = 26, cols = Math.ceil(W / cw), rows = Math.ceil(H / (fs + 3)), hx = () => Math.floor(Math.random() * 256).toString(16).toUpperCase().padStart(2, '0'), G = Array.from({ length: cols * rows }, hx); let sy = 0;
-    f = () => {
-      x.clearRect(0, 0, W, H); x.font = fs + 'px monospace'; const cc = col(); x.fillStyle = cc; x.globalAlpha = .35;
-      for (let k = 0; k < 12; k++) G[Math.random() * G.length | 0] = hx();
-      G.forEach((g, i) => x.fillText(g, (i % cols) * cw, (Math.floor(i / cols) + 1) * (fs + 3)));
-      sy = (sy + 8) % (H + 80); const gr = x.createLinearGradient(0, sy - 80, 0, sy); gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(1, cc);
-      x.fillStyle = gr; x.fillRect(0, sy - 80, W, 80); x.globalAlpha = 1;
-    };
-  }
-  BG.t = setInterval(f, 55);
+  const c = $('rain'); clearInterval(BG.t);
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) { c.classList.add('hide'); return; }
+  c.classList.remove('hide');
+  const x = c.getContext('2d'), W = c.width = innerWidth, H = c.height = innerHeight, lh = 16, max = Math.floor(H / lh) - 1;
+  let L = [], cmd = '', i = 0, out = [], ph = 0, wait = 0;
+  const next = () => { const s = BGS[Math.random() * BGS.length | 0]; cmd = s[0]; out = s.slice(1); i = 0; ph = 0; }; next();
+  BG.t = setInterval(() => {
+    if (wait > 0) wait--;
+    else if (ph === 0) { if (++i >= cmd.length) { L.push('~ $ ' + cmd); ph = 1; wait = 8; } }
+    else if (out.length) { L.push(out.shift()); wait = 3; }
+    else { next(); wait = 10; }
+    while (L.length > max) L.shift();
+    x.clearRect(0, 0, W, H); x.font = '12px "Space Mono",monospace';
+    const all = ph === 0 ? [...L, '~ $ ' + cmd.slice(0, i) + (Date.now() % 800 < 400 ? '█' : '')] : L;
+    all.forEach((t, k) => { x.fillStyle = t.startsWith('~ $') ? '#ff3b4e' : t[0] === '[' && t[1] === '+' ? '#4ade80' : '#c26a6a'; x.fillText(t, 8, (k + 1) * lh); });
+  }, 50);
 }
-document.addEventListener('click', e => { const b = e.target.closest('[data-bg]'); if (b) bgSet(b.dataset.bg); });
-addEventListener('resize', () => { if (BG.m !== 'none') bgRun(); });
-bgSet('rain');
-
-/* ===== Themes ===== */
-function setTheme(t) { document.documentElement.dataset.t = t; store.set('gz_theme', t); document.querySelectorAll('#themes button').forEach(b => b.classList.toggle('on', b.dataset.th === t)); }
-$('themes').onclick = e => { const b = e.target.closest('button'); if (b) setTheme(b.dataset.th); };
-setTheme('matrix');
+addEventListener('resize', bgRun); bgRun();
 try { pins = new Set(JSON.parse(store.get('gz_pins') || '[]')); } catch (e) {}
 
-/* ===== Animated logo: cat head + git branch (GitHub-like, not the same) ===== */
-const LOGO = '<svg class="gl" viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="47" fill="none" stroke-width="2" stroke-dasharray="6 8" stroke-linecap="round" style="stroke:var(--ac2)"/><circle cx="50" cy="50" r="40" stroke-width="2.5" style="fill:#130a1d;stroke:var(--ac)"/><path transform="translate(22 22) scale(3.5)" style="fill:var(--ac)" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';
+/* ===== Animated logo ===== */
+const LOGO = '<svg class="gl" viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="47" fill="none" stroke-width="2" stroke-dasharray="6 8" stroke-linecap="round" style="stroke:var(--ac2)"/><circle cx="50" cy="50" r="40" stroke-width="2.5" style="fill:#12060a;stroke:var(--ac)"/><path transform="translate(22 22) scale(3.5)" style="fill:var(--ac)" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';
 document.querySelectorAll('.scene').forEach(e => e.innerHTML = LOGO);
 wave($('ltitle'), 'github-zip-up');
 typer($('tw'), ['$ unzip repo.zip && git push', '> uploads that never give up_', '// your repos, your rules']);
@@ -478,7 +418,7 @@ async function loadRepos() {
 function renderStats() {
   const R = allRepos, n = f => R.filter(f).length, sum = k => R.reduce((a, r) => a + r[k], 0), pub = n(r => !r.private), pri = R.length - pub;
   const C = 2 * Math.PI * 40, a = (R.length ? pub / R.length : 0) * C;
-  $('donut').innerHTML = `<svg viewBox="0 0 100 100" class="dn"><circle cx="50" cy="50" r="40" fill="none" stroke="#0b5a26" stroke-width="12" opacity=".85"/><circle class="arc" cx="50" cy="50" r="40" fill="none" stroke="var(--ac2)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${a} ${C}" transform="rotate(-90 50 50)"/></svg><b class="disp">${R.length}</b>`;
+  $('donut').innerHTML = `<svg viewBox="0 0 100 100" class="dn"><circle cx="50" cy="50" r="40" fill="none" stroke="#5a0b14" stroke-width="12" opacity=".85"/><circle class="arc" cx="50" cy="50" r="40" fill="none" stroke="var(--ac2)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${a} ${C}" transform="rotate(-90 50 50)"/></svg><b class="disp">${R.length}</b>`;
   $('stats').innerHTML = [[125, R.length, '📁 Repos'], [145, pri, '🔒 Private'], [105, pub, '🌐 Public'], [165, sum('stargazers_count'), '⭐ Stars'], [135, sum('forks_count'), '🍴 Forks']]
     .map((t, i) => `<div class="tile card tilt" style="--h:${t[0]};animation-delay:${i * 80}ms"><b data-n="${t[1]}">0</b><span>${t[2]}</span></div>`).join('');
   document.querySelectorAll('#stats b').forEach(countUp);
@@ -598,7 +538,7 @@ $('files').onclick = e => {
   const d = e.target.closest('[data-del]'); if (d) removeMany([d.dataset.del]);
 };
 
-/* ===== Select / delete many in ONE commit (fast: instant UI, no full-repo tree) ===== */
+/* ===== Select / delete many: ONE commit, entries sent in chunks of 300, retries on conflict ===== */
 function startSel(all) { selMode = true; sel = new Set(all ? cur.map(i => i.path) : []); show('selbar'); drawFiles(); }
 function endSel() { selMode = false; sel = new Set(); show('selbar', false); if (repo && tab === 'files') drawFiles(); }
 $('selx').onclick = endSel;
@@ -613,13 +553,29 @@ async function removeMany(paths) {
   delN++;
   delChain = delChain.then(async () => {
     try {
-      const ents = [], dirs = [];
-      paths.forEach(p => { const it = snap.find(i => i.path === p); if (it && it.type === 'dir') dirs.push(it); else ents.push({ path: p, mode: '100644', type: 'blob', sha: null }); });
-      await Promise.all(dirs.map(async d => {
-        const t = await retry(() => gh(`/repos/${repo}/git/trees/${d.sha}?recursive=1`));
-        t.tree.forEach(x => { if (x.type === 'blob') ents.push({ path: d.path + '/' + x.path, mode: '100644', type: 'blob', sha: null }); });
-      }));
-      if (ents.length) { await retry(() => commitTree(ents, `Delete ${paths.length} item(s)`)); say('Deleted ✅'); }
+      const ents = [];
+      for (const p of paths) {
+        const it = snap.find(i => i.path === p);
+        if (it && it.type === 'dir') {
+          const t = await retry(() => gh(`/repos/${repo}/git/trees/${it.sha}?recursive=1`));
+          t.tree.forEach(x => x.type === 'blob' && ents.push({ path: p + '/' + x.path, mode: x.mode, type: 'blob', sha: null }));
+        } else ents.push({ path: p, mode: '100644', type: 'blob', sha: null });
+      }
+      if (!ents.length) return;
+      for (let k = 0; ; k++) {
+        try {
+          const ref = await retry(() => gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`));
+          const cm = await retry(() => gh(`/repos/${repo}/git/commits/${ref.object.sha}`));
+          let base = cm.tree.sha;
+          for (let s = 0; s < ents.length; s += 300) {
+            const t = await retry(() => gh(`/repos/${repo}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: base, tree: ents.slice(s, s + 300) }) }));
+            base = t.sha;
+          }
+          const c = await retry(() => gh(`/repos/${repo}/git/commits`, { method: 'POST', body: JSON.stringify({ message: `Delete ${paths.length} item(s)`, tree: base, parents: [ref.object.sha] }) }));
+          await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: c.sha }) });
+          tc = null; say('Deleted ✅'); return;
+        } catch (e) { if (k < 4 && /fast.forward|Reference update failed|conflict/i.test(e.message)) { await sleep(700 * (k + 1)); continue; } throw e; }
+      }
     } catch (e) { say(e.message, true); }
   }).then(() => { if (--delN === 0) loadDir(); });
 }
@@ -827,14 +783,15 @@ async function upload(items, o) {
   } catch (e) { say(/empty/i.test(e.message) ? 'Repository is empty: create a file first.' : e.message, true); }
   busy = false; pend = null; upDone = true;
   if (!hold) prog(100, '✅ Done! Press Reload');
+  /* the footer is always visible now, so Reload shows as soon as the upload ends */
   $('upGo').disabled = false; $('upGo').textContent = '🔄 Reload'; $('upCancel').textContent = 'Close';
 }
 
 /* ===== Upload modal ===== */
 function openUp(mode) {
-  upDone = false; $('upGo').textContent = '🚀 Push'; $('upCancel').textContent = 'Cancel';
+  upDone = false; $('upGo').textContent = mode === 'zip' ? '⬆ Upload ZIP now' : '⬆ Upload now'; $('upCancel').textContent = 'Cancel';
   upMode = mode; pend = null; $('upT').textContent = { zip: 'Upload ZIP', file: 'Upload files', folder: 'Upload folder' }[mode];
-  $('dropT').textContent = { zip: 'Tap to choose a ZIP', file: 'Tap to choose files (png, svg, anything)', folder: 'Tap to choose a folder' }[mode];
+  $('dropT').textContent = { zip: 'Select your ZIP', file: 'Select your files', folder: 'Select your folder' }[mode];
   document.querySelectorAll('.zo').forEach(e => e.classList.toggle('hide', mode === 'file'));
   $('upPath').value = path; show('prog', false); show('mUp');
 }
@@ -1033,7 +990,7 @@ addEventListener('online', () => { if (token && !$('off').classList.contains('hi
 let dip = null; addEventListener('beforeinstallprompt', e => { e.preventDefault(); dip = e; show('inst'); });
 $('inst').onclick = () => { if (dip) { dip.prompt(); dip = null; show('inst', false); } };
 if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', '🔑 Create Token ↗': '🔑 টোকেন তৈরি করুন ↗', '🚀 Log in now': '🚀 লগ ইন নাও', '🔄 Reload': '🔄 রিলোড', 'Create token': 'টোকেন তৈরি করুন', 'Background': 'ব্যাকগ্রাউন্ড', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token is saved only in this browser, so you log in once. Log out to remove it.': '🔐 টোকেন শুধু এই ব্রাউজারে সেভ থাকে, একবারই লগ ইন করতে হবে। লগ আউট করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', '🚀 Push': '🚀 পাঠান', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ', 'Smart match: update files with the same name': 'স্মার্ট ম্যাচ: একই নামের ফাইল আপডেট করুন' };
+const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', '🔑 Create Token ↗': '🔑 টোকেন তৈরি করুন ↗', '🚀 Log in now': '🚀 লগ ইন নাও', '🔄 Reload': '🔄 রিলোড', 'Create token': 'টোকেন তৈরি করুন', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token is saved only in this browser, so you log in once. Log out to remove it.': '🔐 টোকেন শুধু এই ব্রাউজারে সেভ থাকে, একবারই লগ ইন করতে হবে। লগ আউট করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ', 'Smart match: update files with the same name': 'স্মার্ট ম্যাচ: একই নামের ফাইল আপডেট করুন', 'Select your ZIP': 'আপনার ZIP বাছুন', 'Select your files': 'আপনার ফাইল বাছুন', 'Select your folder': 'আপনার ফোল্ডার বাছুন', '⬆ Upload ZIP now': '⬆ ZIP আপলোড নাও', '⬆ Upload now': '⬆ আপলোড নাও' };
 const BNP = { '🔎 Search every file in this repo…': '🔎 এই repo-র সব ফাইলে খুঁজুন…' };
 const orig = new WeakMap(); let lg = store.get('gz_lg') === 'bn' ? 'bn' : 'en', trBusy = false;
 const tx = o => { const t = o.trim(); return lg === 'bn' && BN[t] ? o.replace(t, BN[t]) : o; };
@@ -1058,4 +1015,4 @@ setLang(lg);
 /* নতুন ফিচার: gh('/repos/...') কল লিখে একটা বাটনের সাথে জুড়ুন। */
 </script>
 </body>
-                                                                                                                                                   </html>
+  </html>
