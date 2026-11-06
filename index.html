@@ -171,6 +171,7 @@ nav b{font-size:17px;display:block;line-height:1.1}
 #flist .ok i{color:var(--ok);font-size:14px}
 #flist .sk{color:var(--mut)}
 #flist .er i{color:var(--dng)}
+#flist .up i{color:var(--ac2)}
 #imgv{max-width:100%;max-height:55vh;display:block;margin:0 auto;border-radius:10px;background:repeating-conic-gradient(#222 0 25%,#333 0 50%) 0 0/16px 16px}
 #status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#0b1d44;border:1px solid var(--ac);padding:9px 14px;border-radius:10px;max-width:90vw;z-index:50;animation:pop .2s}
 #status.err{background:#7c2d12;border-color:var(--dng)}
@@ -246,7 +247,7 @@ label.l::before{content:"$ ";color:var(--ac2)}
     <div class="brand"><div class="scene mini"></div>
       <div><b class="disp grad">github-zip-up</b><span class="mini-c">by 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</span></div></div>
     <button id="av"><img id="avi" alt=""></button>
-    <div id="menu" class="card hide"><button id="mhb">🕘 Upload log</button><button id="mfb">🍴 Fork / ⭐ Star</button><div class="lsw2"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div><button id="inst" class="hide">📲 Install app</button><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
+    <div id="menu" class="card hide"><button id="mhb">🕘 Upload log</button><button id="mub">↩ Undo last change</button><button id="mfb">🍴 Fork / ⭐ Star</button><div class="lsw2"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div><button id="inst" class="hide">📲 Install app</button><button id="refresh">↻ Refresh</button><button class="dng" id="logout">⎋ Log out</button></div>
   </nav>
 
   <div id="off" class="hide">📴 Offline — showing your saved repo list</div>
@@ -283,6 +284,7 @@ label.l::before{content:"$ ";color:var(--ac2)}
   <input type="file" id="fz" accept=".zip" class="hide"><input type="file" id="ff" multiple class="hide"><input type="file" id="fd" webkitdirectory multiple class="hide">
   <label class="l">Send into folder (blank = root)</label><input id="upPath" type="text" placeholder="src/components">
   <label class="l">Commit note</label><input id="upMsg" type="text" value="Upload via github-zip-up">
+  <label class="ck"><input type="checkbox" id="oPrev" checked> Preview before pushing</label>
   <label class="ck zo"><input type="checkbox" id="oStrip"> Flatten the top folder</label>
   <label class="ck zo"><input type="checkbox" id="oSys"> Ignore junk (node_modules, __MACOSX, .git)</label>
   <label class="ck"><input type="checkbox" id="oSmart" checked> Smart match: update files with the same name</label>
@@ -296,7 +298,7 @@ label.l::before{content:"$ ";color:var(--ac2)}
   <div class="mf"><button data-close>Cancel</button><button class="pri" id="nrgo">Create</button></div></div></div>
 
 <div class="modal hide" id="mImg"><div class="sheet"><div class="mh"><b id="imgn" style="word-break:break-all"></b><button class="x" data-close>✕</button></div>
-  <div class="mb"><img id="imgv" alt=""></div><div class="mf"><a id="imgd" style="flex:1;text-decoration:none"><button class="pri" style="width:100%">⬇ Download</button></a></div></div></div>
+  <div class="mb"><img id="imgv" alt=""><div class="bar hide" id="imgedit" style="margin-top:10px;justify-content:center"><button id="irot">↻ Rotate</button><button id="ic11">✂ 1:1</button><button id="ic169">✂ 16:9</button><button id="ic43">✂ 4:3</button><button id="irst">↺ Reset</button></div></div><div class="mf"><button class="pri hide" id="isv">💾 Save</button><a id="imgd" style="flex:1;text-decoration:none"><button class="pri" style="width:100%">⬇ Download</button></a></div></div></div>
 
 <div class="modal hide" id="mBr"><div class="sheet"><div class="mh"><b>🌿 Branches</b><button class="x" data-close>✕</button></div><div class="mb"><label class="l">New branch from current</label><input id="bname" type="text" placeholder="feature-x"><button class="pri" id="bcreate" style="margin-top:8px;width:100%">Create &amp; switch</button><label class="l">Merge another branch into current</label><select id="msrc"></select><button id="bmerge" style="margin-top:8px;width:100%">Merge</button></div></div></div>
 <div class="modal hide" id="mDiff"><div class="sheet" style="max-width:760px"><div class="mh"><b id="dft" style="word-break:break-word"></b><button class="x" data-close>✕</button></div><div class="mb" id="dfb"></div></div></div>
@@ -330,6 +332,7 @@ const lcol = l => LC[l] || `hsl(${hash(l) % 360} 80% 60%)`;
 const ago = d => { const s = (Date.now() - new Date(d)) / 1000; return s < 60 ? 'just now' : s < 3600 ? Math.floor(s / 60) + 'm ago' : s < 86400 ? Math.floor(s / 3600) + 'h ago' : s < 2592000 ? Math.floor(s / 86400) + 'd ago' : new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
 const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
 
+function recUndo(b, a, m) { store.set('gz_undo', JSON.stringify({ repo, branch, before: b, after: a, msg: m })); }
 async function gh(url, opt = {}) {
   const r = await fetch(url.startsWith('http') ? url : API + url, { ...opt, cache: 'no-store', headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' } });
   if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error(e.message || 'Request failed (' + r.status + ')'); }
@@ -386,6 +389,7 @@ typer($('tw2'), ['$ drop zip --push', '> interrupted? auto-resume()', '// same f
 /* ===== Login ===== */
 async function connect(t) {
   token = t.trim(); $('lerr').textContent = '';
+  if (!token) { $('lerr').textContent = '🔑 Please create a token first, then paste it above.'; return; }
   try {
     me = await gh('/user');
     store.set('gm_token', token);
@@ -488,8 +492,8 @@ function drawInfo() {
     if (!confirm(r.private ? 'Make this repository PUBLIC? Anyone can see it.' : 'Make this repository private?')) return;
     try { const u = await gh(`/repos/${repo}`, { method: 'PATCH', body: JSON.stringify({ private: !r.private }) }); Object.assign(r, u); say('Visibility changed'); drawInfo(); } catch (e) { say(e.message, true); }
   };
-  $('pInfo').insertAdjacentHTML('beforeend', '<div class="card" style="padding:14px;margin-top:12px"><div class="bar"><button id="ird">📘 Edit README</button><button id="icol">👥 Collaborators</button></div></div>');
-  $('ird').onclick = editReadme; $('icol').onclick = () => { show('mCol'); loadCol(); };
+  $('pInfo').insertAdjacentHTML('beforeend', '<div class="card" style="padding:14px;margin-top:12px"><div class="bar"><button id="ird">📘 Edit README</button><button id="icol">👥 Collaborators</button></div></div><div class="card" style="padding:14px;margin-top:12px"><button id="ibig">📊 Biggest files</button><div id="bigbox" class="list hide" style="margin-top:10px"></div></div>');
+  $('ird').onclick = editReadme; $('icol').onclick = () => { show('mCol'); loadCol(); }; $('ibig').onclick = bigFiles;
 }
 
 /* ===== File browser ===== */
@@ -565,7 +569,7 @@ async function removeMany(paths) {
           }
           const c = await retry(() => gh(`/repos/${repo}/git/commits`, { method: 'POST', body: JSON.stringify({ message: `Delete ${paths.length} item(s)`, tree: base, parents: [ref.object.sha] }) }));
           await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: c.sha }) });
-          tc = null; say('Deleted ✅'); return;
+          recUndo(ref.object.sha, c.sha, 'Delete ' + paths.length + ' item(s)'); tc = null; say('Deleted ✅ · Undo is in the top menu'); return;
         } catch (e) { if (k < 4 && /fast.forward|Reference update failed|conflict/i.test(e.message)) { await sleep(700 * (k + 1)); continue; } throw e; }
       }
     } catch (e) { say(e.message, true); }
@@ -589,14 +593,32 @@ async function openFile(p) {
     if (/^(png|jpe?g|gif|webp|svg|ico|bmp)$/.test(ext)) {
       if (!f.content) return say('Image is too large to preview here.', true);
       const src = `data:${MIME[ext] || 'image/' + ext};base64,${f.content.replace(/\n/g, '')}`;
-      $('imgv').src = src; $('imgn').textContent = f.name; $('imgd').href = src; $('imgd').download = f.name; return show('mImg');
+      const ed = /^(png|jpe?g|webp)$/.test(ext);
+      IM = { p, sha: f.sha, src, type: ext === 'png' ? 'image/png' : ext === 'webp' ? 'image/webp' : 'image/jpeg', c: null, dirty: false };
+      $('imgv').src = src; $('imgn').textContent = f.name; $('imgd').href = src; $('imgd').download = f.name; show('imgedit', ed); show('isv', ed); if (ed) imgLoad(src); return show('mImg');
     }
     const text = f.content ? dec(f.content) : '';
     if (text.includes('\u0000')) return say('Binary file: it cannot be edited here.', true);
     showEditor(p, text, f.sha);
   } catch (e) { say(e.message, true); }
 }
-let upDone = false;
+/* ===== Image editor: rotate, crop, save back to GitHub ===== */
+let IM = null;
+function imgLoad(src, cb) { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; c.getContext('2d').drawImage(im, 0, 0); IM.c = c; if (cb) cb(); }; im.src = src; }
+function imgShow() { const u = IM.c.toDataURL(IM.type, .92); $('imgv').src = u; $('imgd').href = u; }
+$('irot').onclick = () => { if (!IM || !IM.c) return; const o = IM.c, c = document.createElement('canvas'); c.width = o.height; c.height = o.width; const x = c.getContext('2d'); x.translate(c.width / 2, c.height / 2); x.rotate(Math.PI / 2); x.drawImage(o, -o.width / 2, -o.height / 2); IM.c = c; IM.dirty = true; imgShow(); };
+function imgCrop(w, h) { if (!IM || !IM.c) return; const o = IM.c; let cw = o.width, ch = cw * h / w; if (ch > o.height) { ch = o.height; cw = ch * w / h; } const c = document.createElement('canvas'); c.width = Math.round(cw); c.height = Math.round(ch); c.getContext('2d').drawImage(o, (o.width - cw) / 2, (o.height - ch) / 2, cw, ch, 0, 0, c.width, c.height); IM.c = c; IM.dirty = true; imgShow(); }
+$('ic11').onclick = () => imgCrop(1, 1); $('ic169').onclick = () => imgCrop(16, 9); $('ic43').onclick = () => imgCrop(4, 3);
+$('irst').onclick = () => { if (IM) { IM.dirty = false; imgLoad(IM.src, imgShow); } };
+$('isv').onclick = async () => {
+  if (!IM || !IM.dirty) return say('Change the image first', true);
+  try {
+    const bl = await new Promise(r => IM.c.toBlob(r, IM.type, .92)), u = new Uint8Array(await bl.arrayBuffer());
+    const r = await gh(`/repos/${repo}/contents/${cp(IM.p)}`, { method: 'PUT', body: JSON.stringify({ message: 'Edit image ' + IM.p, content: b64(u), branch, sha: IM.sha }) });
+    IM.sha = r.content.sha; IM.dirty = false; recUndo(r.commit.parents[0].sha, r.commit.sha, 'Edit image ' + IM.p); tc = null; say('Saved ✅'); loadDir();
+  } catch (e) { say(e.message, true); }
+};
+let upDone = false, pvReady = null;
 let hlOn = false, mdOn = false;
 const isMd = p => /\.(md|markdown)$/i.test(p);
 function renderEd() {
@@ -618,7 +640,7 @@ $('ecp').onclick = () => navigator.clipboard.writeText($('etext').value).then(()
 $('edl').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([$('etext').value])); a.download = $('epath').value.split('/').pop() || 'file.txt'; a.click(); };
 async function put(p, content, sha, msg) {
   const body = { message: msg, content: enc(content), branch }; if (sha) body.sha = sha;
-  await gh(`/repos/${repo}/contents/${cp(p)}`, { method: 'PUT', body: JSON.stringify(body) }); tc = null;
+  const r = await gh(`/repos/${repo}/contents/${cp(p)}`, { method: 'PUT', body: JSON.stringify(body) }); try { recUndo(r.commit.parents[0].sha, r.commit.sha, msg); } catch (e) {} tc = null;
 }
 $('esave').onclick = async () => {
   const p = $('epath').value.trim().replace(/^\/+/, ''); if (!p || p.endsWith('/')) return ($('emsg').textContent = 'Enter a file name.');
@@ -630,14 +652,14 @@ $('efold').onclick = async () => {
 };
 
 /* ===== One commit for many files ===== */
-async function commitTree(entries, message) {
+async function commitTree(entries, message, rec = true) {
   for (let k = 0; ; k++) {
     try {
       const ref = await gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
       const base = await gh(`/repos/${repo}/git/commits/${ref.object.sha}`);
       const tree = await gh(`/repos/${repo}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: base.tree.sha, tree: entries }) });
       const commit = await gh(`/repos/${repo}/git/commits`, { method: 'POST', body: JSON.stringify({ message, tree: tree.sha, parents: [ref.object.sha] }) });
-      await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
+      await gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) }); if (rec) recUndo(ref.object.sha, commit.sha, message);
       tc = null; return;
     } catch (e) {
       if (k < 4 && /fast.forward|Reference update failed|conflict/i.test(e.message)) { await sleep(600 * (k + 1)); continue; }
@@ -742,7 +764,7 @@ async function upload(items, o) {
       prog(100, 'Saving commit…');
       const c = await retry(() => gh(`/repos/${repo}/git/commits`, { method: 'POST', body: JSON.stringify({ message: o.msg, tree: tsha, parents: [head] }) }));
       await retry(() => gh(`/repos/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: c.sha }) })); tc = null;
-      logUp(o.msg, add + upd, skip); say(`✅ ${add} new · ${upd} updated` + (skip ? ` · ${skip} skipped` : ''));
+      recUndo(head, c.sha, o.msg); logUp(o.msg, add + upd, skip); say(`✅ ${add} new · ${upd} updated` + (skip ? ` · ${skip} skipped` : ''));
     }
     /* ===== Zero-miss check: compare every file with the real branch, re-send anything missing ===== */
     if (!cancel) {
@@ -763,7 +785,7 @@ async function upload(items, o) {
           const b = await retry(() => gh(`/repos/${repo}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: b64(u), encoding: 'base64' }) }));
           ents.push({ path: x.dest, mode: '100644', type: 'blob', sha: b.sha });
         }
-        await retry(() => commitTree(ents, o.msg + ' (repair)'));
+        await retry(() => commitTree(ents, o.msg + ' (repair)', false));
       }
       const probs = [...missing.map(x => x.dest + ' (not found after upload)'), ...bad];
       if (probs.length) {
@@ -779,9 +801,42 @@ async function upload(items, o) {
   $('upGo').disabled = false; $('upGo').textContent = '🔄 Reload'; $('upCancel').textContent = 'Close';
 }
 
+/* ===== Preview before pushing: shows what is new / updated / same, then Confirm ===== */
+async function preview(items, o) {
+  busy = true; cancel = false; show('prog'); $('upGo').disabled = true; $('upCancel').textContent = 'Stop'; $('flist').innerHTML = '';
+  const pre = o.tp ? o.tp + '/' : ''; let ok = false;
+  try {
+    prog(0, 'Checking what is already there…');
+    const ref = await retry(() => gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(branch)}`));
+    const bc = await retry(() => gh(`/repos/${repo}/git/commits/${ref.object.sha}`)), have = Object.create(null);
+    try { (await retry(() => gh(`/repos/${repo}/git/trees/${bc.tree.sha}?recursive=1`))).tree.forEach(t => { if (t.type === 'blob') have[t.path] = t.sha; }); } catch (e) {}
+    plan(items, have, o, pre);
+    const last = Object.create(null); items.forEach(x => last[x.dest] = x);
+    const L = items.filter(x => last[x.dest] === x), res = []; let i = 0, nw = 0, up = 0, same = 0;
+    await Promise.all(Array.from({ length: Math.min(4, L.length) }, async () => {
+      while (i < L.length && !cancel) {
+        const it = L[i++]; let u = await it.get(); if (o.img) u = await shrink(u, it.name);
+        const sh = await gitSha(u), h = have[it.dest], k = h === undefined ? 'new' : (h === sh || !o.over) ? 'same' : 'update';
+        k === 'new' ? nw++ : k === 'update' ? up++ : same++; res.push([k, it.dest]);
+        prog(i / L.length * 100, `Checking ${i} / ${L.length}…`);
+      }
+    }));
+    if (cancel) say('Stopped.', true);
+    else {
+      const sym = { new: ['ok', '＋'], update: ['up', '↻'], same: ['sk', '＝'] };
+      res.sort((a, b) => (a[0] === 'same') - (b[0] === 'same') || a[1].localeCompare(b[1]));
+      $('flist').innerHTML = res.slice(0, 250).map(r => `<div class="${sym[r[0]][0]}"><i>${sym[r[0]][1]}</i><span>${esc(r[1])}</span><small>${r[0]}</small></div>`).join('');
+      prog(100, `👀 ${nw} new · ${up} update · ${same} same` + (res.length > 250 ? ' (first 250 shown)' : ''));
+      if (nw + up) { pvReady = { items, o: { ...o, prev: false } }; ok = true; } else say('Nothing to push: everything is already there');
+    }
+  } catch (e) { say(e.message, true); }
+  busy = false; $('upGo').disabled = false;
+  $('upGo').textContent = ok ? '✅ Confirm & push' : upMode === 'zip' ? '⬆ Upload ZIP now' : '⬆ Upload now'; $('upCancel').textContent = ok ? 'Back' : 'Cancel';
+}
+
 /* ===== Upload modal ===== */
 function openUp(mode) {
-  upDone = false; $('upGo').textContent = mode === 'zip' ? '⬆ Upload ZIP now' : '⬆ Upload now'; $('upCancel').textContent = 'Cancel';
+  upDone = false; pvReady = null; $('upGo').textContent = mode === 'zip' ? '⬆ Upload ZIP now' : '⬆ Upload now'; $('upCancel').textContent = 'Cancel';
   upMode = mode; pend = null; $('upT').textContent = { zip: 'Upload ZIP', file: 'Upload files', folder: 'Upload folder' }[mode];
   $('dropT').textContent = { zip: 'Select your ZIP', file: 'Select your files', folder: 'Select your folder' }[mode];
   document.querySelectorAll('.zo').forEach(e => e.classList.toggle('hide', mode === 'file'));
@@ -796,13 +851,15 @@ $('ff').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pi
 $('fd').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
 async function pick(fs) {
   if (!fs.length) return;
+  if (pvReady) { pvReady = null; $('upGo').textContent = upMode === 'zip' ? '⬆ Upload ZIP now' : '⬆ Upload now'; $('upCancel').textContent = 'Cancel'; }
   try {
     if (upMode === 'zip') { const z = await JSZip.loadAsync(fs[0]); pend = { zip: z }; $('dropT').textContent = `${fs[0].name} · ${Object.keys(z.files).filter(n => !z.files[n].dir).length} files`; }
     else { pend = { files: fs }; $('dropT').textContent = fs.length + ' file(s) ready'; }
   } catch (e) { say('Could not read this file: ' + e.message, true); }
 }
-$('upCancel').onclick = () => busy ? (cancel = true) : show('mUp', false);
+$('upCancel').onclick = () => busy ? (cancel = true) : (pvReady = null, show('mUp', false));
 $('upGo').onclick = () => {
+  if (pvReady) { const p = pvReady; pvReady = null; return upload(p.items, p.o); }
   if (upDone) { upDone = false; show('prog', false); show('mUp', false); tc = null; loadDir(); loadRepos().catch(() => {}); return; }
   if (!pend) return say('Choose a file first', true);
   if (busy) return;
@@ -816,7 +873,7 @@ $('upGo').onclick = () => {
   }
   const items = list.map(x => ({ name: x.n, get: x.get }));
   if (!items.length) return say('No files to upload', true);
-  upload(items, o);
+  if ($('oPrev').checked) preview(items, o); else upload(items, o);
 };
 const fl = $('files');
 fl.ondragover = e => { e.preventDefault(); fl.classList.add('drag'); };
@@ -881,6 +938,30 @@ function logUp(m, n, s) { let L = []; try { L = JSON.parse(store.get('gz_log') |
 $('mhb').onclick = () => {
   show('menu', false); let L = []; try { L = JSON.parse(store.get('gz_log') || '[]'); } catch (e) {}
   $('hlist').innerHTML = L.length ? L.map(x => `<div class="row"><div style="flex:1;min-width:0"><b style="word-break:break-all">${esc(x.repo)}</b><br><small>${esc(x.m)} · ${x.n} files${x.s ? ', ' + x.s + ' skipped' : ''} · ${ago(x.t)}</small></div></div>`).join('') : '<div class="empty">No uploads yet</div>'; show('mHist');
+};
+
+$('mub').onclick = async () => {
+  show('menu', false); let o; try { o = JSON.parse(store.get('gz_undo')); } catch (e) {}
+  if (!o) return say('Nothing to undo', true);
+  if (!confirm(`Undo "${o.msg}" in ${o.repo}?`)) return;
+  try {
+    const hd = await gh(`/repos/${o.repo}/git/ref/heads/${encodeURIComponent(o.branch)}`);
+    if (hd.object.sha !== o.after && !confirm('There are newer commits after it. Undo anyway and drop them too?')) return;
+    await gh(`/repos/${o.repo}/git/refs/heads/${encodeURIComponent(o.branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: o.before, force: true }) });
+    store.set('gz_undo', ''); tc = null; say('Undone ↩'); if (repo === o.repo && branch === o.branch) loadDir(); loadRepos().catch(() => {});
+  } catch (e) { say(e.message, true); }
+};
+const fmt = n => n >= 1e6 ? (n / 1e6).toFixed(1) + ' MB' : (n / 1024).toFixed(1) + ' KB';
+async function bigFiles() {
+  const b = $('bigbox'); show('bigbox'); b.innerHTML = '<div class="empty">Loading…</div>';
+  try {
+    const t = (await getTree()).filter(x => x.type === 'blob').sort((a, c) => (c.size || 0) - (a.size || 0)), tot = t.reduce((a, x) => a + (x.size || 0), 0);
+    b.innerHTML = `<div class="row"><small>${t.length} files · ${fmt(tot)} total</small></div>` + t.slice(0, 20).map(x => `<div class="row"><span class="nm" data-bp="${esc(x.path)}">📄 ${esc(x.path)}</span><small>${fmt(x.size || 0)}</small><button class="dng" data-bd="${esc(x.path)}">🗑</button></div>`).join('');
+  } catch (e) { b.innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+}
+$('pInfo').onclick = e => {
+  const o = e.target.closest('[data-bp]'); if (o) { const p = o.dataset.bp; path = p.split('/').slice(0, -1).join('/'); setTab('files'); return openFile(p); }
+  const d = e.target.closest('[data-bd]'); if (d) { removeMany([d.dataset.bd]); delChain.then(() => { tc = null; bigFiles(); }); }
 };
 
 /* ===== New: commit diff, branches, Pages, star, fork ===== */
@@ -982,7 +1063,7 @@ addEventListener('online', () => { if (token && !$('off').classList.contains('hi
 let dip = null; addEventListener('beforeinstallprompt', e => { e.preventDefault(); dip = e; show('inst'); });
 $('inst').onclick = () => { if (dip) { dip.prompt(); dip = null; show('inst', false); } };
 if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', '🔑 Create Token ↗': '🔑 টোকেন তৈরি করুন ↗', '🚀 Log in now': '🚀 লগ ইন নাও', '🔄 Reload': '🔄 রিলোড', 'Create token': 'টোকেন তৈরি করুন', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token is saved only in this browser, so you log in once. Log out to remove it.': '🔐 টোকেন শুধু এই ব্রাউজারে সেভ থাকে, একবারই লগ ইন করতে হবে। লগ আউট করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ', 'Smart match: update files with the same name': 'স্মার্ট ম্যাচ: একই নামের ফাইল আপডেট করুন', 'Select your ZIP': 'আপনার ZIP বাছুন', 'Select your files': 'আপনার ফাইল বাছুন', 'Select your folder': 'আপনার ফোল্ডার বাছুন', '⬆ Upload ZIP now': '⬆ ZIP আপলোড নাও', '⬆ Upload now': '⬆ আপলোড নাও' };
+const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', '🔑 Create Token ↗': '🔑 টোকেন তৈরি করুন ↗', '🚀 Log in now': '🚀 লগ ইন নাও', '🔄 Reload': '🔄 রিলোড', 'Create token': 'টোকেন তৈরি করুন', '🔑 Please create a token first, then paste it above.': '🔑 আগে টোকেন তৈরি করুন, তারপর ওপরে পেস্ট করুন।', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token is saved only in this browser, so you log in once. Log out to remove it.': '🔐 টোকেন শুধু এই ব্রাউজারে সেভ থাকে, একবারই লগ ইন করতে হবে। লগ আউট করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ', 'Smart match: update files with the same name': 'স্মার্ট ম্যাচ: একই নামের ফাইল আপডেট করুন', 'Select your ZIP': 'আপনার ZIP বাছুন', 'Select your files': 'আপনার ফাইল বাছুন', 'Select your folder': 'আপনার ফোল্ডার বাছুন', '⬆ Upload ZIP now': '⬆ ZIP আপলোড নাও', '⬆ Upload now': '⬆ আপলোড নাও', '↩ Undo last change': '↩ শেষ পরিবর্তন ফেরত', 'Preview before pushing': 'পাঠানোর আগে প্রিভিউ', '✅ Confirm & push': '✅ নিশ্চিত করে পাঠান', '📊 Biggest files': '📊 সবচেয়ে বড় ফাইল', '↻ Rotate': '↻ ঘোরান', '↺ Reset': '↺ রিসেট', '💾 Save': '💾 সেভ', 'Back': 'পিছনে' };
 const BNP = { '🔎 Search every file in this repo…': '🔎 এই repo-র সব ফাইলে খুঁজুন…' };
 const orig = new WeakMap(); let lg = store.get('gz_lg') === 'bn' ? 'bn' : 'en', trBusy = false;
 const tx = o => { const t = o.trim(); return lg === 'bn' && BN[t] ? o.replace(t, BN[t]) : o; };
