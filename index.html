@@ -5,16 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>github-zip-up</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#030a1c">
 <link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ONE fixed theme: red + hacker. No theme switching. */
-:root{--fg:#ffe1e1;--mut:#b27a7a;--card:rgba(255,255,255,.06);--ac:#ff2a3d;--ac2:#ff8a8a;--vi:#9b0016;--dng:#ff6b81;--ok:#4ade80;--bd:color-mix(in srgb,var(--ac) 30%,transparent)}
+:root{--fg:#e6f4ff;--mut:#7fa3c7;--card:rgba(255,255,255,.06);--ac:#38bdf8;--ac2:#bae6fd;--vi:#1e40af;--dng:#fb923c;--ok:#4ade80;--bd:color-mix(in srgb,var(--ac) 30%,transparent)}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font:13px/1.5 "Space Mono","Hind Siliguri",monospace;color:var(--fg);background:#000;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-1;background:#000}
+body{margin:0;min-height:100vh;font:14px/1.5 "Space Mono","Hind Siliguri",monospace;color:var(--fg);background:#030a1c;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/26px 26px,#030a1c}
+.bg svg{width:100%;height:100%}
+.b1{animation:fl 14s ease-in-out infinite}.b2{animation:fl 19s ease-in-out infinite reverse}.b3{animation:fl 23s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(70px,-60px)}}
 #rain{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
 @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
@@ -32,13 +35,13 @@ button.pri:hover{box-shadow:0 6px 24px color-mix(in srgb,var(--ac) 55%,transpare
 button.dng{color:var(--dng)}
 input[type=text],input[type=password],textarea,select{width:100%;background:rgba(0,0,0,.5);border:1px solid var(--bd);border-radius:8px;padding:9px 12px}
 select{appearance:none}
-select option{background:#1a0509}
+select option{background:#08122b}
 :focus-visible{outline:2px solid var(--ac2);outline-offset:1px}
 .hide{display:none!important}
 .mono{font-family:"Space Mono",monospace}
 .disp{font-family:"Space Mono","Hind Siliguri",monospace;font-weight:700}
-.grad{background:linear-gradient(90deg,var(--ac),var(--ac2),#4ade80,var(--ac));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
-.card{background:rgba(12,0,3,.72);border:1px solid var(--bd);border-radius:10px;backdrop-filter:blur(8px);animation:up .5s backwards}
+.grad{background:linear-gradient(90deg,var(--ac),var(--ac2),#60a5fa,var(--ac));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+.card{background:rgba(5,14,40,.72);border:1px solid var(--bd);border-radius:10px;backdrop-filter:blur(8px);animation:up .5s backwards}
 .tilt{transition:transform .15s ease-out,border-color .2s,box-shadow .2s;will-change:transform}
 .err-t{color:var(--dng)}
 .wv{display:inline-block}
@@ -51,49 +54,49 @@ select option{background:#1a0509}
 @keyframes glf{50%{transform:translateY(-5px)}}
 @keyframes glr{to{transform:rotate(360deg)}}
 #login{max-width:400px;margin:5vh auto 0;padding:22px 18px;text-align:center;position:relative}
-#login h1{font-size:24px;margin:0;line-height:1.2}
-.tagl{height:22px;color:var(--ac2);font-size:12px;margin:2px 0 14px}
+#login h1{font-size:26px;margin:0;line-height:1.2}
+.tagl{height:24px;color:var(--ac2);font-size:13px;margin:2px 0 14px}
 .pw{position:relative}
 .pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:3px 8px}
-label.l{display:block;margin:12px 0 5px;font:700 10px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;text-align:left}
+label.l{display:block;margin:12px 0 5px;font:700 11px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;text-align:left}
 .stepper{display:flex;justify-content:space-between;gap:8px;margin:16px 0 6px}
-.stepper div{flex:1;font-size:11px;color:var(--mut);padding:8px 5px;border-radius:10px;border:1px dashed var(--bd)}
+.stepper div{flex:1;font-size:12px;color:var(--mut);padding:8px 5px;border-radius:10px;border:1px dashed var(--bd)}
 .stepper b{display:grid;place-items:center;width:24px;height:24px;margin:0 auto 4px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;animation:pulse 2.4s infinite}
 .stepper div:nth-child(2) b{animation-delay:.8s}.stepper div:nth-child(3) b{animation-delay:1.6s}
-.lnk{color:var(--ac2);font-size:12px}
-.tokbtn{display:inline-block;font:700 14px "Space Mono","Hind Siliguri",monospace;color:#fff;background:linear-gradient(135deg,#ff1f3d,#ff5a3c);padding:9px 18px;border-radius:99px;text-decoration:none;animation:tokpulse 1.2s infinite,tokshake 3s infinite}
-@keyframes tokpulse{0%{box-shadow:0 0 0 0 rgba(255,45,74,.7)}70%{box-shadow:0 0 0 18px rgba(255,45,74,0)}100%{box-shadow:0 0 0 0 rgba(255,45,74,0)}}
+.lnk{color:var(--ac2);font-size:13px}
+.tokbtn{display:inline-block;font:700 15px "Space Mono","Hind Siliguri",monospace;color:#fff;background:linear-gradient(135deg,#0ea5e9,#2563eb);padding:9px 18px;border-radius:99px;text-decoration:none;animation:tokpulse 1.2s infinite,tokshake 3s infinite}
+@keyframes tokpulse{0%{box-shadow:0 0 0 0 rgba(56,189,248,.7)}70%{box-shadow:0 0 0 18px rgba(56,189,248,0)}100%{box-shadow:0 0 0 0 rgba(56,189,248,0)}}
 @keyframes tokshake{0%,86%,100%{transform:none}88%{transform:scale(1.12) rotate(-3deg)}92%{transform:scale(1.12) rotate(3deg)}96%{transform:scale(1.08) rotate(-2deg)}}
-.credit{display:block;font:700 clamp(12px,3.4vw,15px)/1.4 "Space Mono","Segoe UI Symbol",sans-serif;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ac) 55%,transparent))}
-.credit small{display:block;font:10px "Space Mono",monospace;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
+.credit{display:block;font:700 clamp(13px,3.6vw,16px)/1.4 "Space Mono","Segoe UI Symbol",sans-serif;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ac) 55%,transparent))}
+.credit small{display:block;font:11px "Space Mono",monospace;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
 .jimg{display:block;width:78px;height:78px;margin:0 auto 10px;border-radius:50%;object-fit:cover;border:2px solid var(--ac);box-shadow:0 0 26px color-mix(in srgb,var(--ac) 55%,transparent)}
 .foot{text-align:center;margin:24px 0 20px;animation:up .8s backwards}
-.foot .credit{font-size:clamp(13px,3.6vw,17px)}
-.mini-c{font-size:10px;color:var(--mut)}
+.foot .credit{font-size:clamp(14px,3.8vw,18px)}
+.mini-c{font-size:11px;color:var(--mut)}
 #app{max-width:1000px;margin:0 auto;padding:0 12px}
 nav{display:flex;align-items:center;gap:10px;padding:12px 2px;position:relative}
 nav .brand{flex:1;display:flex;align-items:center;gap:10px}
-nav b{font-size:16px;display:block;line-height:1.1}
+nav b{font-size:17px;display:block;line-height:1.1}
 #av{width:38px;height:38px;border-radius:50%;padding:0;border:2px solid var(--ac);overflow:hidden}
 #av img{width:100%;height:100%;display:block}
 #menu{position:absolute;right:2px;top:58px;z-index:20;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:190px;animation:pop .2s}
 .hero{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:16px;margin:6px 0 12px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 20%,transparent),color-mix(in srgb,var(--vi) 14%,transparent))}
-.hero h2{margin:0;font-size:20px;line-height:1.2}
+.hero h2{margin:0;font-size:22px;line-height:1.2}
 .hero .tagl{margin:4px 0 12px}
 .dn{width:92px;height:92px;display:block}
 .dn .arc{animation:draw 1.3s ease-out backwards}
 .dw{position:relative}
-.dw b{position:absolute;inset:0;display:grid;place-items:center;font-size:18px}
+.dw b{position:absolute;inset:0;display:grid;place-items:center;font-size:20px}
 #stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:12px}
 .tile{padding:11px;border-top:3px solid hsl(var(--h) 90% 62%);background:linear-gradient(180deg,hsl(var(--h) 90% 62%/.13),transparent)}
-.tile b{display:block;font-size:20px;line-height:1.1;color:hsl(var(--h) 95% 74%)}
-.tile span{font:11px "Space Mono",monospace;color:var(--mut)}
+.tile b{display:block;font-size:22px;line-height:1.1;color:hsl(var(--h) 95% 74%)}
+.tile span{font:12px "Space Mono",monospace;color:var(--mut)}
 .lang{padding:12px;margin-bottom:12px}
 #lbar{display:flex;gap:3px;height:10px;border-radius:9px;overflow:hidden}
 #lbar button{padding:0;border:0;border-radius:0;transition:flex .3s,opacity .2s}
 #lbar button:not(.on){opacity:.8}#lbar button.on{outline:2px solid #fff;outline-offset:-2px}
 #llegend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-#llegend button{border-radius:99px;padding:2px 10px;font-size:11px}
+#llegend button{border-radius:99px;padding:2px 10px;font-size:12px}
 #llegend button.on{background:var(--ac);border-color:var(--ac);color:#fff}
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--ac)}
 .tool{display:flex;gap:8px;margin-bottom:10px}
@@ -102,20 +105,20 @@ nav b{font-size:16px;display:block;line-height:1.1}
 #seg{display:flex;gap:4px;padding:4px;margin-bottom:10px;overflow:auto;border-radius:10px}
 #seg button{flex:1;border:0;background:none;white-space:nowrap}
 #seg button.on{background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;font-weight:700}
-.sec{display:flex;justify-content:space-between;font:700 11px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;margin:8px 2px 10px}
+.sec{display:flex;justify-content:space-between;font:700 12px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;margin:8px 2px 10px}
 #rlist{display:grid;gap:10px;grid-template-columns:1fr}
 @media(min-width:700px){#rlist:not(.l1){grid-template-columns:1fr 1fr}}
 .rc{display:flex;gap:12px;padding:13px;cursor:pointer;border-left:4px solid hsl(var(--h) 90% 62%);position:relative}
 .rc:hover{border-color:hsl(var(--h) 90% 66%);box-shadow:0 14px 34px hsl(var(--h) 90% 60%/.25)}
 .rc .ic{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;font-size:19px;flex:none;background:hsl(var(--h) 85% 60%/.2)}
-.rc b{font-size:15px;word-break:break-all}
+.rc b{font-size:16px;word-break:break-all}
 .rb{min-width:0;flex:1;padding-right:30px}
 .pin{position:absolute;right:8px;top:8px;padding:2px 7px;border:0;background:none;font-size:15px}
-.pill{font:10px "Space Mono",monospace;padding:2px 8px;border-radius:99px;border:1px solid var(--bd);margin-left:7px;vertical-align:middle}
+.pill{font:11px "Space Mono",monospace;padding:2px 8px;border-radius:99px;border:1px solid var(--bd);margin-left:7px;vertical-align:middle}
 .pill.pu{color:var(--ok)}.pill.pr{color:#fbbf24}.pill.fk{color:var(--ac2)}
-.meta{color:var(--mut);font-size:11px;display:flex;gap:10px;flex-wrap:wrap;margin-top:3px}
+.meta{color:var(--mut);font-size:12px;display:flex;gap:10px;flex-wrap:wrap;margin-top:3px}
 .rh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
-.rh h2{margin:0;font-size:17px;flex:1;min-width:120px;word-break:break-all}
+.rh h2{margin:0;font-size:18px;flex:1;min-width:120px;word-break:break-all}
 .rh select{width:auto;max-width:150px}
 #tabs{display:flex;gap:6px;margin-bottom:12px}
 #tabs button{flex:1;border-radius:99px}
@@ -133,13 +136,13 @@ nav b{font-size:16px;display:block;line-height:1.1}
 .empty{padding:26px;text-align:center;color:var(--mut)}
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
 .facts div{padding:9px 11px;border:1px solid var(--bd);border-radius:10px;background:var(--card)}
-.facts small{display:block;color:var(--mut);font:10px "Space Mono",monospace}
+.facts small{display:block;color:var(--mut);font:11px "Space Mono",monospace}
 #selbar{position:sticky;top:6px;z-index:8;display:flex;gap:8px;align-items:center;padding:9px 12px;margin-bottom:10px}
 #selbar span{flex:1}
 #selbar label.ck{margin:0;padding:6px 10px}
 .modal{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.78);backdrop-filter:blur(6px);display:grid;place-items:center;padding:12px;overflow:auto}
 /* sheet is a flex column: header + footer always visible, only the middle scrolls (Reload never hides) */
-.sheet{width:100%;max-width:420px;max-height:92vh;display:flex;flex-direction:column;background:#12060a;border:1px solid var(--bd);border-radius:14px;animation:pop .25s}
+.sheet{width:100%;max-width:420px;max-height:92vh;display:flex;flex-direction:column;background:#08122b;border:1px solid var(--bd);border-radius:14px;animation:pop .25s}
 .sheet .mb{overflow:auto;flex:1;min-height:0}
 .mh{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:1px solid var(--bd);flex:none}
 .mb{padding:14px 16px}
@@ -153,13 +156,13 @@ nav b{font-size:16px;display:block;line-height:1.1}
 .drop:hover,.drop.drag{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent)}
 .drop .ic{font-size:26px}
 .drop small{display:block;color:var(--mut)}
-.ck{display:flex;gap:10px;align-items:center;padding:9px 11px;margin-top:8px;border:1px solid var(--bd);border-radius:8px;font:700 11px "Space Mono",monospace;cursor:pointer}
+.ck{display:flex;gap:10px;align-items:center;padding:9px 11px;margin-top:8px;border:1px solid var(--bd);border-radius:8px;font:700 12px "Space Mono",monospace;cursor:pointer}
 .ck input{width:17px;height:17px;accent-color:var(--ac)}
 #prog{margin-top:12px}
 #track{height:9px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
-#bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2),#4ade80,var(--ac));background-size:200% 100%;animation:shine 1.4s linear infinite;transition:width .2s}
+#bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2),#60a5fa,var(--ac));background-size:200% 100%;animation:shine 1.4s linear infinite;transition:width .2s}
 #flist{margin-top:10px;max-height:130px;overflow:auto;border:1px solid var(--bd);border-radius:8px;background:rgba(0,0,0,.4);scroll-behavior:smooth}
-#flist div{display:flex;gap:8px;align-items:center;padding:5px 9px;border-bottom:1px solid var(--bd);font:11px "Space Mono",monospace;animation:rev .25s backwards}
+#flist div{display:flex;gap:8px;align-items:center;padding:5px 9px;border-bottom:1px solid var(--bd);font:12px "Space Mono",monospace;animation:rev .25s backwards}
 #flist div:last-child{border:0}
 #flist i{font-style:normal;flex:none;width:26px;text-align:center;font-weight:700}
 #flist span{flex:1;min-width:0;word-break:break-all}
@@ -169,18 +172,18 @@ nav b{font-size:16px;display:block;line-height:1.1}
 #flist .sk{color:var(--mut)}
 #flist .er i{color:var(--dng)}
 #imgv{max-width:100%;max-height:55vh;display:block;margin:0 auto;border-radius:10px;background:repeating-conic-gradient(#222 0 25%,#333 0 50%) 0 0/16px 16px}
-#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#2a0810;border:1px solid var(--ac);padding:9px 14px;border-radius:10px;max-width:90vw;z-index:50;animation:pop .2s}
-#status.err{background:#6b1a2e;border-color:var(--dng)}
-#editor{position:fixed;inset:0;z-index:40;background:#050001;padding:14px;display:flex;flex-direction:column;gap:10px}
-#editor textarea{flex:1;font:12px/1.5 "Space Mono",monospace;resize:none;white-space:pre;color:#ff9a9a}
+#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#0b1d44;border:1px solid var(--ac);padding:9px 14px;border-radius:10px;max-width:90vw;z-index:50;animation:pop .2s}
+#status.err{background:#7c2d12;border-color:var(--dng)}
+#editor{position:fixed;inset:0;z-index:40;background:#030a1c;padding:14px;display:flex;flex-direction:column;gap:10px}
+#editor textarea{flex:1;font:13px/1.5 "Space Mono",monospace;resize:none;white-space:pre;color:#93c5fd}
 .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.df{margin-bottom:12px}.df pre{overflow:auto;margin:6px 0 0;font:11px/1.5 "Space Mono",monospace;background:rgba(0,0,0,.5);padding:8px;border-radius:8px;color:#ff9a9a}
-.df pre span{display:block}.ad{color:#4ade80;background:rgba(74,222,128,.12)}.rm{color:#fb7185;background:rgba(251,113,133,.12)}
+.df{margin-bottom:12px}.df pre{overflow:auto;margin:6px 0 0;font:12px/1.5 "Space Mono",monospace;background:rgba(0,0,0,.5);padding:8px;border-radius:8px;color:#93c5fd}
+.df pre span{display:block}.ad{color:#4ade80;background:rgba(103,232,249,.12)}.rm{color:#fdba74;background:rgba(251,146,60,.12)}
 .lsw{position:absolute;top:12px;right:12px;display:flex;gap:4px}
-.lsw button,.lsw2 button{padding:3px 9px;font-size:11px}
+.lsw button,.lsw2 button{padding:3px 9px;font-size:12px}
 .lsw2{display:flex;gap:6px;justify-content:center}
 .lsw button.on,.lsw2 button.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.about{text-align:left;margin:4px 0 14px;padding:12px;border:1px solid var(--bd);border-radius:10px;background:color-mix(in srgb,var(--ac) 8%,transparent);font-size:12px}
+.about{text-align:left;margin:4px 0 14px;padding:12px;border:1px solid var(--bd);border-radius:10px;background:color-mix(in srgb,var(--ac) 8%,transparent);font-size:13px}
 .about b{color:var(--ac2)}
 .about p{margin:6px 0 8px}
 .about ul{margin:0;padding:0;list-style:none;color:var(--mut)}
@@ -189,14 +192,18 @@ nav b{font-size:16px;display:block;line-height:1.1}
 #ebody{flex:1;display:flex;gap:10px;min-height:0}
 #ebody>*{flex:1;min-width:0;overflow:auto}
 #ehl,#emd{background:rgba(0,0,0,.45);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;margin:0}
-#ehl{font:12px/1.5 "Space Mono",monospace;white-space:pre;color:#ff9a9a}
-#emd{color:#ff9a9a}
+#ehl{font:13px/1.5 "Space Mono",monospace;white-space:pre;color:#93c5fd}
+#emd{color:#93c5fd}
 #emd h1,#emd h2,#emd h3{color:var(--ac2);margin:.6em 0 .3em}
 #emd code{background:rgba(255,255,255,.1);padding:1px 5px;border-radius:5px;font-family:"Space Mono",monospace}
 #emd pre{background:rgba(0,0,0,.5);padding:10px;border-radius:8px;overflow:auto}
 #emd img{max-width:100%}#emd a{color:var(--ac2)}
-.hc{color:#8a5a5a}.hs{color:#4ade80}.ht{color:var(--ac2)}.hk{color:#ff5c6c}.hn{color:#ffb86b}
+.hc{color:#5b7ba8}.hs{color:#67e8f9}.ht{color:var(--ac2)}.hk{color:#7dd3fc}.hn{color:#ffb86b}
 .mb textarea{min-height:90px}
+/* big Upload ZIP button inside a repo */
+#selb,#actb{order:3}
+#zipb{order:4;flex:1 1 100%;font-size:19px;padding:16px 14px;border-radius:12px;letter-spacing:.02em;animation:zipglow 1.8s ease-in-out infinite}
+@keyframes zipglow{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 55%,transparent)}50%{box-shadow:0 0 26px 3px color-mix(in srgb,var(--ac) 55%,transparent)}}
 /* hacker prefixes */
 #login h1::before{content:"> ";color:var(--ac2)}
 .hero h2::before{content:"> ";color:var(--ac2)}
@@ -208,7 +215,7 @@ label.l::before{content:"$ ";color:var(--ac2)}
 .crumb::before{content:"$ cd ";color:var(--ac2)}
 .empty::before{content:"// ";color:var(--ac2)}
 #connect::before{content:"> ";margin-right:4px}
-#connect{font-size:16px;font-weight:700;letter-spacing:.02em;padding:13px 12px!important;border-radius:10px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% auto;animation:shine 3s linear infinite,gopulse 1.8s ease-in-out infinite}
+#connect{font-size:17px;font-weight:700;letter-spacing:.02em;padding:13px 12px!important;border-radius:10px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% auto;animation:shine 3s linear infinite,gopulse 1.8s ease-in-out infinite}
 #connect::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:sweep 2.4s ease-in-out infinite}
 @keyframes gopulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 55%,transparent)}50%{transform:scale(1.03);box-shadow:0 0 28px 4px color-mix(in srgb,var(--ac) 55%,transparent)}}
 @keyframes sweep{0%{left:-60%}60%,100%{left:130%}}
@@ -216,7 +223,7 @@ label.l::before{content:"$ ";color:var(--ac2)}
 </style>
 </head>
 <body>
-<div class="bg"><canvas id="rain"></canvas></div>
+<div class="bg"><svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="g1"><stop offset="0" style="stop-color:var(--ac)" stop-opacity=".45"/><stop offset="1" style="stop-color:var(--ac)" stop-opacity="0"/></radialGradient><radialGradient id="g2"><stop offset="0" style="stop-color:var(--vi)" stop-opacity=".55"/><stop offset="1" style="stop-color:var(--vi)" stop-opacity="0"/></radialGradient><radialGradient id="g3"><stop offset="0" style="stop-color:var(--ac2)" stop-opacity=".3"/><stop offset="1" style="stop-color:var(--ac2)" stop-opacity="0"/></radialGradient></defs><circle class="b1" cx="120" cy="150" r="340" fill="url(#g1)"/><circle class="b2" cx="700" cy="480" r="360" fill="url(#g2)"/><circle class="b3" cx="260" cy="760" r="300" fill="url(#g3)"/></svg><canvas id="rain" class="hide"></canvas></div>
 
 <section id="login" class="card">
   <div class="lsw"><button data-lg="en">EN</button><button data-lg="bn">বাং</button></div>
@@ -230,7 +237,7 @@ label.l::before{content:"$ ";color:var(--ac2)}
   <button class="pri" id="connect" style="width:100%;margin-top:6px">🚀 Log in now</button>
   <p id="lerr" class="err-t"></p>
   <div class="stepper"><div><b>1</b>Create token</div><div><b>2</b>Paste it above</div><div><b>3</b>Push files</div></div>
-  <p class="mono" style="font-size:10px;color:var(--mut)">🔐 Token is saved only in this browser, so you log in once. Log out to remove it.</p>
+  <p class="mono" style="font-size:11px;color:var(--mut)">🔐 Token is saved only in this browser, so you log in once. Log out to remove it.</p>
   <div style="margin-top:16px"><img class="jimg" src="https://i.imgur.com/pAv2xEd.jpeg" alt="" referrerpolicy="no-referrer" onerror="this.remove()"><span class="credit"><small>crafted by</small><b class="grad" style="font-weight:400">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></span></div>
 </section>
 
@@ -259,7 +266,7 @@ label.l::before{content:"$ ";color:var(--ac2)}
     <div id="pFiles"><input id="fq" type="text" placeholder="🔎 Search every file in this repo…" style="margin-bottom:10px"><div class="list hide" id="fres" style="margin-bottom:10px"></div><div class="crumb mono" id="crumb"></div>
       <div id="selbar" class="card hide"><span id="selc"></span><label class="ck"><input type="checkbox" id="selall"> All</label><button class="dng" id="seld">Delete</button><button id="selx">Done</button></div>
       <div class="list" id="files"></div>
-      <p class="empty" style="padding:10px;font-size:12px">Tip: drop files or a ZIP onto the list.</p></div>
+      <p class="empty" style="padding:10px;font-size:13px">Tip: drop files or a ZIP onto the list.</p></div>
     <div id="pIss" class="hide"></div>
     <div id="pHist" class="hide"></div>
     <div id="pInfo" class="hide"></div>
@@ -281,7 +288,7 @@ label.l::before{content:"$ ";color:var(--ac2)}
   <label class="ck"><input type="checkbox" id="oSmart" checked> Smart match: update files with the same name</label>
   <label class="ck"><input type="checkbox" id="oOver" checked> Replace files that changed</label>
   <label class="ck"><input type="checkbox" id="oImg"> Shrink big photos (max 2048px)</label>
-  <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:11px"></div><div id="track"><div id="bar"></div></div><div id="flist"></div></div></div>
+  <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:12px"></div><div id="track"><div id="bar"></div></div><div id="flist"></div></div></div>
   <div class="mf"><button id="upCancel">Cancel</button><button class="pri" id="upGo">⬆ Upload ZIP now</button></div></div></div>
 
 <div class="modal hide" id="mNr"><div class="sheet"><div class="mh"><b>Create repo</b><button class="x" data-close>✕</button></div>
@@ -324,7 +331,7 @@ const ago = d => { const s = (Date.now() - new Date(d)) / 1000; return s < 60 ? 
 const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
 
 async function gh(url, opt = {}) {
-  const r = await fetch(url.startsWith('http') ? url : API + url, { ...opt, headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' } });
+  const r = await fetch(url.startsWith('http') ? url : API + url, { ...opt, cache: 'no-store', headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' } });
   if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error(e.message || 'Request failed (' + r.status + ')'); }
   return r.status === 204 ? null : r.json();
 }
@@ -332,7 +339,7 @@ let st;
 function say(m, bad) { const s = $('status'); s.textContent = m; s.className = bad ? 'err' : ''; clearTimeout(st); st = setTimeout(() => show('status', false), bad ? 7000 : 3000); }
 
 /* ===== Animated text helpers ===== */
-const wave = (el, t) => el.innerHTML = [...t].map((c, i) => `<span style="animation-delay:${i * .09}s;color:hsl(${(i * 13) % 40} 100% 66%)">${c === ' ' ? '&nbsp;' : esc(c)}</span>`).join('');
+const wave = (el, t) => el.innerHTML = [...t].map((c, i) => `<span style="animation-delay:${i * .09}s;color:hsl(${195 + (i * 7) % 30} 100% 72%)">${c === ' ' ? '&nbsp;' : esc(c)}</span>`).join('');
 function typer(el, list) {
   let i = 0, j = 0, del = false;
   (function tick() {
@@ -353,39 +360,24 @@ document.addEventListener('pointermove', e => {
 });
 document.addEventListener('pointerout', e => { const t = e.target.closest && e.target.closest('.tilt'); if (t && !t.contains(e.relatedTarget)) t.style.transform = ''; });
 
-/* ===== Background: Termux-style English coding animation (one fixed look, no switcher) ===== */
+/* ===== Background: original falling-code rain ===== */
 var BG = { t: null };
-const BGS = [['pkg update && pkg upgrade -y', 'Hit:1 https://packages.termux.dev stable InRelease', 'All packages are up to date.'],
-['git clone https://github.com/user/repo.git', 'Cloning into repo...', 'remote: Counting objects: 100%', '[+] done.'],
-['nmap -sV 192.168.0.1', 'Starting Nmap 7.94', '22/tcp open ssh', '80/tcp open http'],
-['python3 scan.py --target 10.0.0.5', '[*] connecting...', '[+] connection established'],
-['unzip site.zip -d public', 'inflating: public/index.html', 'inflating: public/app.js'],
-['git push origin main', 'Writing objects: 100% (42/42)', '[+] pushed to origin/main'],
-['./decrypt --key 0xDEADBEEF', '[*] bruteforcing... 73%', '[+] access granted'],
-['sudo apt install hydra -y', 'Reading package lists... Done', 'Setting up hydra (9.5)']];
 function bgRun() {
-  const c = $('rain'); clearInterval(BG.t);
+  const c = $('rain'); clearInterval(BG.t); const x = c.getContext('2d');
   if (matchMedia('(prefers-reduced-motion:reduce)').matches) { c.classList.add('hide'); return; }
-  c.classList.remove('hide');
-  const x = c.getContext('2d'), W = c.width = innerWidth, H = c.height = innerHeight, lh = 16, max = Math.floor(H / lh) - 1;
-  let L = [], cmd = '', i = 0, out = [], ph = 0, wait = 0;
-  const next = () => { const s = BGS[Math.random() * BGS.length | 0]; cmd = s[0]; out = s.slice(1); i = 0; ph = 0; }; next();
+  c.classList.remove('hide'); c.width = innerWidth; c.height = innerHeight; x.clearRect(0, 0, c.width, c.height);
+  const W = c.width, H = c.height, col = () => getComputedStyle(document.documentElement).getPropertyValue('--ac').trim() || '#0f0';
+  const fs = 16, ch = '01{}<>/;=$#()[]ｱｲｳｴｵ'.split(''), D = Array.from({ length: Math.ceil(W / fs) }, () => Math.random() * -50);
   BG.t = setInterval(() => {
-    if (wait > 0) wait--;
-    else if (ph === 0) { if (++i >= cmd.length) { L.push('~ $ ' + cmd); ph = 1; wait = 8; } }
-    else if (out.length) { L.push(out.shift()); wait = 3; }
-    else { next(); wait = 10; }
-    while (L.length > max) L.shift();
-    x.clearRect(0, 0, W, H); x.font = '12px "Space Mono",monospace';
-    const all = ph === 0 ? [...L, '~ $ ' + cmd.slice(0, i) + (Date.now() % 800 < 400 ? '█' : '')] : L;
-    all.forEach((t, k) => { x.fillStyle = t.startsWith('~ $') ? '#ff3b4e' : t[0] === '[' && t[1] === '+' ? '#4ade80' : '#c26a6a'; x.fillText(t, 8, (k + 1) * lh); });
-  }, 50);
+    x.fillStyle = 'rgba(0,0,0,.08)'; x.fillRect(0, 0, W, H); x.fillStyle = col(); x.font = fs + 'px monospace';
+    D.forEach((y, i) => { x.fillText(ch[Math.random() * ch.length | 0], i * fs, y * fs); D[i] = y * fs > H && Math.random() > .975 ? 0 : y + 1; });
+  }, 55);
 }
 addEventListener('resize', bgRun); bgRun();
 try { pins = new Set(JSON.parse(store.get('gz_pins') || '[]')); } catch (e) {}
 
 /* ===== Animated logo ===== */
-const LOGO = '<svg class="gl" viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="47" fill="none" stroke-width="2" stroke-dasharray="6 8" stroke-linecap="round" style="stroke:var(--ac2)"/><circle cx="50" cy="50" r="40" stroke-width="2.5" style="fill:#12060a;stroke:var(--ac)"/><path transform="translate(22 22) scale(3.5)" style="fill:var(--ac)" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';
+const LOGO = '<svg class="gl" viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="47" fill="none" stroke-width="2" stroke-dasharray="6 8" stroke-linecap="round" style="stroke:var(--ac2)"/><circle cx="50" cy="50" r="40" stroke-width="2.5" style="fill:#08122b;stroke:var(--ac)"/><path transform="translate(22 22) scale(3.5)" style="fill:var(--ac)" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';
 document.querySelectorAll('.scene').forEach(e => e.innerHTML = LOGO);
 wave($('ltitle'), 'github-zip-up');
 typer($('tw'), ['$ unzip repo.zip && git push', '> uploads that never give up_', '// your repos, your rules']);
@@ -418,8 +410,8 @@ async function loadRepos() {
 function renderStats() {
   const R = allRepos, n = f => R.filter(f).length, sum = k => R.reduce((a, r) => a + r[k], 0), pub = n(r => !r.private), pri = R.length - pub;
   const C = 2 * Math.PI * 40, a = (R.length ? pub / R.length : 0) * C;
-  $('donut').innerHTML = `<svg viewBox="0 0 100 100" class="dn"><circle cx="50" cy="50" r="40" fill="none" stroke="#5a0b14" stroke-width="12" opacity=".85"/><circle class="arc" cx="50" cy="50" r="40" fill="none" stroke="var(--ac2)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${a} ${C}" transform="rotate(-90 50 50)"/></svg><b class="disp">${R.length}</b>`;
-  $('stats').innerHTML = [[125, R.length, '📁 Repos'], [145, pri, '🔒 Private'], [105, pub, '🌐 Public'], [165, sum('stargazers_count'), '⭐ Stars'], [135, sum('forks_count'), '🍴 Forks']]
+  $('donut').innerHTML = `<svg viewBox="0 0 100 100" class="dn"><circle cx="50" cy="50" r="40" fill="none" stroke="#0b2a5a" stroke-width="12" opacity=".85"/><circle class="arc" cx="50" cy="50" r="40" fill="none" stroke="var(--ac2)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${a} ${C}" transform="rotate(-90 50 50)"/></svg><b class="disp">${R.length}</b>`;
+  $('stats').innerHTML = [[200, R.length, '📁 Repos'], [215, pri, '🔒 Private'], [190, pub, '🌐 Public'], [225, sum('stargazers_count'), '⭐ Stars'], [205, sum('forks_count'), '🍴 Forks']]
     .map((t, i) => `<div class="tile card tilt" style="--h:${t[0]};animation-delay:${i * 80}ms"><b data-n="${t[1]}">0</b><span>${t[2]}</span></div>`).join('');
   document.querySelectorAll('#stats b').forEach(countUp);
   drawRepos();
@@ -436,7 +428,7 @@ function drawRepos() {
   const L = allRepos.filter(ok).sort((a, b) => (pins.has(b.full_name) - pins.has(a.full_name)) || (s === 'name' ? a.name.localeCompare(b.name) : s === 'star' ? b.stargazers_count - a.stargazers_count : t(b) - t(a)));
   document.querySelectorAll('#seg button').forEach(b => b.classList.toggle('on', b.dataset.v === fv)); drawLang();
   $('cnt').textContent = L.length + ' shown';
-  $('rlist').innerHTML = L.map((r, i) => `<div class="rc card tilt" data-r="${esc(r.full_name)}" style="--h:${105 + hash(r.name) % 70};animation-delay:${Math.min(i, 10) * 50}ms"><div class="ic">${r.private ? '🔒' : '📘'}</div><div class="rb">
+  $('rlist').innerHTML = L.map((r, i) => `<div class="rc card tilt" data-r="${esc(r.full_name)}" style="--h:${190 + hash(r.name) % 50};animation-delay:${Math.min(i, 10) * 50}ms"><div class="ic">${r.private ? '🔒' : '📘'}</div><div class="rb">
     <b>${esc(r.name)}</b><span class="pill ${r.private ? 'pr' : 'pu'}">${r.private ? 'Private' : 'Public'}</span>${r.fork ? '<span class="pill fk">Fork</span>' : ''}
     <div class="meta">${r.language ? `<span><span class="dot" style="background:${lcol(r.language)}"></span>${esc(r.language)}</span>` : ''}<span>⎇ ${esc(r.default_branch)}</span><span>${ago(r.pushed_at || r.updated_at)}</span><span>⭐ ${r.stargazers_count}</span><span>🍴 ${r.forks_count}</span></div></div>
     <button class="pin" data-pin="${esc(r.full_name)}" title="Pin">${pins.has(r.full_name) ? '📌' : '📍'}</button></div>`).join('') || '<div class="empty card">Nothing matches</div>';
