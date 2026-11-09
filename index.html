@@ -13,7 +13,7 @@
 /* ONE fixed theme: red + hacker. No theme switching. */
 :root{--fg:#e6f4ff;--mut:#7fa3c7;--card:rgba(255,255,255,.06);--ac:#38bdf8;--ac2:#bae6fd;--vi:#1e40af;--dng:#fb923c;--ok:#4ade80;--bd:color-mix(in srgb,var(--ac) 30%,transparent)}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font:14px/1.5 "Space Mono","Hind Siliguri",monospace;color:var(--fg);background:#030a1c;overflow-x:hidden}
+body{margin:0;min-height:100vh;font:13px/1.5 "Space Mono","Hind Siliguri",monospace;color:var(--fg);background:#030a1c;overflow-x:hidden}
 .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/26px 26px,#030a1c}
 .bg svg{width:100%;height:100%}
 .b1{animation:fl 14s ease-in-out infinite}.b2{animation:fl 19s ease-in-out infinite reverse}.b3{animation:fl 23s ease-in-out infinite}
@@ -27,13 +27,13 @@ body{margin:0;min-height:100vh;font:14px/1.5 "Space Mono","Hind Siliguri",monosp
 @keyframes blink{50%{opacity:0}}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 60%,transparent)}70%{box-shadow:0 0 0 12px transparent}}
 button,input,textarea,select{font:inherit;color:inherit}
-button{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:7px 12px;cursor:pointer;transition:.2s}
+button{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:6px 11px;cursor:pointer;transition:.2s}
 button:hover{border-color:var(--ac);transform:translateY(-1px)}
 button:disabled{opacity:.5;cursor:default;transform:none}
 button.pri{background:linear-gradient(135deg,var(--ac),var(--vi));border:0;color:#fff;font-weight:700}
 button.pri:hover{box-shadow:0 6px 24px color-mix(in srgb,var(--ac) 55%,transparent)}
 button.dng{color:var(--dng)}
-input[type=text],input[type=password],textarea,select{width:100%;background:rgba(0,0,0,.5);border:1px solid var(--bd);border-radius:8px;padding:9px 12px}
+input[type=text],input[type=password],textarea,select{width:100%;background:rgba(0,0,0,.5);border:1px solid var(--bd);border-radius:8px;padding:8px 11px}
 select{appearance:none}
 select option{background:#08122b}
 :focus-visible{outline:2px solid var(--ac2);outline-offset:1px}
@@ -47,56 +47,56 @@ select option{background:#08122b}
 .wv{display:inline-block}
 .wv span{display:inline-block;animation:rev .5s backwards}
 .cur{display:inline-block;width:2px;height:1em;background:var(--ac2);margin-left:3px;vertical-align:-2px;animation:blink 1s infinite}
-.scene{--s:72px;width:var(--s);height:var(--s);margin:4px auto 12px}
-.scene.mini{--s:34px;margin:0}
+.scene{--s:64px;width:var(--s);height:var(--s);margin:4px auto 10px}
+.scene.mini{--s:30px;margin:0}
 .gl{width:100%;height:100%;overflow:visible;animation:glf 4s ease-in-out infinite}
 .gl .ring{transform-origin:50px 50px;animation:glr 14s linear infinite}
 @keyframes glf{50%{transform:translateY(-5px)}}
 @keyframes glr{to{transform:rotate(360deg)}}
 #login{max-width:400px;margin:5vh auto 0;padding:22px 18px;text-align:center;position:relative}
-#login h1{font-size:26px;margin:0;line-height:1.2}
-.tagl{height:24px;color:var(--ac2);font-size:13px;margin:2px 0 14px}
+#login h1{font-size:22px;margin:0;line-height:1.2}
+.tagl{height:22px;color:var(--ac2);font-size:12px;margin:2px 0 12px}
 .pw{position:relative}
 .pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:3px 8px}
-label.l{display:block;margin:12px 0 5px;font:700 11px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;text-align:left}
+label.l{display:block;margin:12px 0 5px;font:700 10px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;text-align:left}
 .stepper{display:flex;justify-content:space-between;gap:8px;margin:16px 0 6px}
-.stepper div{flex:1;font-size:12px;color:var(--mut);padding:8px 5px;border-radius:10px;border:1px dashed var(--bd)}
-.stepper b{display:grid;place-items:center;width:24px;height:24px;margin:0 auto 4px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;animation:pulse 2.4s infinite}
+.stepper div{flex:1;font-size:11px;color:var(--mut);padding:8px 5px;border-radius:10px;border:1px dashed var(--bd)}
+.stepper b{display:grid;place-items:center;width:22px;height:22px;margin:0 auto 4px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;animation:pulse 2.4s infinite}
 .stepper div:nth-child(2) b{animation-delay:.8s}.stepper div:nth-child(3) b{animation-delay:1.6s}
-.lnk{color:var(--ac2);font-size:13px}
-.tokbtn{display:inline-block;font:700 15px "Space Mono","Hind Siliguri",monospace;color:#fff;background:linear-gradient(135deg,#0ea5e9,#2563eb);padding:9px 18px;border-radius:99px;text-decoration:none;animation:tokpulse 1.2s infinite,tokshake 3s infinite}
+.lnk{color:var(--ac2);font-size:12px}
+.tokbtn{display:inline-block;font:700 13px "Space Mono","Hind Siliguri",monospace;color:#fff;background:linear-gradient(135deg,#0ea5e9,#2563eb);padding:8px 16px;border-radius:99px;text-decoration:none;animation:tokpulse 1.2s infinite,tokshake 3s infinite}
 @keyframes tokpulse{0%{box-shadow:0 0 0 0 rgba(56,189,248,.7)}70%{box-shadow:0 0 0 18px rgba(56,189,248,0)}100%{box-shadow:0 0 0 0 rgba(56,189,248,0)}}
 @keyframes tokshake{0%,86%,100%{transform:none}88%{transform:scale(1.12) rotate(-3deg)}92%{transform:scale(1.12) rotate(3deg)}96%{transform:scale(1.08) rotate(-2deg)}}
-.credit{display:block;font:700 clamp(13px,3.6vw,16px)/1.4 "Space Mono","Segoe UI Symbol",sans-serif;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ac) 55%,transparent))}
-.credit small{display:block;font:11px "Space Mono",monospace;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
-.jimg{display:block;width:78px;height:78px;margin:0 auto 10px;border-radius:50%;object-fit:cover;border:2px solid var(--ac);box-shadow:0 0 26px color-mix(in srgb,var(--ac) 55%,transparent)}
+.credit{display:block;font:700 clamp(12px,3.2vw,14px)/1.4 "Space Mono","Segoe UI Symbol",sans-serif;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ac) 55%,transparent))}
+.credit small{display:block;font:10px "Space Mono",monospace;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
+.jimg{display:block;width:70px;height:70px;margin:0 auto 10px;border-radius:50%;object-fit:cover;border:2px solid var(--ac);box-shadow:0 0 26px color-mix(in srgb,var(--ac) 55%,transparent)}
 .foot{text-align:center;margin:24px 0 20px;animation:up .8s backwards}
-.foot .credit{font-size:clamp(14px,3.8vw,18px)}
-.mini-c{font-size:11px;color:var(--mut)}
+.foot .credit{font-size:clamp(12px,3.4vw,15px)}
+.mini-c{font-size:10px;color:var(--mut)}
 #app{max-width:1000px;margin:0 auto;padding:0 12px}
 nav{display:flex;align-items:center;gap:10px;padding:12px 2px;position:relative}
 nav .brand{flex:1;display:flex;align-items:center;gap:10px}
-nav b{font-size:17px;display:block;line-height:1.1}
-#av{width:38px;height:38px;border-radius:50%;padding:0;border:2px solid var(--ac);overflow:hidden}
+nav b{font-size:15px;display:block;line-height:1.1}
+#av{width:36px;height:36px;border-radius:50%;padding:0;border:2px solid var(--ac);overflow:hidden}
 #av img{width:100%;height:100%;display:block}
-#menu{position:absolute;right:2px;top:58px;z-index:20;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:190px;animation:pop .2s}
+#menu{position:absolute;right:2px;top:58px;z-index:20;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:180px;animation:pop .2s}
 .hero{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:16px;margin:6px 0 12px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 20%,transparent),color-mix(in srgb,var(--vi) 14%,transparent))}
-.hero h2{margin:0;font-size:22px;line-height:1.2}
+.hero h2{margin:0;font-size:18px;line-height:1.2}
 .hero .tagl{margin:4px 0 12px}
-.dn{width:92px;height:92px;display:block}
+.dn{width:84px;height:84px;display:block}
 .dn .arc{animation:draw 1.3s ease-out backwards}
 .dw{position:relative}
-.dw b{position:absolute;inset:0;display:grid;place-items:center;font-size:20px}
-#stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:12px}
-.tile{padding:11px;border-top:3px solid hsl(var(--h) 90% 62%);background:linear-gradient(180deg,hsl(var(--h) 90% 62%/.13),transparent)}
-.tile b{display:block;font-size:22px;line-height:1.1;color:hsl(var(--h) 95% 74%)}
-.tile span{font:12px "Space Mono",monospace;color:var(--mut)}
+.dw b{position:absolute;inset:0;display:grid;place-items:center;font-size:17px}
+#stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px;margin-bottom:12px}
+.tile{padding:10px;border-top:3px solid hsl(var(--h) 90% 62%);background:linear-gradient(180deg,hsl(var(--h) 90% 62%/.13),transparent)}
+.tile b{display:block;font-size:18px;line-height:1.1;color:hsl(var(--h) 95% 74%)}
+.tile span{font:11px "Space Mono",monospace;color:var(--mut)}
 .lang{padding:12px;margin-bottom:12px}
 #lbar{display:flex;gap:3px;height:10px;border-radius:9px;overflow:hidden}
 #lbar button{padding:0;border:0;border-radius:0;transition:flex .3s,opacity .2s}
 #lbar button:not(.on){opacity:.8}#lbar button.on{outline:2px solid #fff;outline-offset:-2px}
 #llegend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-#llegend button{border-radius:99px;padding:2px 10px;font-size:12px}
+#llegend button{border-radius:99px;padding:2px 10px;font-size:11px}
 #llegend button.on{background:var(--ac);border-color:var(--ac);color:#fff}
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--ac)}
 .tool{display:flex;gap:8px;margin-bottom:10px}
@@ -105,20 +105,20 @@ nav b{font-size:17px;display:block;line-height:1.1}
 #seg{display:flex;gap:4px;padding:4px;margin-bottom:10px;overflow:auto;border-radius:10px}
 #seg button{flex:1;border:0;background:none;white-space:nowrap}
 #seg button.on{background:linear-gradient(135deg,var(--ac),var(--vi));color:#fff;font-weight:700}
-.sec{display:flex;justify-content:space-between;font:700 12px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;margin:8px 2px 10px}
+.sec{display:flex;justify-content:space-between;font:700 11px "Space Mono",monospace;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;margin:8px 2px 10px}
 #rlist{display:grid;gap:10px;grid-template-columns:1fr}
 @media(min-width:700px){#rlist:not(.l1){grid-template-columns:1fr 1fr}}
-.rc{display:flex;gap:12px;padding:13px;cursor:pointer;border-left:4px solid hsl(var(--h) 90% 62%);position:relative}
+.rc{display:flex;gap:12px;padding:12px;cursor:pointer;border-left:4px solid hsl(var(--h) 90% 62%);position:relative}
 .rc:hover{border-color:hsl(var(--h) 90% 66%);box-shadow:0 14px 34px hsl(var(--h) 90% 60%/.25)}
-.rc .ic{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;font-size:19px;flex:none;background:hsl(var(--h) 85% 60%/.2)}
-.rc b{font-size:16px;word-break:break-all}
+.rc .ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex:none;background:hsl(var(--h) 85% 60%/.2)}
+.rc b{font-size:14px;word-break:break-all}
 .rb{min-width:0;flex:1;padding-right:30px}
-.pin{position:absolute;right:8px;top:8px;padding:2px 7px;border:0;background:none;font-size:15px}
-.pill{font:11px "Space Mono",monospace;padding:2px 8px;border-radius:99px;border:1px solid var(--bd);margin-left:7px;vertical-align:middle}
+.pin{position:absolute;right:8px;top:8px;padding:2px 7px;border:0;background:none;font-size:14px}
+.pill{font:10px "Space Mono",monospace;padding:2px 8px;border-radius:99px;border:1px solid var(--bd);margin-left:7px;vertical-align:middle}
 .pill.pu{color:var(--ok)}.pill.pr{color:#fbbf24}.pill.fk{color:var(--ac2)}
-.meta{color:var(--mut);font-size:12px;display:flex;gap:10px;flex-wrap:wrap;margin-top:3px}
+.meta{color:var(--mut);font-size:11px;display:flex;gap:10px;flex-wrap:wrap;margin-top:3px}
 .rh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
-.rh h2{margin:0;font-size:18px;flex:1;min-width:120px;word-break:break-all}
+.rh h2{margin:0;font-size:15px;flex:1;min-width:120px;word-break:break-all}
 .rh select{width:auto;max-width:150px}
 #tabs{display:flex;gap:6px;margin-bottom:12px}
 #tabs button{flex:1;border-radius:99px}
@@ -136,7 +136,7 @@ nav b{font-size:17px;display:block;line-height:1.1}
 .empty{padding:26px;text-align:center;color:var(--mut)}
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
 .facts div{padding:9px 11px;border:1px solid var(--bd);border-radius:10px;background:var(--card)}
-.facts small{display:block;color:var(--mut);font:11px "Space Mono",monospace}
+.facts small{display:block;color:var(--mut);font:10px "Space Mono",monospace}
 #selbar{position:sticky;top:6px;z-index:8;display:flex;gap:8px;align-items:center;padding:9px 12px;margin-bottom:10px}
 #selbar span{flex:1}
 #selbar label.ck{margin:0;padding:6px 10px}
@@ -148,45 +148,45 @@ nav b{font-size:17px;display:block;line-height:1.1}
 .mb{padding:14px 16px}
 .mf{display:flex;gap:10px;padding:12px 16px;border-top:1px solid var(--bd);flex:none}
 .mf button{flex:1}
-.x{border:0;background:none;font-size:16px;padding:2px 8px}
+.x{border:0;background:none;font-size:15px;padding:2px 8px}
 .agrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;overflow:auto}
-.agrid button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:13px 8px;border-radius:12px;border-color:hsl(var(--h) 80% 60%/.4);background:hsl(var(--h) 80% 60%/.1)}
-.agrid button i{font-style:normal;font-size:22px}
+.agrid button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border-radius:12px;border-color:hsl(var(--h) 80% 60%/.4);background:hsl(var(--h) 80% 60%/.1)}
+.agrid button i{font-style:normal;font-size:19px}
 .drop{border:2px dashed var(--bd);border-radius:12px;padding:20px 12px;text-align:center;cursor:pointer;transition:.2s}
 .drop:hover,.drop.drag{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent)}
-.drop .ic{font-size:26px}
+.drop .ic{font-size:22px}
 .drop small{display:block;color:var(--mut)}
 /* chosen ZIP size badge */
-#zsize{display:inline-block;margin-top:10px;padding:5px 16px;border-radius:99px;font:900 16px "Orbitron","Space Mono",monospace;letter-spacing:.04em;color:#fff;background:linear-gradient(135deg,var(--ac),var(--vi));text-shadow:0 1px 0 #0a2f66,0 2px 0 #082552,0 3px 4px rgba(0,0,0,.5);animation:pop .3s}
-.ck{display:flex;gap:10px;align-items:center;padding:9px 11px;margin-top:8px;border:1px solid var(--bd);border-radius:8px;font:700 12px "Space Mono",monospace;cursor:pointer}
+#zsize{display:inline-block;margin-top:10px;padding:5px 14px;border-radius:99px;font:900 14px "Orbitron","Space Mono",monospace;letter-spacing:.04em;color:#fff;background:linear-gradient(135deg,var(--ac),var(--vi));text-shadow:0 1px 0 #0a2f66,0 2px 0 #082552,0 3px 4px rgba(0,0,0,.5);animation:pop .3s}
+.ck{display:flex;gap:10px;align-items:center;padding:9px 11px;margin-top:8px;border:1px solid var(--bd);border-radius:8px;font:700 11px "Space Mono",monospace;cursor:pointer}
 .ck input{width:17px;height:17px;accent-color:var(--ac)}
 #prog{margin-top:12px}
 #track{height:9px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
 #bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2),#60a5fa,var(--ac));background-size:200% 100%;animation:shine 1.4s linear infinite;transition:width .2s}
 #flist{margin-top:10px;max-height:130px;overflow:auto;border:1px solid var(--bd);border-radius:8px;background:rgba(0,0,0,.4);scroll-behavior:smooth}
-#flist div{display:flex;gap:8px;align-items:center;padding:5px 9px;border-bottom:1px solid var(--bd);font:12px "Space Mono",monospace;animation:rev .25s backwards}
+#flist div{display:flex;gap:8px;align-items:center;padding:5px 9px;border-bottom:1px solid var(--bd);font:11px "Space Mono",monospace;animation:rev .25s backwards}
 #flist div:last-child{border:0}
 #flist i{font-style:normal;flex:none;width:26px;text-align:center;font-weight:700}
 #flist span{flex:1;min-width:0;word-break:break-all}
 #flist small{flex:none;color:var(--mut)}
 #flist .wip i{color:var(--ac2);animation:blink 1s infinite}
-#flist .ok i{color:var(--ok);font-size:14px}
+#flist .ok i{color:var(--ok);font-size:13px}
 #flist .sk{color:var(--mut)}
 #flist .er i{color:var(--dng)}
 #flist .up i{color:var(--ac2)}
 #imgv{max-width:100%;max-height:55vh;display:block;margin:0 auto;border-radius:10px;background:repeating-conic-gradient(#222 0 25%,#333 0 50%) 0 0/16px 16px}
-#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#0b1d44;border:1px solid var(--ac);padding:9px 14px;border-radius:10px;max-width:90vw;z-index:50;animation:pop .2s}
+#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#0b1d44;border:1px solid var(--ac);padding:8px 13px;border-radius:10px;max-width:90vw;z-index:50;font-size:12px;animation:pop .2s}
 #status.err{background:#7c2d12;border-color:var(--dng)}
 #editor{position:fixed;inset:0;z-index:40;background:#030a1c;padding:14px;display:flex;flex-direction:column;gap:10px}
-#editor textarea{flex:1;font:13px/1.5 "Space Mono",monospace;resize:none;white-space:pre;color:#93c5fd}
+#editor textarea{flex:1;font:12px/1.5 "Space Mono",monospace;resize:none;white-space:pre;color:#93c5fd}
 .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.df{margin-bottom:12px}.df pre{overflow:auto;margin:6px 0 0;font:12px/1.5 "Space Mono",monospace;background:rgba(0,0,0,.5);padding:8px;border-radius:8px;color:#93c5fd}
+.df{margin-bottom:12px}.df pre{overflow:auto;margin:6px 0 0;font:11px/1.5 "Space Mono",monospace;background:rgba(0,0,0,.5);padding:8px;border-radius:8px;color:#93c5fd}
 .df pre span{display:block}.ad{color:#4ade80;background:rgba(103,232,249,.12)}.rm{color:#fdba74;background:rgba(251,146,60,.12)}
 .lsw{position:absolute;top:12px;right:12px;display:flex;gap:4px}
-.lsw button,.lsw2 button{padding:3px 9px;font-size:12px}
+.lsw button,.lsw2 button{padding:3px 9px;font-size:11px}
 .lsw2{display:flex;gap:6px;justify-content:center}
 .lsw button.on,.lsw2 button.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.about{text-align:left;margin:4px 0 14px;padding:12px;border:1px solid var(--bd);border-radius:10px;background:color-mix(in srgb,var(--ac) 8%,transparent);font-size:13px}
+.about{text-align:left;margin:4px 0 14px;padding:12px;border:1px solid var(--bd);border-radius:10px;background:color-mix(in srgb,var(--ac) 8%,transparent);font-size:12px}
 .about b{color:var(--ac2)}
 .about p{margin:6px 0 8px}
 .about ul{margin:0;padding:0;list-style:none;color:var(--mut)}
@@ -195,7 +195,7 @@ nav b{font-size:17px;display:block;line-height:1.1}
 #ebody{flex:1;display:flex;gap:10px;min-height:0}
 #ebody>*{flex:1;min-width:0;overflow:auto}
 #ehl,#emd{background:rgba(0,0,0,.45);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;margin:0}
-#ehl{font:13px/1.5 "Space Mono",monospace;white-space:pre;color:#93c5fd}
+#ehl{font:12px/1.5 "Space Mono",monospace;white-space:pre;color:#93c5fd}
 #emd{color:#93c5fd}
 #emd h1,#emd h2,#emd h3{color:var(--ac2);margin:.6em 0 .3em}
 #emd code{background:rgba(255,255,255,.1);padding:1px 5px;border-radius:5px;font-family:"Space Mono",monospace}
@@ -205,7 +205,7 @@ nav b{font-size:17px;display:block;line-height:1.1}
 .mb textarea{min-height:90px}
 /* big Upload ZIP button inside a repo */
 #selb,#actb{order:3}
-#zipb{order:4;flex:1 1 100%;font-size:19px;padding:16px 14px;border-radius:12px;letter-spacing:.02em;animation:zipglow 1.8s ease-in-out infinite}
+#zipb{order:4;flex:1 1 100%;font-size:16px;padding:14px 14px;border-radius:12px;letter-spacing:.02em;animation:zipglow 1.8s ease-in-out infinite}
 @keyframes zipglow{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 55%,transparent)}50%{box-shadow:0 0 26px 3px color-mix(in srgb,var(--ac) 55%,transparent)}}
 /* hacker prefixes */
 #login h1::before{content:"> ";color:var(--ac2)}
@@ -218,7 +218,7 @@ label.l::before{content:"$ ";color:var(--ac2)}
 .crumb::before{content:"$ cd ";color:var(--ac2)}
 .empty::before{content:"// ";color:var(--ac2)}
 #connect::before{content:"> ";margin-right:4px}
-#connect{font-size:17px;font-weight:700;letter-spacing:.02em;padding:13px 12px!important;border-radius:10px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% auto;animation:shine 3s linear infinite,gopulse 1.8s ease-in-out infinite}
+#connect{font-size:15px;font-weight:700;letter-spacing:.02em;padding:12px 12px!important;border-radius:10px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--vi),var(--ac));background-size:200% auto;animation:shine 3s linear infinite,gopulse 1.8s ease-in-out infinite}
 #connect::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:sweep 2.4s ease-in-out infinite}
 @keyframes gopulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 55%,transparent)}50%{transform:scale(1.03);box-shadow:0 0 28px 4px color-mix(in srgb,var(--ac) 55%,transparent)}}
 @keyframes sweep{0%{left:-60%}60%,100%{left:130%}}
@@ -228,7 +228,7 @@ label.l::before{content:"$ ";color:var(--ac2)}
 #login h1,.hero h2{text-shadow:0 1px 0 #1e6fb8,0 2px 0 #19599a,0 3px 0 #134680,0 4px 0 #0e3566,0 5px 0 #0a2850,0 9px 12px rgba(0,0,0,.65),0 0 24px rgba(56,189,248,.35)}
 /* medium / small text: light extrude */
 .rh h2,.dw b,.tile b,.rc b,.mh b,.sec,.stepper div,#tabs button.on,button.pri,.tokbtn,#connect,#seg button.on,.agrid button,label.l,.about b,.crumb,.drop b{text-shadow:0 1px 0 rgba(10,47,102,.95),0 2px 0 rgba(8,37,82,.9),0 3px 4px rgba(0,0,0,.55)}
-.tile b{font-family:"Orbitron","Space Mono",monospace;font-weight:900;font-size:21px}
+.tile b{font-family:"Orbitron","Space Mono",monospace;font-weight:900;font-size:17px}
 .rc b,.rh h2,.mh b{font-family:"Orbitron","Space Mono","Hind Siliguri",monospace;font-weight:700;letter-spacing:.02em}
 /* gradient text can't carry text-shadow, so it gets stacked drop-shadows instead */
 .grad{filter:drop-shadow(0 1px 0 #0b3b7a) drop-shadow(0 2px 0 #0a2f66) drop-shadow(0 3px 0 #082552) drop-shadow(0 6px 6px rgba(0,0,0,.6))}
@@ -253,7 +253,7 @@ body,button,input,textarea,select{font-family:"Space Mono","Hind Siliguri",monos
   <button class="pri" id="connect" style="width:100%;margin-top:6px">🚀 Log in now</button>
   <p id="lerr" class="err-t"></p>
   <div class="stepper"><div><b>1</b>Create token</div><div><b>2</b>Paste it above</div><div><b>3</b>Push files</div></div>
-  <p class="mono" style="font-size:11px;color:var(--mut)">🔐 Token is saved only in this browser, so you log in once. Log out to remove it.</p>
+  <p class="mono" style="font-size:10px;color:var(--mut)">🔐 Token is saved only in this browser, so you log in once. Log out to remove it.</p>
   <div style="margin-top:16px"><img class="jimg" src="https://i.imgur.com/pAv2xEd.jpeg" alt="" referrerpolicy="no-referrer" onerror="this.remove()"><span class="credit"><small>crafted by</small><b class="grad" style="font-weight:400">乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐</b></span></div>
 </section>
 
@@ -282,7 +282,7 @@ body,button,input,textarea,select{font-family:"Space Mono","Hind Siliguri",monos
     <div id="pFiles"><input id="fq" type="text" placeholder="🔎 Search every file in this repo…" style="margin-bottom:10px"><div class="list hide" id="fres" style="margin-bottom:10px"></div><div class="crumb mono" id="crumb"></div>
       <div id="selbar" class="card hide"><span id="selc"></span><label class="ck"><input type="checkbox" id="selall"> All</label><button class="dng" id="seld">Delete</button><button id="selx">Done</button></div>
       <div class="list" id="files"></div>
-      <p class="empty" style="padding:10px;font-size:13px">Tip: drop files or a ZIP onto the list.</p></div>
+      <p class="empty" style="padding:10px;font-size:12px">Tip: drop files or a ZIP onto the list.</p></div>
     <div id="pIss" class="hide"></div>
     <div id="pHist" class="hide"></div>
     <div id="pInfo" class="hide"></div>
@@ -304,7 +304,7 @@ body,button,input,textarea,select{font-family:"Space Mono","Hind Siliguri",monos
   <label class="ck"><input type="checkbox" id="oSmart" checked> Smart match: update files with the same name</label>
   <label class="ck"><input type="checkbox" id="oOver" checked> Replace files that changed</label>
   <label class="ck"><input type="checkbox" id="oImg"> Shrink big photos (max 2048px)</label>
-  <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:12px"></div><div id="track"><div id="bar"></div></div><div id="flist"></div></div></div>
+  <div id="prog" class="hide"><div id="ptxt" class="mono" style="font-size:11px"></div><div id="track"><div id="bar"></div></div><div id="flist"></div></div></div>
   <div class="mf"><button id="upCancel">Cancel</button><button class="pri" id="upGo">⬆ Upload ZIP now</button></div></div></div>
 
 <div class="modal hide" id="mNr"><div class="sheet"><div class="mh"><b>Create repo</b><button class="x" data-close>✕</button></div>
@@ -331,7 +331,7 @@ body,button,input,textarea,select{font-family:"Space Mono","Hind Siliguri",monos
 <script>
 /* ===== Core: সব GitHub API কল gh() দিয়ে যায় ===== */
 const API = 'https://api.github.com';
-let token = '', me = null, allRepos = [], repo = null, branch = '', path = '', cur = [], sel = new Set(), selMode = false, editSha = null, busy = false, cancel = false, pend = null, upMode = 'zip', fv = 'all', lang = '', tab = 'files', pins = new Set();
+let token = '', me = null, allRepos = [], repo = null, branch = '', path = '', cur = [], sel = new Set(), selMode = false, editSha = null, busy = false, cancel = false, pend = null, upMode = 'zip', fv = 'all', lang = '', tab = 'files', pins = new Set(), reading = false;
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const cp = p => p.split('/').map(encodeURIComponent).join('/');
@@ -832,25 +832,35 @@ $('drop').ondrop = e => { e.preventDefault(); $('drop').classList.remove('drag')
 $('fz').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
 $('ff').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
 $('fd').onchange = e => { const f = [...e.target.files]; e.target.value = ''; pick(f); };
-async function pick(fs) {
-  if (!fs.length || busy) return;
+/* FIX: selecting a ZIP no longer opens it in memory (that caused the "unable to allocate memory" error).
+   It only remembers the file; the ZIP is opened when you press Upload, with a clear error message if it fails. */
+function pick(fs) {
+  if (!fs.length || busy || reading) return;
   upDone = false; $('upGo').textContent = upMode === 'zip' ? '⬆ Upload ZIP now' : '⬆ Upload now'; $('upCancel').textContent = 'Cancel';
-  try {
-    if (upMode === 'zip') {
-      const z = await JSZip.loadAsync(fs[0]); pend = { zip: z };
-      $('dropT').textContent = `${fs[0].name} · ${Object.keys(z.files).filter(n => !z.files[n].dir).length} files`;
-      $('zsize').textContent = '📦 ' + mb(fs[0].size); show('zsize');
-    } else {
-      pend = { files: fs }; $('dropT').textContent = fs.length + ' file(s) ready';
-      $('zsize').textContent = '📦 ' + mb(fs.reduce((a, f) => a + f.size, 0)); show('zsize');
-    }
-  } catch (e) { show('zsize', false); say('Could not read this file: ' + e.message, true); }
+  if (upMode === 'zip') {
+    pend = { file: fs[0] };
+    $('dropT').textContent = fs[0].name;
+    $('zsize').textContent = '📦 ' + mb(fs[0].size); show('zsize');
+  } else {
+    pend = { files: fs }; $('dropT').textContent = fs.length + ' file(s) ready';
+    $('zsize').textContent = '📦 ' + mb(fs.reduce((a, f) => a + f.size, 0)); show('zsize');
+  }
 }
-$('upCancel').onclick = () => busy ? (cancel = true) : show('mUp', false);
-$('upGo').onclick = () => {
+$('upCancel').onclick = () => busy ? (cancel = true) : reading ? null : show('mUp', false);
+$('upGo').onclick = async () => {
   if (upDone) { upDone = false; show('prog', false); show('mUp', false); tc = null; loadDir(); loadRepos().catch(() => {}); return; }
   if (!pend) return say('Choose a file first', true);
-  if (busy) return;
+  if (busy || reading) return;
+  /* open the ZIP now (only when Upload is pressed) */
+  if (pend.file && !pend.zip) {
+    reading = true; show('prog'); $('flist').innerHTML = ''; $('upGo').disabled = true; $('upGo').textContent = '⏳ Reading ZIP…'; prog(0, 'Reading ZIP…');
+    try { pend.zip = await JSZip.loadAsync(pend.file); }
+    catch (e) {
+      reading = false; $('upGo').disabled = false; $('upGo').textContent = '⬆ Upload ZIP now'; show('prog', false);
+      return say('Could not open this ZIP: ' + (e && e.message ? e.message : 'not enough memory') + '. Try a smaller ZIP or close other apps.', true);
+    }
+    reading = false; $('upGo').disabled = false;
+  }
   const o = { smart: $('oSmart').checked, over: $('oOver').checked, img: $('oImg').checked, msg: $('upMsg').value || 'Upload', tp: $('upPath').value.trim().replace(/^\/+|\/+$/g, '') };
   let list = pend.zip ? Object.keys(pend.zip.files).filter(n => !pend.zip.files[n].dir).map(n => ({ n, get: () => pend.zip.files[n].async('uint8array') }))
     : pend.files.map(f => ({ n: f.webkitRelativePath || f.name, get: async () => new Uint8Array(await f.arrayBuffer()) }));
@@ -860,14 +870,14 @@ $('upGo').onclick = () => {
     if ($('oStrip').checked && roots.size === 1 && list.every(x => x.n.includes('/'))) list.forEach(x => x.n = x.n.split('/').slice(1).join('/'));
   }
   const items = list.map(x => ({ name: x.n, get: x.get }));
-  if (!items.length) return say('No files to upload', true);
+  if (!items.length) { show('prog', false); $('upGo').textContent = upMode === 'zip' ? '⬆ Upload ZIP now' : '⬆ Upload now'; return say('No files to upload', true); }
   upload(items, o);
 };
 const fl = $('files');
 fl.ondragover = e => { e.preventDefault(); fl.classList.add('drag'); };
 fl.ondragleave = () => fl.classList.remove('drag');
 fl.ondrop = e => { e.preventDefault(); fl.classList.remove('drag'); const fs = [...e.dataTransfer.files]; if (!fs.length) return; openUp(fs.length === 1 && /\.zip$/i.test(fs[0].name) ? 'zip' : 'file'); pick(fs); };
-addEventListener('beforeunload', e => { if (busy) { e.preventDefault(); e.returnValue = ''; } });
+addEventListener('beforeunload', e => { if (busy || reading) { e.preventDefault(); e.returnValue = ''; } });
 
 /* ===== New: tree cache, search, move/rename, ZIP download ===== */
 let tc = null;
@@ -1051,7 +1061,7 @@ addEventListener('online', () => { if (token && !$('off').classList.contains('hi
 let dip = null; addEventListener('beforeinstallprompt', e => { e.preventDefault(); dip = e; show('inst'); });
 $('inst').onclick = () => { if (dip) { dip.prompt(); dip = null; show('inst', false); } };
 if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', '🔑 Create Token ↗': '🔑 টোকেন তৈরি করুন ↗', '🚀 Log in now': '🚀 লগ ইন নাও', '🔄 Reload': '🔄 রিলোড', '⏳ Uploading…': '⏳ আপলোড হচ্ছে…', 'Create token': 'টোকেন তৈরি করুন', '🔑 Please create a token first, then paste it above.': '🔑 আগে টোকেন তৈরি করুন, তারপর ওপরে পেস্ট করুন।', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token is saved only in this browser, so you log in once. Log out to remove it.': '🔐 টোকেন শুধু এই ব্রাউজারে সেভ থাকে, একবারই লগ ইন করতে হবে। লগ আউট করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ', 'Smart match: update files with the same name': 'স্মার্ট ম্যাচ: একই নামের ফাইল আপডেট করুন', 'Select your ZIP': 'আপনার ZIP বাছুন', 'Select your files': 'আপনার ফাইল বাছুন', 'Select your folder': 'আপনার ফোল্ডার বাছুন', '⬆ Upload ZIP now': '⬆ ZIP আপলোড নাও', '⬆ Upload now': '⬆ আপলোড নাও', '↩ Undo last change': '↩ শেষ পরিবর্তন ফেরত', '📊 Biggest files': '📊 সবচেয়ে বড় ফাইল', '↻ Rotate': '↻ ঘোরান', '↺ Reset': '↺ রিসেট', '💾 Save': '💾 সেভ', 'Back': 'পিছনে' };
+const BN = { 'What is this?': 'এটা কী?', 'github-zip-up is a simple web tool to upload ZIP files to GitHub and manage your repositories from your phone or browser. No git commands, no installs.': 'github-zip-up একটা সহজ ওয়েব টুল। ফোন বা ব্রাউজার থেকেই GitHub-এ ZIP ফাইল আপলোড করা ও repo পরিচালনা করা যায়। কোনো git কমান্ড বা ইনস্টল লাগে না।', '📦 Upload a ZIP and it unpacks straight into your repo': '📦 ZIP দিলে সরাসরি repo-তে খুলে বসে যায়', '⚡ Fast uploads that resume by themselves if your internet drops': '⚡ দ্রুত আপলোড, নেট গেলে নিজে থেকে আবার চলে', '🖼️ Edit, rename, delete files, upload images and whole folders': '🖼️ ফাইল এডিট, নাম বদল, ডিলিট, ছবি ও পুরো ফোল্ডার আপলোড', '🔐 Your token never leaves your browser': '🔐 আপনার টোকেন ব্রাউজারের বাইরে যায় না', 'Access token': 'অ্যাক্সেস টোকেন', '🔑 Create Token ↗': '🔑 টোকেন তৈরি করুন ↗', '🚀 Log in now': '🚀 লগ ইন নাও', '🔄 Reload': '🔄 রিলোড', '⏳ Uploading…': '⏳ আপলোড হচ্ছে…', '⏳ Reading ZIP…': '⏳ ZIP পড়া হচ্ছে…', 'Create token': 'টোকেন তৈরি করুন', '🔑 Please create a token first, then paste it above.': '🔑 আগে টোকেন তৈরি করুন, তারপর ওপরে পেস্ট করুন।', 'Paste it above': 'ওপরে পেস্ট করুন', 'Push files': 'ফাইল পাঠান', '🔐 Token is saved only in this browser, so you log in once. Log out to remove it.': '🔐 টোকেন শুধু এই ব্রাউজারে সেভ থাকে, একবারই লগ ইন করতে হবে। লগ আউট করলে মুছে যায়।', '↻ Refresh': '↻ রিফ্রেশ', '⎋ Log out': '⎋ লগ আউট', '📲 Install app': '📲 অ্যাপ ইনস্টল', '📴 Offline — showing your saved repo list': '📴 অফলাইন — সংরক্ষিত তালিকা দেখাচ্ছে', 'Hey': 'হ্যালো', '＋ Create repo': '＋ নতুন repo', '🍴 Fork / ⭐ Star': '🍴 ফর্ক / ⭐ স্টার', '🕘 Upload log': '🕘 আপলোড লগ', 'Languages': 'ভাষা', 'tap to filter': 'চাপলে ফিল্টার', 'Your repos': 'আপনার repo', 'All': 'সব', '🌐 Public': '🌐 পাবলিক', '🔒 Private': '🔒 প্রাইভেট', '🍴 Forks': '🍴 ফর্ক', 'Latest': 'নতুন', 'Stars': 'স্টার', '📁 Repos': '📁 repo', '⭐ Stars': '⭐ স্টার', '🗜️ Upload ZIP': '🗜️ ZIP আপলোড', 'Files': 'ফাইল', 'Issues': 'ইস্যু', 'History': 'ইতিহাস', 'Info': 'তথ্য', 'Tip: drop files or a ZIP onto the list.': 'টিপ: ফাইল বা ZIP এখানে ড্রপ করুন।', 'What do you want to do?': 'কী করতে চান?', 'Upload ZIP': 'ZIP আপলোড', 'Upload files': 'ফাইল আপলোড', 'Upload folder': 'ফোল্ডার আপলোড', 'New file': 'নতুন ফাইল', 'New folder': 'নতুন ফোল্ডার', 'Download ZIP': 'ZIP ডাউনলোড', 'Select': 'সিলেক্ট', 'Select all': 'সব সিলেক্ট', 'Cancel': 'বাতিল', 'Create': 'তৈরি করুন', 'Save': 'সেভ', 'Close': 'বন্ধ', 'Copy': 'কপি', 'Save to GitHub': 'GitHub-এ সেভ করুন', '🎨 Colors': '🎨 রঙিন', '👁 Preview': '👁 প্রিভিউ', 'Loading…': 'লোড হচ্ছে…', 'No issues': 'কোনো ইস্যু নেই', '＋ New issue': '＋ নতুন ইস্যু', 'Reopen': 'আবার খুলুন', '📋 Copy clone URL': '📋 clone লিংক কপি', '↗ Open on GitHub': '↗ GitHub-এ খুলুন', '📘 Edit README': '📘 README এডিট', '👥 Collaborators': '👥 সহযোগী', 'Collaborators': 'সহযোগী', 'New issue': 'নতুন ইস্যু', '＋ Invite': '＋ আমন্ত্রণ', 'Delete': 'ডিলিট', 'Done': 'শেষ', 'Create repo': 'নতুন repo', 'crafted by': 'তৈরি করেছেন', '⬇ Download repo ZIP': '⬇ repo ZIP ডাউনলোড', 'Save details': 'বিবরণ সেভ', '🌿 Branches': '🌿 ব্রাঞ্চ', 'Smart match: update files with the same name': 'স্মার্ট ম্যাচ: একই নামের ফাইল আপডেট করুন', 'Select your ZIP': 'আপনার ZIP বাছুন', 'Select your files': 'আপনার ফাইল বাছুন', 'Select your folder': 'আপনার ফোল্ডার বাছুন', '⬆ Upload ZIP now': '⬆ ZIP আপলোড নাও', '⬆ Upload now': '⬆ আপলোড নাও', '↩ Undo last change': '↩ শেষ পরিবর্তন ফেরত', '📊 Biggest files': '📊 সবচেয়ে বড় ফাইল', '↻ Rotate': '↻ ঘোরান', '↺ Reset': '↺ রিসেট', '💾 Save': '💾 সেভ', 'Back': 'পিছনে' };
 const BNP = { '🔎 Search every file in this repo…': '🔎 এই repo-র সব ফাইলে খুঁজুন…' };
 const orig = new WeakMap(); let lg = store.get('gz_lg') === 'bn' ? 'bn' : 'en', trBusy = false;
 const tx = o => { const t = o.trim(); return lg === 'bn' && BN[t] ? o.replace(t, BN[t]) : o; };
